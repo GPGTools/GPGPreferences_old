@@ -4,9 +4,12 @@ In case of options which should be declared once or never (or in case of mutuall
 See g10.c, main(), and man gpg
 
 Packaging
+=========
+sudo rm -rf "/tmp/GPGPreferences.pkg"
 /usr/bin/package "/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes" Installer/Resources/English.lproj/GPGPreferences.info -d /tmp -r Installer/Resources
-find "/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes" -type d -name "CVS" -exec rm -rf {} \;
-find "/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes" -type d -exec chmod u+w {} \;
+sudo find "/tmp/GPGPreferences.pkg" -type d -name "CVS" -exec rm -rf {} \;
+chmod a+x "/tmp/GPGPreferences.pkg/GPGPreferences.post_install"
+Note that package must be installed with admin rights, because in case of update, the current GnuPG.prefPane contains a file owned by root (the authtool).
 
 
 Version 1:
