@@ -763,6 +763,9 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         [aTask waitUntilExit];
 
         outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
+        // Patch! Seems that translated strings are not displayed using passed encoding, but using ISOLatin1!
+        if(outputString == nil)
+            outputString = [[NSString alloc] initWithData:outputData encoding:NSISOLatin1StringEncoding];
         aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(0, [(NSString *)outputString length])];
         aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(aRange.location, [(NSString *)outputString length] - aRange.location)];
         outputString = [[(NSString *)outputString autorelease] substringWithRange:aRange];
