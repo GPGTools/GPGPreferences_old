@@ -30,6 +30,10 @@
 #import "GPGPreferences.h"
 
 
+@interface GPGKeyServerPrefs(Private)
+- (void) comboBoxSelectionDidChange:(NSNotification *)notification;
+@end
+
 @implementation GPGKeyServerPrefs
 
 #warning TODO: Suggest http proxy; we could also modify it when SystemPrefs modify it (sync)
@@ -37,7 +41,7 @@
 - (void) refreshKeyServerList
 {
     NSString	*filename = [[NSBundle bundleForClass:[self class]] pathForResource:@"KeyServers" ofType:@"plist"];
-    NSArray		*additionalKeyServers = [[preferences userDefaultsDictionary] objectForKey:@"AdditionalKeyServers"];
+    NSArray		*additionalKeyServers = [[self options] allOptionValuesForName:@"keyserver"];
 
     [keyServerList release];
     [keyServerCustomEntries removeAllObjects];
@@ -45,8 +49,13 @@
     NSAssert1(keyServerList != nil, @"Unable to read property list '%@'", filename);
 
     if(additionalKeyServers != nil){
-        [keyServerCustomEntries setArray:additionalKeyServers];
-        keyServerList = [[additionalKeyServers arrayByAddingObjectsFromArray:keyServerList] retain];
+        NSEnumerator	*anEnum = [additionalKeyServers objectEnumerator];
+        NSString		*aName;
+
+        while(aName = [anEnum nextObject])
+            if(![keyServerList containsObject:aName] && ![keyServerCustomEntries containsObject:aName])
+                [keyServerCustomEntries addObject:aName];
+        keyServerList = [[keyServerCustomEntries arrayByAddingObjectsFromArray:keyServerList] retain];
     }
 }
 
@@ -55,7 +64,6 @@
     if(self = [super initWithIdentifier:newIdentifier preferences:preferencesInstance]){
         keyServerOptions = [[NSMutableArray alloc] init];
         keyServerCustomEntries = [[NSMutableArray alloc] init];
-        [self refreshKeyServerList];
     }
 
     return self;
@@ -100,14 +108,17 @@
     [includeDisabledButton setState:[[self options] subOptionState:@"include-disabled" forName:@"keyserver-options"]];
     [includeSubkeysButton setState:[[self options] subOptionState:@"include-subkeys" forName:@"keyserver-options"]];
 
-    aString = [[self options] optionValueForName:@"keyserver"];
-    [keyServerListComboBox reloadData];
-    if(aString == nil)
+    [self refreshKeyServerList];
+    if(![[self options] optionStateForName:@"keyserver"])
         [keyServerListComboBox setStringValue:@""];
-    else
+    else{
+        aString = [[self options] optionValueForName:@"keyserver"];
         [keyServerListComboBox setStringValue:aString];
+    }
+    [keyServerListComboBox reloadData];
 
     [self updateWarningView];
+    [self comboBoxSelectionDidChange:nil];
 }
 
 - (IBAction) changeHttpProxy:(id)sender
@@ -118,26 +129,88 @@
 
 - (IBAction) changeKeyServer:(id)sender
 {
-    NSString	*newKeyServer = [keyServerListComboBox stringValue];
+    if([self isActive]){
+        NSString		*newKeyServer = [keyServerListComboBox stringValue];
+        BOOL			isValidName = ([newKeyServer rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0);
+        NSEnumerator	*anEnum = [[[self options] optionNames] objectEnumerator];
+        NSString		*aName;
+        BOOL			foundOne = !isValidName;
+        int				anIndex = 0;
+        NSArray			*optionValues = [[self options] optionValues];
 
-    // There is no way to remove an entry...
-    if([newKeyServer rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0){
-        [[self options] setOptionState:YES forName:@"keyserver"];
-        if(![keyServerList containsObject:newKeyServer]){
-            if(![keyServerCustomEntries containsObject:newKeyServer]){
-                [keyServerCustomEntries addObject:newKeyServer];
-                [[preferences userDefaultsDictionary] setObject:keyServerCustomEntries forKey:@"AdditionalKeyServers"];
-                [preferences saveUserDefaults];
-                [self refreshKeyServerList];
+        while(aName = [anEnum nextObject]){
+            if([aName isEqualToString:@"keyserver"]){
+                BOOL	isSameServer = [[optionValues objectAtIndex:anIndex] isEqualToString:newKeyServer];
+
+                [[self options] setOptionState:(!foundOne && isSameServer) atIndex:anIndex];
+                if(isSameServer)
+                    foundOne = YES; // Only one can be active
             }
+            anIndex++;
         }
-        [[self options] setOptionValue:newKeyServer forName:@"keyserver"];
+
+        if(!foundOne && isValidName){
+            [[self options] addOptionNamed:@"keyserver"];
+            anIndex = [optionValues count] - 1;
+            [[self options] setOptionState:YES atIndex:anIndex];
+            [[self options] setOptionValue:newKeyServer atIndex:anIndex];
+        }
+        [[self options] saveOptions];
+        [self refreshKeyServerList];
+        [keyServerListComboBox reloadData];
+        [self comboBoxSelectionDidChange:nil];
+    }
+}
+
+- (IBAction) removeServerFromList:(id)sender
+{
+    NSString		*oldSelectedKeyServer = [keyServerListComboBox stringValue];
+    NSString		*newSelectedKeyServer;
+    NSEnumerator	*anEnum = [[NSArray arrayWithArray:[[self options] optionNames]] objectEnumerator];
+    NSString		*aName;
+    BOOL			foundOne = NO;
+    int				anIndex = 0;
+    NSArray			*optionValues = [[self options] optionValues];
+    int				aCount;
+    int				deletedCount = 0;
+    int				oldSelectedKeyServerIndex = [keyServerList indexOfObject:oldSelectedKeyServer];
+
+    aCount = [keyServerList count];
+    if(oldSelectedKeyServerIndex == aCount - 1)
+        oldSelectedKeyServerIndex = aCount - 2;
+    else
+        oldSelectedKeyServerIndex++;
+    if(oldSelectedKeyServerIndex < 0){
+        [keyServerListComboBox setStringValue:@""];
     }
     else{
-        [[self options] setOptionState:NO forName:@"keyserver"];
+        newSelectedKeyServer = [keyServerList objectAtIndex:oldSelectedKeyServerIndex];
+        [keyServerListComboBox setStringValue:newSelectedKeyServer];
     }
-    [[self options] saveOptions];
-    [keyServerListComboBox reloadData];
+
+    while(aName = [anEnum nextObject]){
+        if([aName isEqualToString:@"keyserver"]){
+            NSString	*aValue = [optionValues objectAtIndex:anIndex - deletedCount];
+            
+            if([aValue isEqualToString:oldSelectedKeyServer]){
+                [[self options] removeOptionAtIndex:anIndex - deletedCount];
+                deletedCount++;
+            }
+            if(!foundOne && [aValue isEqualToString:newSelectedKeyServer]){
+                [[self options] setOptionState:YES atIndex:anIndex - deletedCount];
+                foundOne = YES;
+            }
+        }
+        anIndex++;
+    }
+    if(!foundOne)
+        [self changeKeyServer:nil];
+    else{
+        [[self options] saveOptions];
+        [self refreshKeyServerList];
+        [keyServerListComboBox reloadData];
+    }
+    [self comboBoxSelectionDidChange:nil];
 }
 
 - (void) setKeyServerOption:(NSString *)option toState:(BOOL)flag
@@ -196,6 +269,18 @@
             return aKeyServer;
     
     return string;
+}
+
+- (void) comboBoxSelectionDidChange:(NSNotification *)notification
+{
+    [removeServerButton setEnabled:[keyServerCustomEntries containsObject:[keyServerListComboBox stringValue]]];
+}
+
+- (void) tabItemWillBeDeselected
+{
+    [self changeKeyServer:nil];
+    
+    [super tabItemWillBeDeselected];
 }
 
 @end

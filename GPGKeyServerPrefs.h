@@ -42,6 +42,7 @@
     NSArray					*keyServerList;
     NSMutableArray			*keyServerCustomEntries;
     NSMutableArray			*keyServerOptions;
+    IBOutlet NSButton		*removeServerButton;
 }
 
 - (IBAction) changeHttpProxy:(id)sender;
@@ -51,5 +52,6 @@
 - (IBAction) toggleIncludeRevoked:(id)sender;
 - (IBAction) toggleIncludeDisabled:(id)sender;
 - (IBAction) toggleIncludeSubkeys:(id)sender;
+- (IBAction) removeServerFromList:(id)sender;
 
 @end
