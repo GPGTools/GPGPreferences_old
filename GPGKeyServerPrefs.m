@@ -31,6 +31,7 @@
 @implementation GPGKeyServerPrefs
 
 #warning TODO: Suggest http proxy; we could also modify it when SystemPrefs modify it (sync)
+#warning TODO: add support for include-revoked and include-disabled
 - (id) initWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferencesInstance
 {
     if(self = [super initWithIdentifier:newIdentifier preferences:preferencesInstance]){
@@ -38,6 +39,7 @@
 
         keyServerList = [[NSArray alloc] initWithContentsOfFile:filename];
         NSAssert1(keyServerList != nil, @"Unable to read property list '%@'", filename);
+        keyServerOptions = [[NSMutableArray alloc] init];
     }
 
     return self;
@@ -47,6 +49,7 @@
 {
     [warningView release];
     [keyServerList release];
+    [keyServerOptions release];
 
     [super dealloc];
 }
@@ -63,19 +66,34 @@
 
 - (void) tabItemWillBeSelected
 {
-    NSString	*aString;
-    BOOL		flag;
+    NSString		*aString;
+    NSString		*keyServerOptionsString = [[self options] optionValueForName:@"keyserver-options"];
+    NSArray			*optionParameters = [keyServerOptionsString componentsSeparatedByString:@","];
+    NSEnumerator	*anEnum = [optionParameters objectEnumerator];
+    int				setIndex, unsetIndex;
     
     [super tabItemWillBeSelected];
-    flag = [[self options] optionStateForName:@"honor-http-proxy"];
-    [isHttpProxyHonoredButton setState:flag];
+
+    [keyServerOptions removeAllObjects];
+    while(aString = [anEnum nextObject])
+        [keyServerOptions addObjectsFromArray:[aString componentsSeparatedByString:@" "]];
+    [keyServerOptions removeObject:@""];
+    optionParameters = [[keyServerOptions reverseObjectEnumerator] allObjects]; // Reversed array
+
+    setIndex = [optionParameters indexOfObject:@"honor-http-proxy"];
+    unsetIndex = [optionParameters indexOfObject:@"no-honor-http-proxy"];
+    [isHttpProxyHonoredButton setState:(setIndex < unsetIndex)];
+    
     aString = [GPGOptions httpProxy];
     if(aString == nil)
         [httpProxyTextField setStringValue:@""];
     else
         [httpProxyTextField setStringValue:aString];
-    flag = [[self options] optionStateForName:@"no-auto-key-retrieve"];
-    [isAutomaticKeyRetrievingEnabledButton setState:!flag];
+
+    setIndex = [optionParameters indexOfObject:@"auto-key-retrieve"];
+    unsetIndex = [optionParameters indexOfObject:@"no-auto-key-retrieve"];
+    [isAutomaticKeyRetrievingEnabledButton setState:(setIndex < unsetIndex)];
+
     aString = [[self options] optionValueForName:@"keyserver"];
     [keyServerListComboBox reloadData];
     if(aString == nil)
@@ -107,13 +125,19 @@
 
 - (IBAction) toggleAutomaticKeyRetrieval:(id)sender
 {
-    [[self options] setOptionState:![isAutomaticKeyRetrievingEnabledButton state] forName:@"no-auto-key-retrieve"];
+    [keyServerOptions removeObject:@"no-auto-key-retrieve"];
+    [keyServerOptions removeObject:@"auto-key-retrieve"];
+    [keyServerOptions addObject:([isAutomaticKeyRetrievingEnabledButton state] ? @"auto-key-retrieve":@"no-auto-key-retrieve")];
+    [[self options] setOptionValue:[keyServerOptions componentsJoinedByString:@","] forName:@"keyserver-options"];
     [[self options] saveOptions];
 }
 
 - (IBAction) toggleHttpProxyUse:(id)sender
 {
-    [[self options] setOptionState:[isHttpProxyHonoredButton state] forName:@"honor-http-proxy"];
+    [keyServerOptions removeObject:@"no-honor-http-proxy"];
+    [keyServerOptions removeObject:@"honor-http-proxy"];
+    [keyServerOptions addObject:([isHttpProxyHonoredButton state] ? @"honor-http-proxy":@"no-honor-http-proxy")];
+    [[self options] setOptionValue:[keyServerOptions componentsJoinedByString:@","] forName:@"keyserver-options"];
     [[self options] saveOptions];
 }
 

@@ -36,6 +36,7 @@
     IBOutlet NSView			*warningPlaceholder;
     IBOutlet NSView			*warningView;
     NSArray					*keyServerList;
+    NSMutableArray			*keyServerOptions;
 }
 
 - (IBAction) changeHttpProxy:(id)sender;
