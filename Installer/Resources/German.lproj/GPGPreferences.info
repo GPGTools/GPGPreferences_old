@@ -1,5 +1,5 @@
 Title GnuPG Preferences
-Version 1.1 (v6)
+Version 1.1.1 (v7)
 Description Dieses Paket beinhaltet eine Erweiterung für die Systemeinstellungen, mit der die Optionen von GnuPG 1.0.7 gesetzt werden können, ohne Terminal benutzen zu müssen.
 
 DefaultLocation /Library/PreferencePanes
