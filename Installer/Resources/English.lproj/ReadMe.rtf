@@ -30,6 +30,9 @@ The plug-in first checks your GnuPG configuration, and suggests you to bring som
 - String encoding for GnuPG and Terminal should be set to UTF-8\
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
 \cf0 Then you're free to modify whichever option you want. One of the most interesting options is the key server one.\
+
+\f0\b Warning:
+\f1\b0  it is important that you confirm each modification in text fields by pressing the Return key.\
 \
 
 \f0\b Experts\
@@ -48,6 +51,18 @@ The plug-in first checks your GnuPG configuration, and suggests you to bring som
 \f1\i0  file follows this rule. Because the plug-in directly modifies GnuPG's 
 \f2\i options
 \f1\i0  file, all applications using GnuPG will inherit the same options.\
+\
+
+\f0\b History\
+
+\f1\b0 1.0.1	March 12, 2002\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+\cf0 	Corrected installation problem: script was missing execution rights\
+	Corrected update problem: some file might be not deletable by user, as it could be owned by root; you need now admin rights to perform the install.\
+	More verbose about UTF-8 string encoding.\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.0	March 11, 2002\
+	Initial public release\
 \
 Copyright 2002, MacGPG Group\
 http://macgpg.sourceforge.net/\
