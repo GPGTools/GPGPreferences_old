@@ -591,7 +591,8 @@ static NSString *gnupgVersion = nil;
 - (NSString *) optionValueForName:(NSString *)name
 /*"
  * Returns the option value named name, used by %GnuPG. In case of multiple
- * occurences of the a named option, returns the used one.
+ * occurences of the a named option, returns the used one. Note that option
+ * might be inactive!
 "*/
 {
     int			anIndex = [optionNames count] - 1;
@@ -630,7 +631,9 @@ static NSString *gnupgVersion = nil;
 
 - (NSArray *) activeOptionValuesForName:(NSString *)name
 /*"
- *
+ * Returns all values set for this option name, providing that option
+ * is active. First value is the used value, in case no more than one
+ * value is considered by GnuPG.
 "*/
 {
     return [self optionValuesForName:name activeOnly:YES];
