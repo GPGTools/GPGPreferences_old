@@ -26,6 +26,10 @@
 #import "GPGOptions.h"
 
 
+@interface GPGOptions(Private)
+- (void) doSaveOptions;
+@end
+
 @implementation GPGOptions
 
 + (NSString *) currentEnvironmentVariableValueForName:(NSString *)name
@@ -179,6 +183,7 @@
 
 + (NSString *) gpgPath
 {
+    // GPGME does not support another path
     return @"/usr/local/bin/gpg";
 }
 
@@ -192,6 +197,8 @@
     NSString	*filename = [[self class] optionsFilename];
     unsigned	i, lineCount;
     NSString	*optionsAsString;
+    NSData		*fileData;
+    BOOL		wasInUnicode = NO;
 
     [optionFileLines removeAllObjects];
     [optionNames removeAllObjects];
@@ -199,11 +206,24 @@
     [optionStates removeAllObjects];
     [optionLineNumbers removeAllObjects];
 
-    optionsAsString = [[NSString alloc] initWithData:[[[NSData alloc] initWithContentsOfFile:filename] autorelease] encoding:NSUTF8StringEncoding];
-    NSAssert1(optionsAsString != nil, @"No file at path %@", filename);
-    // Check that encoding was UTF8 (or ASCII)
+    fileData = [[NSData alloc] initWithContentsOfFile:filename];
+    // Check whether file has been saved as Unicode (it shouldn't, but who knows...)
+    if([fileData length] >= 2 && !([fileData length] & 1) && (((int *)[fileData bytes])[0] == 0xFEFF || ((int *)[fileData bytes])[0] == 0xFFFE)){
+        optionsAsString = [[NSString alloc] initWithData:fileData encoding:NSUnicodeStringEncoding];
+        wasInUnicode = YES;
+    }
+    else
+        optionsAsString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+    [fileData release];
+    if(optionsAsString == nil){
+        NSLog(@"GPGPreferences: Unable to read file %@", filename);
+        // If we were unable to read it, gpg is probably unable too
+        optionsAsString = @"";
+    }
 
     [optionFileLines setArray:[optionsAsString componentsSeparatedByString:@"\n"]];
+    if(wasInUnicode)
+        [self doSaveOptions];
     lineCount = [optionFileLines count];
     for(i = 0; i < lineCount; i++){
         NSString	*aLine = [optionFileLines objectAtIndex:i];
@@ -290,12 +310,17 @@
     [super dealloc];
 }
 
-- (void) saveOptions
+- (void) doSaveOptions
 {
-#warning TODO: Save only if modified
     NSString	*filename = [[self class] optionsFilename];
 
     NSAssert1([[optionFileLines componentsJoinedByString:@"\n"] writeToFile:filename atomically:YES], @"Unable to save options in %@", filename);
+}
+
+- (void) saveOptions
+{
+#warning TODO: Save only if modified
+    [self doSaveOptions];
 #warning TODO: Test new options file by running gpg (gpg: /Users/kindov/.gnupg/options:21: invalid option)
     [self reloadOptions];
 }
