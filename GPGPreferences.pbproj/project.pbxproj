@@ -1,0 +1,733 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 34;
+	objects = {
+		06F27B2EFFEEEFEF11CA0E56 = {
+			isa = PBXBundleReference;
+			path = GnuPG.prefPane;
+			refType = 3;
+		};
+		06F27B30FFEEEFEF11CA0E56 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				OPTIMIZATION_CFLAGS = "-O0";
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		06F27B31FFEEEFEF11CA0E56 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+//060
+//061
+//062
+//063
+//064
+//080
+//081
+//082
+//083
+//084
+		089C1669FE841209C02AAC07 = {
+			buildStyles = (
+				06F27B30FFEEEFEF11CA0E56,
+				06F27B31FFEEEFEF11CA0E56,
+			);
+			isa = PBXProject;
+			mainGroup = 089C166AFE841209C02AAC07;
+			projectDirPath = "";
+			targets = (
+				089C1673FE841209C02AAC07,
+			);
+		};
+		089C166AFE841209C02AAC07 = {
+			children = (
+				F5FBE27C020D720801E2136E,
+				08FB77AFFE84173DC02AAC07,
+				089C167CFE841241C02AAC07,
+				089C1671FE841209C02AAC07,
+				19C28FB8FE9D52D311CA2CBB,
+			);
+			isa = PBXGroup;
+			name = GPGPreferences;
+			refType = 4;
+		};
+		089C1671FE841209C02AAC07 = {
+			children = (
+				1058C7ACFEA557BF11CA2CBB,
+				1058C7AEFEA557BF11CA2CBB,
+			);
+			isa = PBXGroup;
+			name = "Frameworks and Libraries";
+			refType = 4;
+		};
+		089C1672FE841209C02AAC07 = {
+			isa = PBXFrameworkReference;
+			name = Foundation.framework;
+			path = /System/Library/Frameworks/Foundation.framework;
+			refType = 0;
+		};
+		089C1673FE841209C02AAC07 = {
+			buildPhases = (
+				089C1674FE841209C02AAC07,
+				089C1675FE841209C02AAC07,
+				089C1676FE841209C02AAC07,
+				089C1677FE841209C02AAC07,
+				089C1679FE841209C02AAC07,
+				F5FBE284020D787101E2136E,
+			);
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle -twolevel_namespace";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = GnuPG;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = prefPane;
+			};
+			dependencies = (
+			);
+			isa = PBXBundleTarget;
+			name = GPGPreferences;
+			productInstallPath = "$(HOME)/Library/PreferencePanes";
+			productName = GPGPreferences;
+			productReference = 06F27B2EFFEEEFEF11CA0E56;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist SYSTEM \"file://localhost/System/Library/DTDs/PropertyList.dtd\">
+<plist version=\"0.9\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleGetInfoString</key>
+	<string>GnuPG Preferences 0.1 (v1), Copyright MacGPG Group 2002</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.macgpg.gpgpreferences</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>GPGPreferences</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1 (v1)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>0.1 (v1)</string>
+	<key>NSMainNibFile</key>
+	<string>GPGPreferences</string>
+	<key>NSPrefPaneIconFile</key>
+	<string>GPGPreferences.tiff</string>
+	<key>NSPrefPaneIconLabel</key>
+	<string>GnuPG</string>
+	<key>NSPrincipalClass</key>
+	<string>GPGPreferences</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 1;
+		};
+		089C1674FE841209C02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F506C03E013D9D7901CA16C8,
+				F5FBE28C020D82DC01E2136E,
+				F5FBE290020D833601E2136E,
+				F5FBE29D020DD61201E2136E,
+				F5FBE2A1020DDC7401E2136E,
+				F52A0A2D021320FE016C2AB4,
+				F52A0A34021334A8016C2AB4,
+			);
+			isa = PBXHeadersBuildPhase;
+			name = Headers;
+		};
+		089C1675FE841209C02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				089C1680FE841241C02AAC07,
+				F506C041013D9D8001CA16C8,
+				F506C044013D9D8C01CA16C8,
+				F5FBE289020D7FBD01E2136E,
+				F5FBE293020D84FE01E2136E,
+				F5FBE296020DCDF201E2136E,
+				F5FBE299020DD14601E2136E,
+				F5FBE29A020DD14601E2136E,
+				F52B34DC020F1BC50197BDCC,
+				F52A0A2A021318E5016C2AB4,
+				F52A0A3102132D50016C2AB4,
+				F52CD02702146B320157668B,
+				F52CD02A02147A850157668B,
+			);
+			isa = PBXResourcesBuildPhase;
+			name = "Bundle Resources";
+		};
+		089C1676FE841209C02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F506C03F013D9D7901CA16C8,
+				F5FBE28D020D82DC01E2136E,
+				F5FBE291020D833601E2136E,
+				F5FBE29E020DD61201E2136E,
+				F5FBE2A2020DDC7401E2136E,
+				F52A0A2E021320FE016C2AB4,
+				F52A0A35021334A8016C2AB4,
+			);
+			isa = PBXSourcesBuildPhase;
+			name = Sources;
+		};
+		089C1677FE841209C02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				1058C7AFFEA557BF11CA2CBB,
+				F506C036013D953901CA16C8,
+			);
+			isa = PBXFrameworksBuildPhase;
+			name = "Frameworks & Libraries";
+		};
+		089C1679FE841209C02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			name = "ResourceManager Resources";
+		};
+		089C167CFE841241C02AAC07 = {
+			children = (
+				089C167DFE841241C02AAC07,
+				F52B34DA020F1BC50197BDCC,
+				F52CD02602146B320157668B,
+				F506C042013D9D8C01CA16C8,
+				F5FBE287020D7FBD01E2136E,
+				F52A0A2F02132D50016C2AB4,
+				F52A0A28021318E5016C2AB4,
+				F5FBE294020DCDF201E2136E,
+				F506C040013D9D8001CA16C8,
+				F5FBE292020D84FE01E2136E,
+				F5FBE297020DD14601E2136E,
+				F5FBE298020DD14601E2136E,
+				F52CD02902147A850157668B,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			refType = 4;
+		};
+		089C167DFE841241C02AAC07 = {
+			children = (
+				089C167EFE841241C02AAC07,
+			);
+			isa = PBXVariantGroup;
+			name = InfoPlist.strings;
+			refType = 4;
+		};
+		089C167EFE841241C02AAC07 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/InfoPlist.strings;
+			refType = 4;
+		};
+		089C167FFE841241C02AAC07 = {
+			isa = PBXFrameworkReference;
+			name = AppKit.framework;
+			path = /System/Library/Frameworks/AppKit.framework;
+			refType = 0;
+		};
+		089C1680FE841241C02AAC07 = {
+			fileRef = 089C167DFE841241C02AAC07;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		08FB77AFFE84173DC02AAC07 = {
+			children = (
+				F506C03C013D9D7901CA16C8,
+				F506C03D013D9D7901CA16C8,
+				F5FBE28E020D833601E2136E,
+				F5FBE28F020D833601E2136E,
+				F5FBE29F020DDC7401E2136E,
+				F5FBE2A0020DDC7401E2136E,
+				F5FBE28A020D82DC01E2136E,
+				F5FBE28B020D82DC01E2136E,
+				F52A0A32021334A8016C2AB4,
+				F52A0A33021334A8016C2AB4,
+				F52A0A2B021320FE016C2AB4,
+				F52A0A2C021320FE016C2AB4,
+				F5FBE29B020DD61201E2136E,
+				F5FBE29C020DD61201E2136E,
+			);
+			isa = PBXGroup;
+			name = Classes;
+			refType = 4;
+		};
+//080
+//081
+//082
+//083
+//084
+//100
+//101
+//102
+//103
+//104
+		1058C7ACFEA557BF11CA2CBB = {
+			children = (
+				1058C7ADFEA557BF11CA2CBB,
+				F506C035013D953901CA16C8,
+			);
+			isa = PBXGroup;
+			name = "Linked Frameworks";
+			refType = 4;
+		};
+		1058C7ADFEA557BF11CA2CBB = {
+			isa = PBXFrameworkReference;
+			name = Cocoa.framework;
+			path = /System/Library/Frameworks/Cocoa.framework;
+			refType = 0;
+		};
+		1058C7AEFEA557BF11CA2CBB = {
+			children = (
+				089C1672FE841209C02AAC07,
+				089C167FFE841241C02AAC07,
+			);
+			isa = PBXGroup;
+			name = "Other Frameworks";
+			refType = 4;
+		};
+		1058C7AFFEA557BF11CA2CBB = {
+			fileRef = 1058C7ADFEA557BF11CA2CBB;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//100
+//101
+//102
+//103
+//104
+//190
+//191
+//192
+//193
+//194
+		19C28FB8FE9D52D311CA2CBB = {
+			children = (
+				06F27B2EFFEEEFEF11CA0E56,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+		};
+//190
+//191
+//192
+//193
+//194
+//F50
+//F51
+//F52
+//F53
+//F54
+		F506C035013D953901CA16C8 = {
+			isa = PBXFrameworkReference;
+			name = PreferencePanes.framework;
+			path = /System/Library/Frameworks/PreferencePanes.framework;
+			refType = 0;
+		};
+		F506C036013D953901CA16C8 = {
+			fileRef = F506C035013D953901CA16C8;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F506C03C013D9D7901CA16C8 = {
+			isa = PBXFileReference;
+			path = GPGPreferences.h;
+			refType = 4;
+		};
+		F506C03D013D9D7901CA16C8 = {
+			isa = PBXFileReference;
+			path = GPGPreferences.m;
+			refType = 4;
+		};
+		F506C03E013D9D7901CA16C8 = {
+			fileRef = F506C03C013D9D7901CA16C8;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F506C03F013D9D7901CA16C8 = {
+			fileRef = F506C03D013D9D7901CA16C8;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F506C040013D9D8001CA16C8 = {
+			isa = PBXFileReference;
+			path = GPGPreferences.tiff;
+			refType = 4;
+		};
+		F506C041013D9D8001CA16C8 = {
+			fileRef = F506C040013D9D8001CA16C8;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F506C042013D9D8C01CA16C8 = {
+			children = (
+				F506C043013D9D8C01CA16C8,
+			);
+			isa = PBXVariantGroup;
+			name = GPGPreferences.nib;
+			path = "";
+			refType = 4;
+		};
+		F506C043013D9D8C01CA16C8 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/GPGPreferences.nib;
+			refType = 4;
+		};
+		F506C044013D9D8C01CA16C8 = {
+			fileRef = F506C042013D9D8C01CA16C8;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52A0A28021318E5016C2AB4 = {
+			children = (
+				F52A0A29021318E5016C2AB4,
+			);
+			isa = PBXVariantGroup;
+			name = GPGCompatibilityPrefs.nib;
+			path = "";
+			refType = 4;
+		};
+		F52A0A29021318E5016C2AB4 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/GPGCompatibilityPrefs.nib;
+			refType = 4;
+		};
+		F52A0A2A021318E5016C2AB4 = {
+			fileRef = F52A0A28021318E5016C2AB4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52A0A2B021320FE016C2AB4 = {
+			isa = PBXFileReference;
+			path = GPGCompatibilityPrefs.h;
+			refType = 4;
+		};
+		F52A0A2C021320FE016C2AB4 = {
+			isa = PBXFileReference;
+			path = GPGCompatibilityPrefs.m;
+			refType = 4;
+		};
+		F52A0A2D021320FE016C2AB4 = {
+			fileRef = F52A0A2B021320FE016C2AB4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52A0A2E021320FE016C2AB4 = {
+			fileRef = F52A0A2C021320FE016C2AB4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52A0A2F02132D50016C2AB4 = {
+			children = (
+				F52A0A3002132D50016C2AB4,
+			);
+			isa = PBXVariantGroup;
+			name = GPGKeyServerPrefs.nib;
+			path = "";
+			refType = 4;
+		};
+		F52A0A3002132D50016C2AB4 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/GPGKeyServerPrefs.nib;
+			refType = 4;
+		};
+		F52A0A3102132D50016C2AB4 = {
+			fileRef = F52A0A2F02132D50016C2AB4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52A0A32021334A8016C2AB4 = {
+			isa = PBXFileReference;
+			path = GPGKeyServerPrefs.h;
+			refType = 4;
+		};
+		F52A0A33021334A8016C2AB4 = {
+			isa = PBXFileReference;
+			path = GPGKeyServerPrefs.m;
+			refType = 4;
+		};
+		F52A0A34021334A8016C2AB4 = {
+			fileRef = F52A0A32021334A8016C2AB4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52A0A35021334A8016C2AB4 = {
+			fileRef = F52A0A33021334A8016C2AB4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52B34DA020F1BC50197BDCC = {
+			children = (
+				F52B34DB020F1BC50197BDCC,
+			);
+			isa = PBXVariantGroup;
+			name = Localizable.strings;
+			path = "";
+			refType = 4;
+		};
+		F52B34DB020F1BC50197BDCC = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/Localizable.strings;
+			refType = 4;
+		};
+		F52B34DC020F1BC50197BDCC = {
+			fileRef = F52B34DA020F1BC50197BDCC;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52CD02602146B320157668B = {
+			isa = PBXFileReference;
+			path = KeyServers.plist;
+			refType = 4;
+		};
+		F52CD02702146B320157668B = {
+			fileRef = F52CD02602146B320157668B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F52CD02902147A850157668B = {
+			isa = PBXFileReference;
+			path = "mac-gpg-logo.tiff";
+			refType = 4;
+		};
+		F52CD02A02147A850157668B = {
+			fileRef = F52CD02902147A850157668B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE27C020D720801E2136E = {
+			children = (
+				F5FBE27D020D723C01E2136E,
+			);
+			isa = PBXGroup;
+			name = Documentation;
+			refType = 4;
+		};
+		F5FBE27D020D723C01E2136E = {
+			isa = PBXFileReference;
+			path = gpgSettings.txt;
+			refType = 4;
+		};
+		F5FBE284020D787101E2136E = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			generatedFileNames = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			name = "Shell Script";
+			neededFileNames = (
+			);
+			shellPath = /bin/sh;
+			shellScript = "# Let's remove the current bundle\nrm -rf \"$USER_LIBRARY_DIR/PreferencePanes/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nmkdir -p \"$USER_LIBRARY_DIR/PreferencePanes\"\n\n# and make a link from the build to the installation folder\nln -s \"$SYMROOT/$PRODUCT_NAME.$WRAPPER_EXTENSION\" \"$USER_LIBRARY_DIR/PreferencePanes/\"\n\n# Let's also signal SystemPreferences that our bundle changed\nrm -rf \"$USER_LIBRARY_DIR/Caches/.ApplePrefPanesCache\"\n";
+		};
+		F5FBE287020D7FBD01E2136E = {
+			children = (
+				F5FBE288020D7FBD01E2136E,
+			);
+			isa = PBXVariantGroup;
+			name = GPGGlobalPrefs.nib;
+			path = "";
+			refType = 4;
+		};
+		F5FBE288020D7FBD01E2136E = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/GPGGlobalPrefs.nib;
+			refType = 4;
+		};
+		F5FBE289020D7FBD01E2136E = {
+			fileRef = F5FBE287020D7FBD01E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE28A020D82DC01E2136E = {
+			isa = PBXFileReference;
+			path = GPGGlobalPrefs.h;
+			refType = 4;
+		};
+		F5FBE28B020D82DC01E2136E = {
+			isa = PBXFileReference;
+			path = GPGGlobalPrefs.m;
+			refType = 4;
+		};
+		F5FBE28C020D82DC01E2136E = {
+			fileRef = F5FBE28A020D82DC01E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE28D020D82DC01E2136E = {
+			fileRef = F5FBE28B020D82DC01E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE28E020D833601E2136E = {
+			isa = PBXFileReference;
+			path = GPGPrefController.h;
+			refType = 4;
+		};
+		F5FBE28F020D833601E2136E = {
+			isa = PBXFileReference;
+			path = GPGPrefController.m;
+			refType = 4;
+		};
+		F5FBE290020D833601E2136E = {
+			fileRef = F5FBE28E020D833601E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE291020D833601E2136E = {
+			fileRef = F5FBE28F020D833601E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE292020D84FE01E2136E = {
+			isa = PBXFileReference;
+			path = SmallAlert5.tiff;
+			refType = 4;
+		};
+		F5FBE293020D84FE01E2136E = {
+			fileRef = F5FBE292020D84FE01E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE294020DCDF201E2136E = {
+			children = (
+				F5FBE295020DCDF201E2136E,
+			);
+			isa = PBXVariantGroup;
+			name = GPGExpertPrefs.nib;
+			path = "";
+			refType = 4;
+		};
+		F5FBE295020DCDF201E2136E = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/GPGExpertPrefs.nib;
+			refType = 4;
+		};
+		F5FBE296020DCDF201E2136E = {
+			fileRef = F5FBE294020DCDF201E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE297020DD14601E2136E = {
+			isa = PBXFileReference;
+			path = MinusIcon.tiff;
+			refType = 4;
+		};
+		F5FBE298020DD14601E2136E = {
+			isa = PBXFileReference;
+			path = PlusIcon.tiff;
+			refType = 4;
+		};
+		F5FBE299020DD14601E2136E = {
+			fileRef = F5FBE297020DD14601E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE29A020DD14601E2136E = {
+			fileRef = F5FBE298020DD14601E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE29B020DD61201E2136E = {
+			isa = PBXFileReference;
+			path = GPGExpertPrefs.h;
+			refType = 4;
+		};
+		F5FBE29C020DD61201E2136E = {
+			isa = PBXFileReference;
+			path = GPGExpertPrefs.m;
+			refType = 4;
+		};
+		F5FBE29D020DD61201E2136E = {
+			fileRef = F5FBE29B020DD61201E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE29E020DD61201E2136E = {
+			fileRef = F5FBE29C020DD61201E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE29F020DDC7401E2136E = {
+			isa = PBXFileReference;
+			path = GPGOptions.h;
+			refType = 4;
+		};
+		F5FBE2A0020DDC7401E2136E = {
+			isa = PBXFileReference;
+			path = GPGOptions.m;
+			refType = 4;
+		};
+		F5FBE2A1020DDC7401E2136E = {
+			fileRef = F5FBE29F020DDC7401E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FBE2A2020DDC7401E2136E = {
+			fileRef = F5FBE2A0020DDC7401E2136E;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+	};
+	rootObject = 089C1669FE841209C02AAC07;
+}

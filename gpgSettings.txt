@@ -1,0 +1,87 @@
+Global options for gpg
+File must be in UTF8!
+In case of options which should be declared once or never (or in case of mutually exclusive options), the last occurence value is taken in account
+See g10.c, main(), and man gpg
+
+Packaging
+/usr/bin/package '/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes' Installer/Resources/English.lproj/GPGPreferences-0.1.info -d /tmp -r Installer/Resources
+
+
+Version 1:
+All GnuPG global info
+All Keyserver
+Misc: display all other values in tableView
+
+* GnuPG global info
+GNUPGHOME env var (maybe we should set it to ~/Library/GnuPG/). Check rights on this directory (0700)
+--version (for display)
+--warranty (for display)
+--utf8-strings (should be set by default)
+--charset iso-8859-1 iso-8859-2 koi8-r utf8 utf-8 (utf8 should be set by default; ask to modify Terminal prefs if no matching)
+(gpg path: at startup, check if default GnuPGPath in globalDomain is OK (/usr/local/bin/gpg); else ask user.)
+gpg path: at startup, check if exists in /usr/local/bin/gpg; if not, ask creation of link (because hardcoded in libgpgme currently).
+
+* Keyrings
+--keyring FILE (multiple occurences OK, ordered)
+--secret-keyring FILE (multiple occurences OK, ordered)
+--no-default-keyring
+
+* Key server (used only for verification)
+--keyserver http:// x-broken-hkp:// x-hkp:// (only one...)
+--honor-http-proxy (reads env var http_proxy; check InternetConfig and set env var accordingly?)
+--no-auto-key-retrieve
+(Create Sherlock plug-in which searches different keyservers for keys)
+Use `host -l pgp.net | grep wwwkeys`
+
+* Algorithms (display all algos)
+--disable-cipher-algo NAME
+--disable-pubkey-algo NAME
+--s2k-mode N (0=plain passphrase, 1=add salt, 3=iterates; also used for conventional encryption if --rfc1991 is not used)
+--s2k-digest-algo NAME (default is RIPEMD-160; also used if digest-algo is not set)
+--s2k-cipher-algo NAME (default is BLOWFISH; also used if cipher-algo is not set)
+--cipher-algo NAME (else from key)
+--digest-algo NAME
+--compress-algo N (default is 2)
+--load-extension FILE (by default, /usr/local/lib/gnupg/; multiple occurences OK)
+
+* Web-of-trust
+--completes-needed N (default is 1)
+--marginals-needed N (default is 3)
+--max-cert-depth N (default is 5)
+--trusted-key KEYID (should be used only for absent secret keys; ultimately trusted)
+(--always-trust (should never be used!))
+
+* Signatures
+--notation-data NAME=VALUE (check format: NAME=^([[:alpha:]]|_)([[:alphanum:]]|_)* VALUE=([[:print:]]|_))*; NAME can be prefixed with ! to mark it as critical; multiple occurences OK
+--set-policy-url STRING; STRING can be prefixed with ! to mark it as critical; only one.
+--comment STRING (used in clear text sigs; use empty string to disable; only one)
+--default-comment (to disable --comment)
+--no-version (omits version string in clear text sigs)
+--emit-version (opposite of --no-version)
+
+* Compatibility
+--rfc1991 (Try to be more RFC1991 (PGP 2.x) compliant)
+--openpgp (resets some options to OpenPGP compliant values; excludes --force-v3-sigs, forces some others)
+--force-v3-sigs (for PGP 5.x)
+(--force-mdc)
+rfc1991 and openpgp are mutually exclusive
+
+* Personal Keys
+--default-recipient USERID (no key validation!)
+--default-recipient-self (uses default-key; excludes --default-recipient)
+--no-default-recipient (excludes --default-recipient-self and --default-recipient)
+--default-key USERID (to sign or verify; default secret key, in case of multiple secret keys; else uses first secret key in keyring)
+--local-user USERID (to sign; multiple occurences OK)
+--encrypt-to USERID (no trust checking! multiple occurences OK)
+--no-encrypt-to
+
+* Aliases (not yet implemented...)
+--alias mynames -u 0x12345678 -u 0x456789ab -z 9 (expands mynames with the following strings)
+
+* Misc
+--use-agent; GPG_AGENT_INFO env var?
+--trustdb-name
+-z N
+--throw-keyid
+--try-all-secrets
+Display other used options in tableView; recognizes disabled options in lines beginning by # followed immediately by letter (no spacer)
