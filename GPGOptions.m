@@ -282,7 +282,7 @@ static NSString *gnupgVersion = nil;
         if(lineLength > 0){
             BOOL		isCommented;
             unsigned	startIndex, endIndex;
-            int			j = 0;
+            unsigned	j = 0;
             NSString	*aValue;
 
             // Trim spacers
@@ -531,7 +531,7 @@ static NSString *gnupgVersion = nil;
  *
 "*/
 {
-    int	maxIndex = [optionNames count];
+    unsigned	maxIndex = [optionNames count];
     
     [optionNames insertObject:name atIndex:index];
     [optionValues insertObject:@"" atIndex:index];
@@ -548,7 +548,7 @@ static NSString *gnupgVersion = nil;
  *
 "*/
 {
-    int	maxIndex = [optionNames count];
+    unsigned	maxIndex = [optionNames count];
     
     [optionNames removeObjectAtIndex:index];
     [optionValues removeObjectAtIndex:index];
