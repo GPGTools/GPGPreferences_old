@@ -1,7 +1,7 @@
 /*
 	File:		authtool.c
 
-	Copyright: 	© Copyright 2001 Apple Computer, Inc. All rights reserved.
+	Copyright: 	© Copyright 2002 Apple Computer, Inc. All rights reserved.
 	
 	Disclaimer:	IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc.
                         ("Apple") in consideration of your agreement to the following terms, and your
@@ -39,20 +39,31 @@
                         ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				
 	Change History (most recent first):
+                05/19/02	davelopper@users.sourceforge.net: adapted for GPGPreferences
+
+                5/1/02		2.0d2		Improved the reliability of determining the path to the
+                                        executable during self-repair.
+
                 02/27/02	davelopper@users.sourceforge.net: adapted for GPGPreferences
-                12/19/01	2.0d1
+
+                12/19/01	2.0d1		First release of self-repair version.
 */
 
 
 #include "authinfo.h"
 
-#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/fcntl.h>
+#include <sys/errno.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
-#include <errno.h>
+#include <mach-o/dyld.h>
 
-                                        
+
+extern int MyGetExecutablePath(char *execPath, size_t *execPathSize);
 
 
 /* Return the name of the right to verify for the operation specified in myCommand. */
@@ -65,46 +76,61 @@ rightNameForCommand(const MyAuthorizedCommand * myCommand)
             return "net.sourceforge.macgpg.GPGPreferences.moveGPG";
         case kMyAuthorizedCommandLink:
             return "net.sourceforge.macgpg.GPGPreferences.makeLinkForGPG";
+        case kMyAuthorizedCommandSetOwnerAndMode:
+            return "net.sourceforge.macgpg.GPGPreferences.setOwnerAndMode";
     }
     return "system.unknown";
 }
 
 
-
+static bool makeGPGDir()
+{
+    if(mkdir("/usr/local", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)){
+        if(errno != EEXIST){
+            return false;
+        }
+    }
+    if(mkdir("/usr/local/bin", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)){
+        if(errno != EEXIST){
+            return false;
+        }
+    }
+    return true;
+}
 
 /* Perform the operation specified in myCommand. */
 static bool
 performOperation(const MyAuthorizedCommand * myCommand)
 {
-    if(mkdir("/usr/local", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH))
-        if(errno != EEXIST){
-                perror(NULL);
-                return false;
-        }
-    if(mkdir("/usr/local/bin", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH))
-        if(errno != EEXIST){
-                perror(NULL);
-                return false;
-        }
-//    fprintf(stderr, "performing Command %d on path %s\n", myCommand->authorizedCommandId, myCommand->file);
+    IFDEBUG(fprintf(stderr, "Tool performing Command %d on path %s.\n", myCommand->authorizedCommandId, myCommand->file);)
 
     switch(myCommand->authorizedCommandId){
         case kMyAuthorizedCommandMove:
-            if(rename(myCommand->file, "/usr/local/bin/gpg")){
+            if(!makeGPGDir() || rename(myCommand->file, "/usr/local/bin/gpg")){
                 perror(NULL);
                 return false;
             }
             break;
         case kMyAuthorizedCommandLink:
-            if(symlink(myCommand->file, "/usr/local/bin/gpg")){
+            if(!makeGPGDir() || symlink(myCommand->file, "/usr/local/bin/gpg")){
                 perror(NULL);
                 return false;
             }
             break;
+        case kMyAuthorizedCommandSetOwnerAndMode:{
+            struct stat	statbuf;
+            
+            if(stat(myCommand->file, &statbuf) || chown(myCommand->file, myCommand->owner, myCommand->group) || chmod(myCommand->file, myCommand->mode)){
+                perror(NULL);
+                return false;
+            }
+            break;
+        }
         default:
             return false;
     }
     
+    IFDEBUG(fprintf(stderr, "Tool performing Command %d on path %s.\n", myCommand->authorizedCommandId, myCommand->file);)
     return true;
 }
 
@@ -114,30 +140,66 @@ performOperation(const MyAuthorizedCommand * myCommand)
 int
 main(int argc, char * const *argv)
 {
+    OSStatus status;
     AuthorizationRef auth;
     int bytesRead;
     MyAuthorizedCommand myCommand;
+    
+    unsigned long path_to_self_size = 0;
+    char *path_to_self = NULL;
 
     
+    /* MyGetExecutablePath() attempts to use _NSGetExecutablePath() (see NSModule(3)) if it's available in
+        order to get the actual path of the tool. */
+
+    path_to_self_size = MAXPATHLEN;
+    if (! (path_to_self = malloc(path_to_self_size)))
+        exit(kMyAuthorizedCommandInternalError);
+    if (MyGetExecutablePath(path_to_self, &path_to_self_size) == -1)
+    {
+        /* Try again with actual size */
+        if (! (path_to_self = realloc(path_to_self, path_to_self_size + 1)))
+            exit(kMyAuthorizedCommandInternalError);
+        if (MyGetExecutablePath(path_to_self, &path_to_self_size) != 0)
+            exit(kMyAuthorizedCommandInternalError);
+    }
+
     if (argc == 2 && !strcmp(argv[1], "--self-repair"))
     {
         /*  Self repair code.  We ran ourselves using AuthorizationExecuteWithPrivileges()
         so we need to make ourselves setuid root to avoid the need for this the next time around. */
         
         struct stat st;
+        int fd_tool;
 
         /* Recover the passed in AuthorizationRef. */
         if (AuthorizationCopyPrivilegedReference(&auth, kAuthorizationFlagDefaults))
             exit(kMyAuthorizedCommandInternalError);
 
-        if (stat(argv[0], &st))
-            exit(kMyAuthorizedCommandInternalError);
+        /* Open tool exclusively, so noone can change it while we bless it */
+        fd_tool = open(path_to_self, O_NONBLOCK|O_RDONLY|O_EXLOCK, 0);
 
-        if (st.st_uid != 0)
-            chown(argv[0], 0, st.st_gid);
+        if (fd_tool == -1)
+        {
+            IFDEBUG(fprintf(stderr, "Exclusive open while repairing tool failed: %d.\n", errno);)
+            exit(kMyAuthorizedCommandInternalError);
+        }
+
+        if (fstat(fd_tool, &st)){
+            exit(kMyAuthorizedCommandInternalError);
+        }
+
+        if (st.st_uid != 0){
+            fchown(fd_tool, 0, st.st_gid);
+        }
 
         /* Disable group and world writability and make setuid root. */
-        chmod(argv[0], (st.st_mode & (~(S_IWGRP|S_IWOTH))) | S_ISUID);
+        fchmod(fd_tool, (st.st_mode & (~(S_IWGRP|S_IWOTH))) | S_ISUID);
+
+        close(fd_tool);
+
+        IFDEBUG(fprintf(stderr, "Tool self-repair done.\n");)
+
     }
     else
     {
@@ -163,7 +225,9 @@ main(int argc, char * const *argv)
 
             /* Set our own stdin and stdout to be the communication channel with ourself. */
             
-            if (AuthorizationExecuteWithPrivileges(auth, argv[0], kAuthorizationFlagDefaults, arguments, &commPipe))
+            IFDEBUG(fprintf(stderr, "Tool about to self-exec through AuthorizationExecuteWithPrivileges.\n");)
+            
+            if (AuthorizationExecuteWithPrivileges(auth, path_to_self, kAuthorizationFlagDefaults, arguments, &commPipe))
                 // Arrives here if user cancelled password query
                 exit(kMyAuthorizedCommandInternalError);
 
@@ -191,7 +255,10 @@ main(int argc, char * const *argv)
         }
     }
 
-
+    /* No need for it anymore */
+    if (path_to_self)
+        free(path_to_self);
+    
     /* Read a 'MyAuthorizedCommand' object from stdin. */
     bytesRead = read(0, &myCommand, sizeof(MyAuthorizedCommand));
     
@@ -206,9 +273,14 @@ main(int argc, char * const *argv)
         
         /* Check to see if the user is allowed to perform the tasks stored in 'myCommand'. This may
         or may not prompt the user for a password, depending on how the system is configured. */
+
+        IFDEBUG(fprintf(stderr, "Tool authorizing right %s for command.\n", rightName);)
         
-        if (AuthorizationCopyRights(auth, &rights, kAuthorizationEmptyEnvironment, flags, NULL))
+        if (status = AuthorizationCopyRights(auth, &rights, kAuthorizationEmptyEnvironment, flags, NULL))
+        {
+            IFDEBUG(fprintf(stderr, "Tool authorizing command failed authorization: %ld.\n", status);)
             exit(kMyAuthorizedCommandAuthFailed);
+        }
 
         /* Perform the operation stored in 'myCommand'. */
         if (!performOperation(&myCommand))

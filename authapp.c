@@ -1,7 +1,7 @@
 /*
 	File:		authapp.c
 
-	Copyright: 	© Copyright 2001 Apple Computer, Inc. All rights reserved.
+	Copyright: 	© Copyright 2002 Apple Computer, Inc. All rights reserved.
 	
 	Disclaimer:	IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc.
                         ("Apple") in consideration of your agreement to the following terms, and your
@@ -39,8 +39,14 @@
                         ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				
 	Change History (most recent first):
+                05/19/02	davelopper@users.sourceforge.net: adapted for GPGPreferences
+
+                5/1/02		2.0d2		Improved the reliability of determining the path to the
+                                        executable during self-repair.
+
                 02/27/02	davelopper@users.sourceforge.net: adapted for GPGPreferences
-                12/19/01	2.0d1
+
+                12/19/01	2.0d1		First release of self-repair version.
 */
 
 
@@ -60,10 +66,12 @@
 static bool
 pathForTool(CFStringRef toolName, char path[MAXPATHLEN], CFBundleRef bundle)
 {
+//    CFBundleRef bundle;
     CFURLRef resources;
     CFURLRef toolURL;
     Boolean success = true;
     
+//    bundle = CFBundleGetMainBundle();
     if (!bundle)
         return FALSE;
     
@@ -104,7 +112,7 @@ performCommand(AuthorizationRef authorizationRef, MyAuthorizedCommand myCommand,
         tool and if the user decides to go ahead with the copy, the application gets copied without
         the tool inside.  At this point, you should recommend that the user re-install the application. */
         
-        fprintf(stderr, "The authtool could not be found.\n");
+        IFDEBUG(fprintf(stderr, "The authtool could not be found at path '%s'.\n", path);)
         return kMyAuthorizedCommandInternalError;
     }
     
@@ -143,12 +151,17 @@ performCommand(AuthorizationRef authorizationRef, MyAuthorizedCommand myCommand,
     /* Close input pipe since we are not reading from client. */
     close(comms[0]);
 
+
+    IFDEBUG(fprintf(stderr, "Passing child externalized authref.\n");)
+
     /* Write the ExternalizedAuthorization to our output pipe. */
     if (write(comms[1], &extAuth, sizeof(extAuth)) != sizeof(extAuth))
     {
         close(comms[1]);
         return kMyAuthorizedCommandInternalError;
     }
+
+    IFDEBUG(fprintf(stderr, "Passing child command.\n");)
 
     /* Write the commands we want to execute to our output pipe */
     written = write(comms[1], &myCommand, sizeof(MyAuthorizedCommand));
@@ -157,7 +170,7 @@ performCommand(AuthorizationRef authorizationRef, MyAuthorizedCommand myCommand,
     close(comms[1]);
     
     if (written != sizeof(MyAuthorizedCommand))
-        return ioErr;
+        return kMyAuthorizedCommandInternalError;
 
     /* Wait for the tool to return */
     if (waitpid(pid, &childStatus, 0) != pid)
@@ -176,34 +189,58 @@ performCommand(AuthorizationRef authorizationRef, MyAuthorizedCommand myCommand,
 
 
 OSStatus
-GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorizedCommandOperation, const char *fileArgument, CFBundleRef bundle)
+GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorizedCommandOperation, const char *fileArgument, uid_t uid, gid_t gid, mode_t mode, CFBundleRef bundle)
 {
     AuthorizationRef authorizationRef;
-    AuthorizationFlags flags = kAuthorizationFlagDefaults | kAuthorizationFlagPreAuthorize;
+    AuthorizationFlags flags = kAuthorizationFlagDefaults | kAuthorizationFlagPreAuthorize | kAuthorizationFlagInteractionAllowed | kAuthorizationFlagExtendRights;
     AuthorizationItem right = { rightName, 0, NULL, 0 };
     AuthorizationRights rightSet = { 1, &right };
     MyAuthorizedCommand myCommand;
     OSStatus status;
 
-    /* Create a new authorization object which can be used in other authorization calls. */
-    status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, flags, &authorizationRef);
+    /* Create a new authorization reference which will later be passed to the tool. */
     
+    status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authorizationRef);
+
+    if (status != errAuthorizationSuccess)
+    {
+        IFDEBUG(fprintf(stderr, "Failed to create the authref: %ld.\n", status));
+        return kMyAuthorizedCommandInternalError;
+    }
+
+    /* This shows how AuthorizationCopyRights() can be used in order to pre-authorize the user before
+    attempting to perform the privileged operation.  Pre-authorization is optional but can be useful in
+    certain situations.  For example, in the Installer application, the user is asked to pre-authorize before
+    configuring the installation because it would be a waste of time to let the user proceed through the
+    entire installation setup, only to be denied at the final stage because they weren't the administrator. */
+    
+    status = AuthorizationCopyRights(authorizationRef, &rightSet, kAuthorizationEmptyEnvironment, flags, NULL);
+
     if (status == errAuthorizationSuccess)
     {
-        /* Pre-authorize the requested rights so that at a later time, by calling AuthorizationMakeExternalForm
-        followed by AuthorizationCreateFromExternalForm, the obtained rights can be used in a different process. */
-        
-        status = AuthorizationCopyRights(authorizationRef, &rightSet, kAuthorizationEmptyEnvironment, flags, NULL);
-        
-        if (status == errAuthorizationSuccess || status == errAuthorizationDenied)
-        {
-            myCommand.authorizedCommandId = authorizedCommandOperation;
-            strcpy(myCommand.file, fileArgument);
-    
-            status = performCommand(authorizationRef, myCommand, bundle);
-        }
-        
-        AuthorizationFree(authorizationRef, kAuthorizationFlagDefaults);
+        myCommand.authorizedCommandId = authorizedCommandOperation;
+        strcpy(myCommand.file, fileArgument);
+        myCommand.owner = uid;
+        myCommand.group = gid;
+        myCommand.mode = mode;
+
+        status = performCommand(authorizationRef, myCommand, bundle);
+        IFDEBUG(fprintf(stderr, "Performing the command returned %ld.\n", status);)
+
+
+            /* Specifying the kAuthorizationFlagDestroyRights causes the granted rights to be destroyed so
+            they can't be shared between sessions and used again.  Rights will automatically timeout by default
+        after 5 minutes, but the timeout value can be changed by editing the file located at /etc/authorization.
+            The config file gives System Administrators the ability to enforce a stricter security policy, and it's
+            recommended that you test with a zero second timeout enabled to make sure your application continues
+            to behave as expected. */
+
+            AuthorizationFree(authorizationRef, kAuthorizationFlagDestroyRights);
+    }
+    else
+    {
+        IFDEBUG(fprintf(stderr, "Pre-authorization failed, giving up.\n"));
+        return kMyAuthorizedCommandInternalError;
     }
     
     return status;
