@@ -16,6 +16,7 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "\U0001-DDEBUG";
 			};
 			isa = PBXBuildStyle;
 			name = Development;
@@ -57,7 +58,6 @@
 			targets = (
 				089C1673FE841209C02AAC07,
 				F59073C4022D92E301A80016,
-				F59073D1022D97A101A80016,
 			);
 		};
 		089C166AFE841209C02AAC07 = {
@@ -113,7 +113,6 @@
 			};
 			dependencies = (
 				F59073C3022D92E301A80016,
-				F59073D0022D97A101A80016,
 			);
 			isa = PBXBundleTarget;
 			name = GPGPreferences;
@@ -127,7 +126,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleGetInfoString</key>
-	<string>GnuPG Preferences 1.0.2 (v5), Copyright MacGPG Group 2002</string>
+	<string>GnuPG Preferences 1.1 (v6), Copyright MacGPG Group 2002</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -139,11 +138,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2 (v5)</string>
+	<string>1.1 (v6)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.2</string>
+	<string>1.1</string>
 	<key>NSMainNibFile</key>
 	<string>GPGPreferences</string>
 	<key>NSPrefPaneIconFile</key>
@@ -190,7 +189,6 @@
 				F52A0A3102132D50016C2AB4,
 				F52CD02702146B320157668B,
 				F59073CE022D933101A80016,
-				F59073DA022D97A101A80016,
 				F56A3E150236B5A101A80013,
 				F5A027DD023A616A01A80013,
 				F5C36DD202352FF70128824A,
@@ -367,7 +365,6 @@
 			children = (
 				06F27B2EFFEEEFEF11CA0E56,
 				F59073C2022D92E301A80016,
-				F59073CF022D97A101A80016,
 			);
 			isa = PBXGroup;
 			name = Products;
@@ -959,6 +956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F59073C8022D92E301A80016,
+				F590AC3702980B6401000001,
 			);
 			isa = PBXSourcesBuildPhase;
 			name = Sources;
@@ -1003,98 +1001,13 @@
 			settings = {
 			};
 		};
-		F59073CF022D97A101A80016 = {
-			isa = PBXExecutableFileReference;
-			path = authtool.bak;
-			refType = 3;
+		F590AC3602980B6401000001 = {
+			isa = PBXFileReference;
+			path = getpath.c;
+			refType = 4;
 		};
-		F59073D0022D97A101A80016 = {
-			isa = PBXTargetDependency;
-			target = F59073D1022D97A101A80016;
-		};
-		F59073D1022D97A101A80016 = {
-			buildPhases = (
-				F59073D2022D97A101A80016,
-				F59073D4022D97A101A80016,
-				F59073D6022D97A101A80016,
-				F59073D9022D97A101A80016,
-			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = authtool.bak;
-				REZ_EXECUTABLE = YES;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
-			};
-			dependencies = (
-			);
-			isa = PBXToolTarget;
-			name = authtool.bak;
-			productInstallPath = /usr/local/bin;
-			productName = authtool.bak;
-			productReference = F59073CF022D97A101A80016;
-			shouldUseHeadermap = 0;
-		};
-		F59073D2022D97A101A80016 = {
-			buildActionMask = 2147483647;
-			files = (
-				F59073D3022D97A101A80016,
-			);
-			isa = PBXHeadersBuildPhase;
-			name = Headers;
-		};
-		F59073D3022D97A101A80016 = {
-			fileRef = F59073BA022D8E1801A80016;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		F59073D4022D97A101A80016 = {
-			buildActionMask = 2147483647;
-			files = (
-				F59073D5022D97A101A80016,
-			);
-			isa = PBXSourcesBuildPhase;
-			name = Sources;
-		};
-		F59073D5022D97A101A80016 = {
-			fileRef = F59073BB022D8E1801A80016;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		F59073D6022D97A101A80016 = {
-			buildActionMask = 2147483647;
-			files = (
-				F59073D7022D97A101A80016,
-				F59073D8022D97A101A80016,
-			);
-			isa = PBXFrameworksBuildPhase;
-			name = "Frameworks & Libraries";
-		};
-		F59073D7022D97A101A80016 = {
-			fileRef = F59073BF022D918E01A80016;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		F59073D8022D97A101A80016 = {
-			fileRef = F59073C1022D92E301A80016;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		F59073D9022D97A101A80016 = {
-			buildActionMask = 2147483647;
-			files = (
-			);
-			isa = PBXRezBuildPhase;
-			name = "ResourceManager Resources";
-		};
-		F59073DA022D97A101A80016 = {
-			fileRef = F59073CF022D97A101A80016;
+		F590AC3702980B6401000001 = {
+			fileRef = F590AC3602980B6401000001;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -1192,6 +1105,7 @@
 				F59073B9022D8E1801A80016,
 				F59073BA022D8E1801A80016,
 				F59073BB022D8E1801A80016,
+				F590AC3602980B6401000001,
 			);
 			isa = PBXGroup;
 			name = AuthTool;
