@@ -1,23 +1,59 @@
 {
     // Note that you must use UTF8 encoding when saving this file
     "VERSION %@" = "Version %@";
-    "N/A" = "Unable to get GnuPG warranty, so... No warranty!";
+
+    // Alert title
     "WARRANTY" = "GnuPG Warranty";
+    // Alert message
     "GPG NOT FOUND" = "gpg executable could not be found.";
+    "WARRANTY ERROR" = "Unable to get GnuPG warranty, so... No warranty!";
+
+    // "Open" dialog button
     "CHOOSE" = "Choose";
-    "UNABLE TO CREATE DIRECTORY" = "Unable to create directory";
-    "UNABLE TO CREATE DIRECTORY AT %@" = "Unable to create directory at %@; please check the privileges of the parent directory.";
-    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Directory privilege error";
-    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Directory %@ has been moved to %@, but the all file privileges could not be set. Please check that you are the owner of all these files.";
-    "ERROR WHEN MOVING HOMEDIRECTORY" = "Error when moving directory";
+
+    // Alert titles
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Error when moving folder";
+    "UNABLE TO CREATE DIRECTORY" = "Unable to create folder";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Folder privilege error";
+    "CHANGE CHARSET TO UTF-8?" = "Always use UTF-8 as string encoding?";
+    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Terminal should use UTF-8 string encoding";
+    "CHANGE TERMINAL STRING ENCODING?" = "Tell Terminal to use UTF-8 string encoding?";
+    "CANNOT EXECUTE OPERATION" = "Operation failed";
+    "WHERE IS GPG?" = "Where is GnuPG executable?";
+    
+    // Alert messages
     "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Unable to move all the files of %@ to %@. Please check the file privileges.";
-    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Unable to move directory %@ to %@.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Unable to move folder %@ to %@.";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Unable to create folder at %@; please check the privileges of the parent folder.";
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Folder %@ has been moved to %@, but privileges could not be set on all files. Please check that you are the owner of all these files.";
+    "WHY CHANGING CHARSET..." = "If you set the Terminal string encoding to UTF-8, then you should tell GnuPG to use the same character set, or you'll get in trouble!";
+    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "If you (or some applications) use GnuPG via Terminal, you must take care that both Terminal and GnuPG use the same character set; if they don't, you'll get in trouble! Terminal is currently running, thus forbidding us to modify it; you need to do it yourself: go to Terminal, open its Preferences, and set the String Encoding to UTF-8.";
+    "WHY CHANGING TERMINAL SETTINGS..." = "If you (or some applications) use GnuPG via Terminal, you must take care that both Terminal and GnuPG use the same character set; if they don't, you'll get in trouble!";
+    "WHY GPG MUST BE IN %@..." = "Most applications depending on GnuPG expect it to be located in %@; if you don't move it nor make a link to it in that location, these application will not work.\nNote that you need administrator rights to put it there.";
+    // Errors when moving/linking gpg
+    "AUTH ERROR 255" = ", due to an internal error"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR -1" = ", due to an internal error"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR 1" = " (the authorized tool could not be launched)"; /* kMyAuthorizedCommandExecFailed */
+    "AUTH ERROR 2" = " (the authorized tool reported an error)"; /* kMyAuthorizedCommandChildError */
+    "AUTH ERROR 3" = " because the authorization failed"; /* kMyAuthorizedCommandAuthFailed */
+    "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
+    "OPERATION %@ FAILED (%@)." = "%@ operation failed%@. Please correct the problem manually, or relaunch System Preferences.";
+    
+    "PLEASE DO" = "Please do";
+    "DON'T CHANGE" = "Don't change";
+    "SEARCH GPG" = "I know where it is";
+    
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
     "MOVE FILES?" = "Move files?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "Move content of %@ to %@?";
+    // Buttons
     "MOVE" = "Move";
     "DON'T MOVE" = "Don't";
     "CANCEL" = "Cancel";
-    "MOVE CONTENT OF %@ TO %@" = "Move content of %@ to %@?";
     
+    /* Tab titles */
     "GPGGlobalPrefs" = "General";
     "GPGExpertPrefs" = "Expert";
     "GPGCompatibilityPrefs" = "Compatibility";
