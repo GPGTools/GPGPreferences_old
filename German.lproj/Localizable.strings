@@ -1,0 +1,64 @@
+{
+    // Note that you must use UTF8 encoding when saving this file
+    "VERSION %@" = "Version %@";
+
+    // Alert title
+    "WARRANTY" = "GnuPG Garantie";
+    // Alert message
+    "GPG NOT FOUND" = "gpg konnte nicht gefunden werden.";
+    "WARRANTY ERROR" = "Die GnuPG Garantie konnte nicht gefunden werden, daher... Keine Garantie!";
+
+    // "Open" dialog button
+    "CHOOSE" = "Wählen";
+    "ADD EXTENSION" = "Hinzufügen";
+
+    // Alert titles
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Fehler beim Bewegen des Ordners";
+    "UNABLE TO CREATE DIRECTORY" = "Kann Ordner nicht anlegen";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Fehler mit Ordnerzugriffsrechten";
+    "CHANGE CHARSET TO UTF-8?" = "Immer UTF-8 Text-Kodierung verwenden?";
+    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Terminal sollte UTF-8 Text-Kodierung verwenden";
+    "CHANGE TERMINAL STRING ENCODING?" = "Text-Kodierung im Terminal auf UTF-8 umstellen?";
+    "CANNOT EXECUTE OPERATION" = "Operation fehlgeschlagen";
+    "WHERE IS GPG?" = "Wo ist gpg?";
+    
+    // Alert messages
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Kann Dateien nicht von  %@ nach %@ verschieben. Überprüfen Sie die Zugriffsrechte.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Kann Ordner %@ nicht nach  %@ verschieben.";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Kann Ordner nicht in %@ anlegen; Überprüfen Sie die Zugriffsrechte des übergeordenten Ordners.";
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Ordner %@ wurde nach %@ verschoben, die Zugriffrechte konnten jedoch nicht gesetzt werden. Überprüfen Sie, ob Sie der Eigentümer aller Dateien sind.";
+    "WHY CHANGING CHARSET..." = "Sie sollten GnuPG immer mit der Text-Kodierung UTF-8 einsetzen, andernfalls kann es zu Problemen kommen! Sonderzeichen werden möglicherweise nicht korrekt von GnuPG interpretiert: Namen ebenso wie Passphrasen könnten falsch buchstabiert werden! Die Text-Kodierung UTF-8 kann jedoch jedes Zeichen kodieren und wird von den meisten Terminal-Tools, wie gpg, verstanden.";
+    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Wenn Sie (oder einige Programme) GnuPG über das Terminal benutzen, müssen Sie darauf achten, dass sowohl das Terminal wie auch GnuPG den selben Zeichensatz benutzen; andernfalls können Probleme auftreten! Im Terminal eingegebene Sonderzeichen werden von GnuPG nicht korrekt interpretiert: Namen ebenso wie Passphrasen könnten falsch buchstabiert werden! Die Text-Kodierung UTF-8 kann jedoch jedes Zeichen kodieren und wird von den meisten Terminal-Tools, wie gpg, verstanden.\n\nTerminal läuft im Moment, deshlab kann ich es nicht ändern; das müssen Sie selbst tun: Wechseln Sie zu Terminal, öffnen Sie die Einstellungen und setzen Sie die Zeichenkodierung unter Shell auf UTF-8.";
+    "WHY CHANGING TERMINAL SETTINGS..." = "Wenn Sie (oder einige Programme) GnuPG über das Terminal benutzen, müssen Sie darauf achten, dass sowohl das Terminal wie auch GnuPG den selben Zeichensatz benutzen; andernfalls können Probleme auftreten! Im Terminal eingegebene Sonderzeichen werden von GnuPG nicht korrekt interpretiert: Namen ebenso wie Passphrasen könnten falsch buchstabiert werden! Die Text-Kodierung UTF-8 kann jedoch jedes Zeichen kodieren und wird von den meisten Terminal-Tools, wie gpg, verstanden.";
+    "WHY GPG MUST BE IN %@..." = "Die meisten Programme, die mit GnuPG arbeiten, erwarten es in %@; Wenn Sie es nicht dahin verschieben oder ein Alias setzen, werden diese Programme nicht laufen.\nSie benötgen Administrationsrechte, um es dahin zu verschieben.";
+    // Errors when moving/linking gpg
+    "AUTH ERROR 255" = ", auf Grund eines internen Fehlers"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR -1" = ", auf Grund eines internen Fehlers"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR 1" = " (das zustädnige Tool konnte nicht gestartet werden)"; /* kMyAuthorizedCommandExecFailed */
+    "AUTH ERROR 2" = " (das zuständige Tool gab eine Fehler zurück)"; /* kMyAuthorizedCommandChildError */
+    "AUTH ERROR 3" = " da die Authorisierung fehlschlug"; /* kMyAuthorizedCommandAuthFailed */
+    "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
+    "OPERATION %@ FAILED (%@)." = "Die Operation %@ schlug fehl%@. Korrigieren Sie das Problem manuell, oder öffnen Sie die Systemeinstellungen.";
+    
+    "PLEASE DO" = "Ändern";
+    "DON'T CHANGE" = "Nicht ändern";
+    "SEARCH GPG" = "Ich weiß, wo es ist";
+    
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
+    "MOVE FILES?" = "Dateien verschieben?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "Inhalt von %@ nach %@ verschieben?";
+    // Buttons
+    "MOVE" = "Verschieben";
+    "DON'T MOVE" = "Nicht verschieben";
+    "CANCEL" = "Abbrechen";
+    
+    /* Tab titles */
+    "GPGGlobalPrefs" = "Allgemein";
+    "GPGExpertPrefs" = "Expert";
+    "GPGCompatibilityPrefs" = "Kompatibilität";
+    "GPGKeyServerPrefs" = "Key Server";
+    "GPGSignaturePrefs" = "Signatur";
+    "GPGExtensionsPrefs" = "Erweiterungen";
+}

@@ -1,0 +1,23 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {chooseOptionSet = id; togglePGP5Option = id; }; 
+            CLASS = GPGCompatibilityPrefs; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                optionMatrix = NSMatrix; 
+                pgp5Button = NSButton; 
+                warningImageView = NSImageView; 
+            }; 
+            SUPERCLASS = GPGPrefController; 
+        }, 
+        {
+            CLASS = GPGPrefController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {initialFirstResponder = NSView; view = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
