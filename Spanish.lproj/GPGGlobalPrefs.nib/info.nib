@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>IBEditorPositions</key>
+	<dict>
+		<key>29</key>
+		<string>292 536 520 58 0 0 1152 848 </string>
+		<key>5</key>
+		<string>272 392 560 345 0 0 1152 848 </string>
+		<key>57</key>
+		<string>381 535 342 60 0 0 1152 848 </string>
+	</dict>
+	<key>IBFramework Version</key>
+	<string>248.0</string>
+	<key>IBOpenObjects</key>
+	<array>
+		<integer>5</integer>
+	</array>
+	<key>IBSystem Version</key>
+	<string>5Q45</string>
+</dict>
+</plist>

@@ -1,25 +1,64 @@
 {
     // Note that you must use UTF8 encoding when saving this file
     "VERSION %@" = "Versión %@";
-    "WARRANTY ERROR" = "No se ha podido obtener la garantía de GnuPG, así que... ¡no hay garantía!";
+
+    // Alert title
     "WARRANTY" = "Garantía de GnuPG";
+    // Alert message
     "GPG NOT FOUND" = "No se ha encontrado el ejecutable gpg.";
+    "WARRANTY ERROR" = "No se ha podido obtener la garantía de GnuPG, así que... ¡no hay garantía!";
+
+    // "Open" dialog button
     "CHOOSE" = "Elegir";
-    "UNABLE TO CREATE DIRECTORY" = "No se ha podido crear el directorio.";
-    "UNABLE TO CREATE DIRECTORY AT %@" = "No se ha podido crear el directorio en %@; por favor, compruebe los permisos del directorio superior.";
-    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Error en los permisos del directorio";
-    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Se ha movido el directorio %@ a %@, pero no se ha podido establecer los permisos de todos los ficheros. Por favor, compruebe que usted es el propietario de todos estos ficheros.";
+    "ADD EXTENSION" = "Añadir extensión";
+
+    // Alert titles
     "ERROR WHEN MOVING HOMEDIRECTORY" = "Error al mover el directorio";
-    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "No se ha podido mover todos los ficheros de %@ a %@. Por favor, compruebe los permisos del fichero.";
+    "UNABLE TO CREATE DIRECTORY" = "No se pudo crear el directorio";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Error en los permisos del directorio";
+    "CHANGE CHARSET TO UTF-8?" = "¿Usar siempre Unicode (UTF-8) para la codificación de las cadenas?";
+    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "La terminal debería usar la codificación UTF-8";
+    "CHANGE TERMINAL STRING ENCODING?" = "¿Decirle a la terminal que use la codificación UTF-8?";
+    "CANNOT EXECUTE OPERATION" = "No se pudo realizar la operación";
+    "WHERE IS GPG?" = "¿Dónde está el ejecutable gpg?";
+    
+    // Alert messages
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "No se ha podido mover todoslos ficheros de %@ a %@. Por favor, compruebe los permisos del fichero.";
     "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "No se ha podido mover el directorio %@ a %@.";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "No se ha podido crear el directorio en %@; por favor, compruebe los permisos del directorio superior.";
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Se ha movido el directorio %@ a %@, pero no se ha podido establecer los permisos de todos los ficheros. Por favor, compruebe que usted es el propietario de todos estos ficheros.";
+    "WHY CHANGING CHARSET..." = "Con GnuPG debería usar siempre la codificación UTF-8, o se encontrará con problemas. GnuPG podría no interpretar correctamente caracteres con acentos o extranjeros: los nombres se escribirán mal, ¡así como las frases de paso! La codificación UTF-8 puede codificar cualquier carácter, y la mayoría de las utilidades de la línea de órdenes, como gpg, la entienden.";
+    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Si usted (o alguna aplicación) usa GnuPG a través de un terminal, debe asegurarse de que tanto la terminal como GnuPG usen el mismo juego de caracteres; si no lo hacen, se encontrará con problemas. GnuPG no interpretará correctamente caracteres con acentos o extranjeros tecleados en la terminal: los nombres se escribirán mal, así como las frases de paso. La codificación UTF-8 puede codificar cualquier carácter y es compatible con la mayoría de las utilidades de la línea de órdenes, como gpg.\n\nEn estos momentos está ejecutando la terminal, lo que impide que este programa la modifique. Tiene que hacerlo usted mismo: vaya a la terminal, abra sus preferencias, y establezca la Codificación a UTF-9 (en la parte de la Shell).";
+    "WHY CHANGING TERMINAL SETTINGS..." = "Si usted (o alguna aplicación) usa GnuPG a través del Terminal, debe asegurarse de que tanto Terminal como GnupG usen el mismo juego de caracteres. Si no lo hacen, se encontrará con problemas. GnuPG no interpretará correctamente caracteres con acentos o extranjeros tecleados en el Terminal: los nombres se escribirán mal, así como las frases de paso. La codificación UTF-8 puede codificar cualquier carácter, y la mayoría de las utilidades de la línea de órdenes, como gpg, la entienden.";
+    "WHY GPG MUST BE IN %@..." = "La mayoría de las aplicaciones que dependen de GnuPG esperan encontrarlo en %@. Si no lo mueve a este sitio ni crea un enlace en él, estas aplicaciones no funcionarán.\nObserve que necesita permisos de administrador para ponerlo allí.";
+    // Errors when moving/linking gpg
+    "AUTH ERROR 255" = ", debido a un error interno"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR -1" = ", debido a un error interno"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR 1" = " (no se pudo arrancar la herramienta autorizada)"; /* kMyAuthorizedCommandExecFailed */
+    "AUTH ERROR 2" = " (la herramienta autorizada informó de un error)"; /* kMyAuthorizedCommandChildError */
+    "AUTH ERROR 3" = " porque falló la autorización"; /* kMyAuthorizedCommandAuthFailed */
+    "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
+    "OPERATION %@ FAILED (%@)." = "%@ operación fallida%@. Por favor, corrija el problema manualmente, o rearranque Preferencias del Sistema.";
+    
+    "PLEASE DO" = "Hacer";
+    "DON'T CHANGE" = "No cambiar";
+    "SEARCH GPG" = "Sé donde está.";
+    
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
     "MOVE FILES?" = "¿Mover ficheros?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "¿Mover el contenido de %@ a %@?";
+    // Buttons
     "MOVE" = "Mover";
     "DON'T MOVE" = "No mover";
     "CANCEL" = "Cancelar";
-    "MOVE CONTENT OF %@ TO %@" = "¿Mover el contenido de %@ a %@?";
-
+    
+    /* Tab titles */
     "GPGGlobalPrefs" = "General";
     "GPGExpertPrefs" = "Experto";
     "GPGCompatibilityPrefs" = "Compatibilidad";
     "GPGKeyServerPrefs" = "Servidor de claves";
+    "GPGSignaturePrefs" = "Firma";
+    "GPGExtensionsPrefs" = "Extensiones";
 }
