@@ -72,7 +72,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 - (NSMutableDictionary *) userDefaultsDictionary
 {
     if(userDefaultsDictionary == nil){
-        NSString	*domainName = [[[self bundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+        NSString	*domainName = [[self bundle] bundleIdentifier];
         
         userDefaultsDictionary = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] persistentDomainForName:domainName]];
     }
@@ -83,7 +83,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 - (void) saveUserDefaults
 {
     if(userDefaultsDictionary != nil){
-        NSString	*domainName = [[[self bundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+        NSString	*domainName = [[self bundle] bundleIdentifier];
 
         [[NSUserDefaults standardUserDefaults] setPersistentDomain:userDefaultsDictionary forName:domainName];
         [userDefaultsDictionary release];
@@ -341,7 +341,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 
 - (void) executeOperationForFilename:(NSString *)filename
 {
-    NSString	*bundleIdentifier = [[[self bundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    NSString	*bundleIdentifier = [[self bundle] bundleIdentifier];
     NSString	*commandString = nil;
     OSErr		error;
     int			command = [[operationMatrix selectedCell] tag];
