@@ -75,6 +75,7 @@
         NSBundle	*bundle = [NSBundle bundleForClass:[self class]];
 
         NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"COMMENT SHOULD BE ASCII ONLY", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"DON'T CHANGE", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"CHANGE ANYWAY", nil, bundle, ""), nil, [view window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), [comment retain], @"%@", NSLocalizedStringFromTableInBundle(@"WHY ONLY ASCII IN COMMENT...", nil, bundle, ""));
+        return nil;
     }
 
     return comment;
@@ -83,7 +84,8 @@
 - (IBAction) toggleComment:(id)sender
 {
     if([commentSwitch state])
-        (void)[self checkComment];
+        if([self checkComment] == nil)
+            return;
     [[self options] setOptionState:[commentSwitch state] forName:@"comment"];
     [[self options] saveOptions];
 }
@@ -93,6 +95,7 @@
     NSString	*comment = (NSString *)contextInfo;
 
     if(returnCode == NSAlertAlternateReturn){
+        [[self options] setOptionState:[commentSwitch state] forName:@"comment"];
         [[self options] setOptionValue:comment forName:@"comment"];
         [[self options] saveOptions];
     }
@@ -111,9 +114,11 @@
 - (IBAction) updateComment:(id)sender
 {
     NSString	*comment = [self checkComment];
-    
-    [[self options] setOptionValue:comment forName:@"comment"];
-    [[self options] saveOptions];
+
+    if(comment != nil){
+        [[self options] setOptionValue:comment forName:@"comment"];
+        [[self options] saveOptions];
+    }
 }
 
 - (IBAction) toggleVersion:(id)sender
