@@ -2,14 +2,18 @@
 {\fonttbl\f0\froman\fcharset77 Palatino-Bold;\f1\froman\fcharset77 Palatino-Roman;\f2\froman\fcharset77 Palatino-Italic;
 }
 {\colortbl;\red255\green255\blue255;}
+\vieww14500\viewh12100\viewkind0
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
 
 \f0\b\fs28 \cf0 What's this?\
 
-\f1\b0 This package contains a plug-in for the System Preferences, which allows you to set GnuPG options without needing to use the Terminal nor modifiying GnuPG's 
+\f1\b0 This package contains a plug-in for the System Preferences, which allows you to set GnuPG 1.0.7 options without needing to use the Terminal nor modifiying GnuPG's 
 \f2\i options
 \f1\i0  file.\
-The package installs a plug-in named GnuPG in  
+
+\f0\b IMPORTANT: you need GnuPG 1.0.7; it will not work with previous versions of GnuPG.\
+
+\f1\b0 The package installs a plug-in named GnuPG in  
 \f2\i /Library/PreferencePanes
 \f1\i0 ; you could also choose folder 
 \f2\i Library/PreferencePanes
@@ -27,7 +31,9 @@ The plug-in first checks your GnuPG configuration, and suggests you to bring som
 \f2\i /usr/local/bin/
 \f1\i0 \
 - If GnuPG has never been configured, its base files are created\
+- Options are updated from GnuPG 1.0.6 to GnuPG 1.0.7\
 - String encoding for GnuPG and Terminal should be set to UTF-8\
+- GnuPG files need to be protected from other people\
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
 \cf0 Then you're free to modify whichever option you want. One of the most interesting options is the key server one.\
 
@@ -55,7 +61,16 @@ The plug-in first checks your GnuPG configuration, and suggests you to bring som
 
 \f0\b History\
 
-\f1\b0 1.0.2	March 18, 2002\
+\f1\b0 1.1	Jul XX, 2002\
+	Updated for GnuPG 1.0.7 (some options have changed since GnuPG 1.0.6)\
+	Added German version\
+	Now checks GnuPG files permissions\
+	Now checks the comment is made only of ASCII characters\
+	Updates GnuPG 1.0.6 options into GnuPG 1.0.7 options\
+	Added new options for key servers\
+	Added new compatibility options\
+	Expert mode: added option reordering and a button to reveal file in Finder\
+1.0.2	March 18, 2002\
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
 \cf0 	Corrected key server list (protocol was http instead of x-hkp!)\
     	Corrected bug with empty comment\
