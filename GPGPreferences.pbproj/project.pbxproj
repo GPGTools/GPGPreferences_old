@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 34;
+	objectVersion = 38;
 	objects = {
 		06F27B2EFFEEEFEF11CA0E56 = {
 			isa = PBXBundleReference;
@@ -45,6 +45,7 @@
 				06F27B30FFEEEFEF11CA0E56,
 				06F27B31FFEEEFEF11CA0E56,
 			);
+			hasScannedForEncodings = 1;
 			isa = PBXProject;
 			knownRegions = (
 				English,
@@ -104,9 +105,10 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/PreferencePanes";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle -twolevel_namespace";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = GnuPG;
 				SECTORDER_FLAGS = "";
@@ -122,13 +124,13 @@
 			productName = GPGPreferences;
 			productReference = 06F27B2EFFEEEFEF11CA0E56;
 			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist SYSTEM \"file://localhost/System/Library/DTDs/PropertyList.dtd\">
-<plist version=\"0.9\">
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleGetInfoString</key>
-	<string>GnuPG Preferences 1.1.1 (v7), Copyright MacGPG Group 2002</string>
+	<string>GnuPG Preferences (v8), Copyright MacGPG Group 2002-2003</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -140,15 +142,15 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.1 (v7)</string>
+	<string>(v8)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.1.1</string>
+	<string>(v8)</string>
 	<key>NSMainNibFile</key>
 	<string>GPGPreferences</string>
 	<key>NSPrefPaneIconFile</key>
-	<string>GPGPreferences.tiff</string>
+	<string>MacGPG.icns</string>
 	<key>NSPrefPaneIconLabel</key>
 	<string>GnuPG</string>
 	<key>NSPrincipalClass</key>
@@ -156,7 +158,6 @@
 </dict>
 </plist>
 ";
-			shouldUseHeadermap = 1;
 		};
 		089C1674FE841209C02AAC07 = {
 			buildActionMask = 2147483647;
@@ -173,13 +174,12 @@
 				F5A027E1023A6CB401A80013,
 			);
 			isa = PBXHeadersBuildPhase;
-			name = Headers;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		089C1675FE841209C02AAC07 = {
 			buildActionMask = 2147483647;
 			files = (
 				089C1680FE841241C02AAC07,
-				F506C041013D9D8001CA16C8,
 				F506C044013D9D8C01CA16C8,
 				F5FBE289020D7FBD01E2136E,
 				F5FBE293020D84FE01E2136E,
@@ -193,10 +193,10 @@
 				F59073CE022D933101A80016,
 				F56A3E150236B5A101A80013,
 				F5A027DD023A616A01A80013,
-				F5C36DD202352FF70128824A,
+				55510F9603F83E2B00000001,
 			);
 			isa = PBXResourcesBuildPhase;
-			name = "Bundle Resources";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		089C1676FE841209C02AAC07 = {
 			buildActionMask = 2147483647;
@@ -213,7 +213,7 @@
 				F5A027E2023A6CB401A80013,
 			);
 			isa = PBXSourcesBuildPhase;
-			name = Sources;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		089C1677FE841209C02AAC07 = {
 			buildActionMask = 2147483647;
@@ -224,14 +224,14 @@
 				F557037D022EE77B01A80016,
 			);
 			isa = PBXFrameworksBuildPhase;
-			name = "Frameworks & Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		089C1679FE841209C02AAC07 = {
 			buildActionMask = 2147483647;
 			files = (
 			);
 			isa = PBXRezBuildPhase;
-			name = "ResourceManager Resources";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		089C167CFE841241C02AAC07 = {
 			children = (
@@ -245,11 +245,10 @@
 				F5A027DB023A616901A80013,
 				F52A0A28021318E5016C2AB4,
 				F5FBE294020DCDF201E2136E,
-				F506C040013D9D8001CA16C8,
 				F5FBE292020D84FE01E2136E,
 				F5FBE297020DD14601E2136E,
 				F5FBE298020DD14601E2136E,
-				F5C36DD002352FF60128824A,
+				55510F9503F83E2B00000001,
 			);
 			isa = PBXGroup;
 			name = Resources;
@@ -380,6 +379,27 @@
 //192
 //193
 //194
+//550
+//551
+//552
+//553
+//554
+		55510F9503F83E2B00000001 = {
+			isa = PBXFileReference;
+			path = MacGPG.icns;
+			refType = 4;
+		};
+		55510F9603F83E2B00000001 = {
+			fileRef = 55510F9503F83E2B00000001;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//550
+//551
+//552
+//553
+//554
 //F50
 //F51
 //F52
@@ -398,11 +418,13 @@
 			};
 		};
 		F506C03C013D9D7901CA16C8 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGPreferences.h;
 			refType = 4;
 		};
 		F506C03D013D9D7901CA16C8 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGPreferences.m;
 			refType = 4;
@@ -415,17 +437,6 @@
 		};
 		F506C03F013D9D7901CA16C8 = {
 			fileRef = F506C03D013D9D7901CA16C8;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		F506C040013D9D8001CA16C8 = {
-			isa = PBXFileReference;
-			path = GPGPreferences.tiff;
-			refType = 4;
-		};
-		F506C041013D9D8001CA16C8 = {
-			fileRef = F506C040013D9D8001CA16C8;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -458,13 +469,14 @@
 			};
 		};
 		F50827260309F9D301000104 = {
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Danish;
 			path = Danish.lproj/InfoPlist.strings;
 			refType = 4;
 		};
 		F50827270309F9D301000104 = {
-			fileEncoding = 4;
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Danish;
 			path = Danish.lproj/Localizable.strings;
@@ -513,13 +525,14 @@
 			refType = 4;
 		};
 		F50A02C202FE09A701000104 = {
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Swedish;
 			path = Swedish.lproj/InfoPlist.strings;
 			refType = 4;
 		};
 		F50A02C302FE09A701000104 = {
-			fileEncoding = 4;
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Swedish;
 			path = Swedish.lproj/Localizable.strings;
@@ -580,6 +593,7 @@
 			refType = 4;
 		};
 		F510D644031FC5F001000001 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = Swedish;
 			path = Swedish.lproj/License.html;
@@ -600,6 +614,7 @@
 			refType = 4;
 		};
 		F510D647031FC6E401000001 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = Danish;
 			path = Danish.lproj/License.html;
@@ -618,12 +633,14 @@
 			refType = 4;
 		};
 		F528091D032A948B01000001 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = Italian;
 			path = Italian.lproj/GPGPreferences.info;
 			refType = 4;
 		};
 		F528091E032A948B01000001 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = Italian;
 			path = Italian.lproj/License.html;
@@ -642,13 +659,14 @@
 			refType = 4;
 		};
 		F5280921032A958001000001 = {
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Italian;
 			path = Italian.lproj/InfoPlist.strings;
 			refType = 4;
 		};
 		F5280922032A958001000001 = {
-			fileEncoding = 4;
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Italian;
 			path = Italian.lproj/Localizable.strings;
@@ -724,11 +742,13 @@
 			};
 		};
 		F52A0A2B021320FE016C2AB4 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGCompatibilityPrefs.h;
 			refType = 4;
 		};
 		F52A0A2C021320FE016C2AB4 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGCompatibilityPrefs.m;
 			refType = 4;
@@ -773,11 +793,13 @@
 			};
 		};
 		F52A0A32021334A8016C2AB4 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGKeyServerPrefs.h;
 			refType = 4;
 		};
 		F52A0A33021334A8016C2AB4 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGKeyServerPrefs.m;
 			refType = 4;
@@ -810,6 +832,7 @@
 			refType = 4;
 		};
 		F52B34DB020F1BC50197BDCC = {
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = English;
 			path = English.lproj/Localizable.strings;
@@ -822,6 +845,7 @@
 			};
 		};
 		F52CD02602146B320157668B = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = KeyServers.plist;
 			refType = 4;
@@ -882,7 +906,7 @@
 			refType = 4;
 		};
 		F5593EE00232637C01A80016 = {
-			fileEncoding = 4;
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = French;
 			path = French.lproj/Localizable.strings;
@@ -930,6 +954,7 @@
 			refType = 4;
 		};
 		F5593EE50232658A01A80016 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = English;
 			path = English.lproj/GPGPreferences.info;
@@ -1026,16 +1051,19 @@
 			refType = 4;
 		};
 		F5593EF00232658A01A80016 = {
+			fileEncoding = 30;
 			isa = PBXExecutableFileReference;
 			path = GPGPreferences.post_install;
 			refType = 4;
 		};
 		F56A3E0F0236B48C01A80013 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGSignaturePrefs.h;
 			refType = 4;
 		};
 		F56A3E100236B48C01A80013 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGSignaturePrefs.m;
 			refType = 4;
@@ -1080,6 +1108,7 @@
 			};
 		};
 		F56EE6320243C36801A80016 = {
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Spanish;
 			path = Spanish.lproj/InfoPlist.strings;
@@ -1128,23 +1157,26 @@
 			refType = 4;
 		};
 		F5770C70023585EC0128824A = {
-			fileEncoding = 4;
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = Spanish;
 			path = Spanish.lproj/Localizable.strings;
 			refType = 4;
 		};
 		F59073B9022D8E1801A80016 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = authapp.c;
 			refType = 4;
 		};
 		F59073BA022D8E1801A80016 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = authinfo.h;
 			refType = 4;
 		};
 		F59073BB022D8E1801A80016 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = authtool.c;
 			refType = 4;
@@ -1211,7 +1243,6 @@
 			productInstallPath = /usr/local/bin;
 			productName = authtool;
 			productReference = F59073C2022D92E301A80016;
-			shouldUseHeadermap = 0;
 		};
 		F59073C5022D92E301A80016 = {
 			buildActionMask = 2147483647;
@@ -1219,7 +1250,7 @@
 				F59073C6022D92E301A80016,
 			);
 			isa = PBXHeadersBuildPhase;
-			name = Headers;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F59073C6022D92E301A80016 = {
 			fileRef = F59073BA022D8E1801A80016;
@@ -1234,7 +1265,7 @@
 				F590AC3702980B6401000001,
 			);
 			isa = PBXSourcesBuildPhase;
-			name = Sources;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F59073C8022D92E301A80016 = {
 			fileRef = F59073BB022D8E1801A80016;
@@ -1249,7 +1280,7 @@
 				F59073CB022D92E301A80016,
 			);
 			isa = PBXFrameworksBuildPhase;
-			name = "Frameworks & Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F59073CA022D92E301A80016 = {
 			fileRef = F59073BF022D918E01A80016;
@@ -1268,7 +1299,7 @@
 			files = (
 			);
 			isa = PBXRezBuildPhase;
-			name = "ResourceManager Resources";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F59073CE022D933101A80016 = {
 			fileRef = F59073C2022D92E301A80016;
@@ -1277,6 +1308,7 @@
 			};
 		};
 		F590AC3602980B6401000001 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = getpath.c;
 			refType = 4;
@@ -1288,13 +1320,14 @@
 			};
 		};
 		F599A066027CE17901D17707 = {
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = German;
 			path = German.lproj/InfoPlist.strings;
 			refType = 4;
 		};
 		F599A067027CE17901D17707 = {
-			fileEncoding = 4;
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = German;
 			path = German.lproj/Localizable.strings;
@@ -1370,11 +1403,13 @@
 			};
 		};
 		F5A027DE023A6CB401A80013 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGExtensionsPrefs.h;
 			refType = 4;
 		};
 		F5A027DF023A6CB401A80013 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGExtensionsPrefs.m;
 			refType = 4;
@@ -1403,6 +1438,7 @@
 			};
 		};
 		F5BB3A6602468FCD01A80016 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = Spanish;
 			path = Spanish.lproj/GPGPreferences.info;
@@ -1427,18 +1463,8 @@
 			path = Spanish.lproj/License.html;
 			refType = 4;
 		};
-		F5C36DD002352FF60128824A = {
-			isa = PBXFileReference;
-			path = "mac-gpg-logo.tiff";
-			refType = 2;
-		};
-		F5C36DD202352FF70128824A = {
-			fileRef = F5C36DD002352FF60128824A;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
 		F5CAFDCF02DE2BFC01000002 = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			name = German;
 			path = German.lproj/License.html;
@@ -1484,6 +1510,7 @@
 			refType = 4;
 		};
 		F5FBE27D020D723C01E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = gpgSettings.txt;
 			refType = 4;
@@ -1495,9 +1522,9 @@
 			generatedFileNames = (
 			);
 			isa = PBXShellScriptBuildPhase;
-			name = "Shell Script";
 			neededFileNames = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Let's remove the current bundle\nrm -rf \"$USER_LIBRARY_DIR/PreferencePanes/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nmkdir -p \"$USER_LIBRARY_DIR/PreferencePanes\"\n\n# and make a link from the build to the installation folder\nln -s \"$SYMROOT/$PRODUCT_NAME.$WRAPPER_EXTENSION\" \"$USER_LIBRARY_DIR/PreferencePanes/\"\n\n# Let's also signal SystemPreferences that our bundle changed\nrm -rf \"$USER_LIBRARY_DIR/Caches/.ApplePrefPanesCache\"\n";
 		};
@@ -1529,11 +1556,13 @@
 			};
 		};
 		F5FBE28A020D82DC01E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGGlobalPrefs.h;
 			refType = 4;
 		};
 		F5FBE28B020D82DC01E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGGlobalPrefs.m;
 			refType = 4;
@@ -1551,11 +1580,13 @@
 			};
 		};
 		F5FBE28E020D833601E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGPrefController.h;
 			refType = 4;
 		};
 		F5FBE28F020D833601E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGPrefController.m;
 			refType = 4;
@@ -1633,11 +1664,13 @@
 			};
 		};
 		F5FBE29B020DD61201E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGExpertPrefs.h;
 			refType = 4;
 		};
 		F5FBE29C020DD61201E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGExpertPrefs.m;
 			refType = 4;
@@ -1655,11 +1688,13 @@
 			};
 		};
 		F5FBE29F020DDC7401E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGOptions.h;
 			refType = 4;
 		};
 		F5FBE2A0020DDC7401E2136E = {
+			fileEncoding = 30;
 			isa = PBXFileReference;
 			path = GPGOptions.m;
 			refType = 4;
