@@ -36,5 +36,6 @@
 
 - (IBAction) addOption:(id)sender;
 - (IBAction) deleteOption:(id)sender;
+- (IBAction) revealOptionsFileInFinder:(id)sender;
 
 @end

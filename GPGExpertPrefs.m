@@ -52,7 +52,7 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
     [super awakeFromNib];
     [[optionsTableView tableColumnWithIdentifier:@"isOptionEnabled"] setDataCell:[switchProtoButton cell]];
     [[switchProtoButton retain] removeFromSuperview];
-//    [optionsTableView setVerticalMotionCanBeginDrag:YES];
+    [optionsTableView setVerticalMotionCanBeginDrag:YES];
     [self tableViewSelectionDidChange:nil];
     [optionsTableView registerForDraggedTypes:[NSArray arrayWithObject:privatePboardType]];
 }
@@ -143,8 +143,8 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
 - (NSDragOperation) tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op
 {
     [tv setDropRow:row dropOperation:NSTableViewDropAbove];
-    
-    return NSDragOperationEvery;
+
+    return NSDragOperationMove;
 }
 
 - (BOOL) tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op
@@ -152,10 +152,26 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
     NSArray	*pboardTypes = [NSArray arrayWithObject:privatePboardType];
 
     if([[info draggingPasteboard] availableTypeFromArray:pboardTypes] != nil){
-#warning TODO: Implement D&D
+        NSArray		*droppedRows = [NSUnarchiver unarchiveObjectWithData:[[info draggingPasteboard] dataForType:privatePboardType]];
+        int			count;
+
+        row = [[self options] moveOptionsAtIndexes:droppedRows toIndex:row];
+        [optionsTableView deselectAll:nil];
+        [optionsTableView reloadData];
+        for(count = [droppedRows count]; count > 0; count--, row++)
+            [optionsTableView selectRow:row byExtendingSelection:YES];
+
         return YES;
     }
     return NO;
+}
+
+- (IBAction) revealOptionsFileInFinder:(id)sender
+{
+    NSString	*filename = [GPGOptions optionsFilename];
+    
+    if(![[NSWorkspace sharedWorkspace] selectFile:filename inFileViewerRootedAtPath:[filename stringByDeletingLastPathComponent]])
+        NSBeep();
 }
 
 @end
