@@ -104,4 +104,9 @@
     options = nil;
 }
 
+- (BOOL) isActive
+{
+    return [[tabViewItem tabView] selectedTabViewItem] == tabViewItem;
+}
+
 @end

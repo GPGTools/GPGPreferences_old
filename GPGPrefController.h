@@ -53,6 +53,7 @@
 
 - (void) tabItemWillBeSelected;
 - (void) tabItemWillBeDeselected;
+- (BOOL) isActive;
 
 - (GPGOptions *) options;
 
