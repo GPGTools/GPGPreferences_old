@@ -2,7 +2,7 @@
     IBClasses = (
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            ACTIONS = {addOption = id; deleteOption = id; }; 
+            ACTIONS = {addOption = id; deleteOption = id; revealOptionsFileInFinder = id; }; 
             CLASS = GPGExpertPrefs; 
             LANGUAGE = ObjC; 
             OUTLETS = {

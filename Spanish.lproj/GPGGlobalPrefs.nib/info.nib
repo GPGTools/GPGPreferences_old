@@ -5,19 +5,15 @@
 	<key>IBEditorPositions</key>
 	<dict>
 		<key>29</key>
-		<string>292 536 520 58 0 0 1152 848 </string>
+		<string>206 460 520 58 0 0 1152 746 </string>
 		<key>5</key>
-		<string>272 392 560 345 0 0 1152 848 </string>
+		<string>122 310 560 345 0 0 1152 746 </string>
 		<key>57</key>
-		<string>381 535 342 60 0 0 1152 848 </string>
+		<string>405 465 342 60 0 0 1152 746 </string>
 	</dict>
 	<key>IBFramework Version</key>
 	<string>248.0</string>
-	<key>IBOpenObjects</key>
-	<array>
-		<integer>5</integer>
-	</array>
 	<key>IBSystem Version</key>
-	<string>5Q45</string>
+	<string>5S66</string>
 </dict>
 </plist>
