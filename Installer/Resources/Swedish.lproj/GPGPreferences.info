@@ -1,0 +1,19 @@
+Title GnuPG Preferences
+Version 1.1.1 (v7)
+Description This package contains a System Preferences plug-in which allows you to set GnuPG 1.0.7 options, without using the Terminal.
+
+DefaultLocation /Library/PreferencePanes
+Relocatable YES
+DeleteWarning 
+
+### Package Flags
+NeedsAuthorization YES
+Required NO
+Application NO
+RequiresReboot NO
+UseUserMask NO
+InstallOnly NO
+DisableStop NO
+LongFilenames YES
+OverwritePermissions NO
+InstallFat NO

@@ -1,0 +1,93 @@
+{\rtf1\mac\ansicpg10000\cocoartf100
+{\fonttbl\f0\froman\fcharset77 Times-Bold;\f1\froman\fcharset77 Times-Roman;\f2\froman\fcharset77 Times-Italic;
+}
+{\colortbl;\red255\green255\blue255;}
+\vieww12180\viewh9460\viewkind0
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+
+\f0\b\fs28 \cf0 Vad \'8ar detta?\
+
+\f1\b0 Detta paket ineh\'8cller en plug-in till Systeminst\'8allningar som l\'8cter dig \'8andta GnuPG 1.0.7 inst\'8allningar utan att anv\'8anda terminalprogrammet till att \'8andra GnuPGs inst\'8allningsfil 
+\f2\i options
+\f1\i0 .\
+
+\f0\b VIKTIGT: du beh\'9aver GnuPG 1.0.7; programvaran kommer ej att fungera med tidigare versioner av GnuPG.\
+
+\f1\b0 Detta paket installerar en plug-in namngiven GnuPG i 
+\f2\i /Library/PreferencePanes
+\f1\i0 ; du kan ocks\'8c anv\'8anda 
+\f2\i Library/PreferencePanes
+\f1\i0  i din hemkatalog (skapa den om det beh\'9avs) eller vid n\'8atverksinstallation: 
+\f2\i /Network/Library/PreferencePanes
+\f1\i0 . Du b\'9ar kontrollera att Systeminst\'8allningar inte \'8ar ig\'8cng innan du startar installationen.\
+\
+
+\f0\b Vad tillf\'9ar detta mig?\
+
+\f1\b0 N\'8ar paketet har installerats, starta Systeminst\'8allningar: du kommer att se en ny ikon som heter "GnuPG". Klicka p\'8c ikonen f\'9ar att ladda programet.\
+Plug-in-en kontrollerar f\'9arst din GnuPG-konfiguration, och om n\'9adv\'8andigt f\'9aresl\'8cr dig att inf\'9ara lite \'8andringar:\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li720\ql\qnatural
+\cf0 - gpg m\'8cste vara placerad i 
+\f2\i /usr/local/bin/
+\f1\i0 \
+- Om GnuPG aldrig har konfigurerats s\'8c kommer de grundl\'8aggande filerna att skapas\
+- Inst\'8allningar uppdateras fr\'8cn GnuPG 1.0.6 till GnuPG 1.0.7\
+- Teckenkodning f\'9ar GnuPG och Terminal b\'9ar \'8andras till UTF-8\
+- GnuPG-filer m\'8cste skyddas fr\'8cn andra m\'8anniskor\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 Efter det s\'8c \'8ar du fri att \'8andra de inst\'8allningar som du anser dig beh\'9ava \'8andra. Ett av de mer intresanta inst\'8allningsalternativen \'8ar det f\'9ar nyckelserver.\
+
+\f0\b Varning:
+\f1\b0  det \'8ar viktigt att du bekr\'8aftar alla \'8andringar i de olika f\'8alten genom att trycka p\'8c returtangenten.\
+\
+
+\f0\b Experter\
+
+\f1\b0 Endast de viktigaste inst\'8allningarna visas f\'9ar anv\'8adarna; detta borde vara tillr\'8ackligt f\'9ar de flesta. F\'9ar GnuPG-experter finns det m\'9ajlighet att \'8andra alla inst\'8allningar via Expert-fliken. Du kan skriva in ett nytt alternativ och dess v\'8arde, aktivera och deaktivera det, utan att beh\'9ava modifiera GnuPGs 
+\f2\i options
+\f1\i0 -fil.\
+\
+
+\f0\b Hur fungerar detta?\
+
+\f1\b0 Plug-in-en l\'8aser och \'8andrar GnuPGs 
+\f2\i options
+\f1\i0 -fil (vilken b\'9ar sparas med UTF-8 som teckenkodning). Den tolkar ett alternativ som deaktiverat ifall linjen som det ligger p\'8c b\'9ajar med # och omedelbart f\'9aljs av alternativets namn; den f\'9arvalda inst\'8allningsfilen f\'9aljer denna regel. Eftersom att plug-in-en modifierar GnuPGs 
+\f2\i options
+\f1\i0 -fil direkt s\'8c kommer alla program som anv\'8ander GnuPG att \'8arva samma inst\'8allningar.\
+\
+
+\f0\b Historia\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+
+\f1\b0 \cf0 1.1.1	2002-08-15\
+	Danska och svenska versioner \
+1.1	2002-07-15\
+	Uppgraderad f\'9ar GnuPG 1.0.7 (vissa inst\'8allningsalternativ \'8andrades efter GnuPG 1.0.6)\
+	Tysk version\
+	Kontroll av GnuPG-filers r\'8attigheter\
+	Kontroll s\'8c att kommentarer endast skrivs i ASCII-tecken\
+	Nya alternativ f\'9ar nyckelservrar\
+	Nya kompatibilitetsinst\'8allningar\
+	Expertl\'8age: omplacering av alternativ och en knapp f\'9ar att visa filen i Finder\
+	Licens \'8ar numera LGPL (det var felaktigt att anv\'8anda GPL).\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.2	2002-03-18\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+\cf0 	Fixade nyckelserverlistan (protokollet var http ist\'8allet f\'9ar x-hkp!)\
+    	Fixade en lus med tomma kommentarer\
+        	Fixade inst\'8allningsfils-parsningen\
+            	Spansk version\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.1	2002-03-12\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+\cf0 	Fixade ett installationsproblem: ett script saknade exekveringsr\'8attigheter\
+	Fixade uppdateringsproblem: vissa filer var riskerade att inte vara raderbara av anv\'8andara, d\'8c de kunde vara \'8agda av root; du beh\'9aver numera admin-r\'8attigheter f\'9ar att genomf\'9ara installationen.\
+	Mer ordagrann om UTF-8-teckenkodning.\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.0	2002-03-11\
+	F\'9arsta offentliga versionen\
+\
+Copyright 2002, MacGPG Group\
+http://macgpg.sourceforge.net/\
+}
