@@ -2,6 +2,11 @@ Global options for gpg
 File must be in UTF8!
 In case of options which should be declared once or never (or in case of mutually exclusive options), the last occurence value is taken in account
 See g10.c, main(), and man gpg
+Make GPGPreferences scriptable?
+TODO: personal prefs for ciphers
+TODO: groups
+TODO: installer. Check that System Preferences is not running, via AppleScript
+TODO: rename accessory view elements when creating symlink for gpg
 
 Packaging
 =========
