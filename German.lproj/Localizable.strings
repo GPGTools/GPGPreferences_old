@@ -15,33 +15,48 @@
     // Alert titles
     "ERROR WHEN MOVING HOMEDIRECTORY" = "Fehler beim Bewegen des Ordners";
     "UNABLE TO CREATE DIRECTORY" = "Kann Ordner nicht anlegen";
+    "UNABLE TO MODIFY ACCESS RIGHTS" = "Unable to modify file access rights";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Some files used by GnuPG are not protected correctly. Protect them?";
     "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Fehler mit Ordnerzugriffsrechten";
     "CHANGE CHARSET TO UTF-8?" = "Immer UTF-8 Text-Kodierung verwenden?";
     "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Terminal sollte UTF-8 Text-Kodierung verwenden";
     "CHANGE TERMINAL STRING ENCODING?" = "Text-Kodierung im Terminal auf UTF-8 umstellen?";
     "CANNOT EXECUTE OPERATION" = "Operation fehlgeschlagen";
     "WHERE IS GPG?" = "Wo ist gpg?";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Some files have invalid access rights. Correct them?";
+    "COMMENT SHOULD BE ASCII ONLY" = "Comment field should be ASCII only";
+    "UPDATE OPTIONS?" = "Update options for GnuPG 1.0.7?";
     
     // Alert messages
     "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Kann Dateien nicht von  %@ nach %@ verschieben. Überprüfen Sie die Zugriffsrechte.";
     "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Kann Ordner %@ nicht nach  %@ verschieben.";
     "UNABLE TO CREATE DIRECTORY AT %@" = "Kann Ordner nicht in %@ anlegen; Überprüfen Sie die Zugriffsrechte des übergeordenten Ordners.";
+    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Unable to modify access rights on the following files:\n\n%@";
     "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Ordner %@ wurde nach %@ verschoben, die Zugriffrechte konnten jedoch nicht gesetzt werden. Überprüfen Sie, ob Sie der Eigentümer aller Dateien sind.";
     "WHY CHANGING CHARSET..." = "Sie sollten GnuPG immer mit der Text-Kodierung UTF-8 einsetzen, andernfalls kann es zu Problemen kommen! Sonderzeichen werden möglicherweise nicht korrekt von GnuPG interpretiert: Namen ebenso wie Mantras könnten falsch buchstabiert werden! Die Text-Kodierung UTF-8 kann jedoch jedes Zeichen kodieren und wird von den meisten Terminal-Tools, wie gpg, verstanden.";
     "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Wenn Sie (oder einige Programme) GnuPG über das Terminal benutzen, müssen Sie darauf achten, dass sowohl das Terminal wie auch GnuPG den selben Zeichensatz benutzen; andernfalls können Probleme auftreten! Im Terminal eingegebene Sonderzeichen werden von GnuPG nicht korrekt interpretiert: Namen ebenso wie Mantras könnten falsch buchstabiert werden! Die Text-Kodierung UTF-8 kann jedoch jedes Zeichen kodieren und wird von den meisten Terminal-Tools, wie gpg, verstanden.\n\nTerminal läuft im Moment, deshlab kann ich es nicht ändern; das müssen Sie selbst tun: Wechseln Sie zu Terminal, öffnen Sie die Einstellungen und setzen Sie die Zeichenkodierung unter Shell auf UTF-8.";
     "WHY CHANGING TERMINAL SETTINGS..." = "Wenn Sie (oder einige Programme) GnuPG über das Terminal benutzen, müssen Sie darauf achten, dass sowohl das Terminal wie auch GnuPG den selben Zeichensatz benutzen; andernfalls können Probleme auftreten! Im Terminal eingegebene Sonderzeichen werden von GnuPG nicht korrekt interpretiert: Namen ebenso wie Mantras könnten falsch buchstabiert werden! Die Text-Kodierung UTF-8 kann jedoch jedes Zeichen kodieren und wird von den meisten Terminal-Tools, wie gpg, verstanden.";
     "WHY GPG MUST BE IN %@..." = "Die meisten Programme, die mit GnuPG arbeiten, erwarten es in %@; Wenn Sie es nicht dahin verschieben oder ein Alias setzen, werden diese Programme nicht laufen.\nSie benötgen Administrationsrechte, um es dahin zu verschieben.";
+    "WHICH ACCESS RIGHTS..." = "Key rings, extensions, as well as other files used by GnuPG should be protected to avoid other people to be able to read, or worse, modify them.";
+    "WHY ONLY ASCII IN COMMENT..." = "The comment field, visible in clear-signed signatures for example, should contain only ASCII characters. You should remove any other character, else signatures in mails might become invalid during transport.";
     // Errors when moving/linking gpg
     "AUTH ERROR 255" = ", auf Grund eines internen Fehlers"; /* kMyAuthorizedCommandInternalError */
     "AUTH ERROR -1" = ", auf Grund eines internen Fehlers"; /* kMyAuthorizedCommandInternalError */
-    "AUTH ERROR 1" = " (das zustädnige Tool konnte nicht gestartet werden)"; /* kMyAuthorizedCommandExecFailed */
+    "AUTH ERROR 1" = " (das zuständige Tool konnte nicht gestartet werden)"; /* kMyAuthorizedCommandExecFailed */
     "AUTH ERROR 2" = " (das zuständige Tool gab eine Fehler zurück)"; /* kMyAuthorizedCommandChildError */
     "AUTH ERROR 3" = " da die Authorisierung fehlschlug"; /* kMyAuthorizedCommandAuthFailed */
     "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
-    "OPERATION %@ FAILED (%@)." = "Die Operation %@ schlug fehl%@. Korrigieren Sie das Problem manuell, oder öffnen Sie die Systemeinstellungen.";
+    "OPERATION %@ FAILED (%@)." = "Die Operation '%@' schlug fehl%@. Korrigieren Sie das Problem manuell, oder öffnen Sie die Systemeinstellungen."; // First arg is an "operation description"; second is the error description.
+    // Operation descriptions
+    "OP#1" = "Moving file";
+    "OP#2" = "Creating link";
+    "OP#3" = "Protecting file";
+    "WHY UPDATING OPTIONS..." = "Some options have changed in GnuPG 1.0.7. The ones you defined can be updated automatically for GnuPG 1.0.7.";
+    "WHICH ACCESS RIGHTS..." = "Files used by GnuPG, like key rings, options, etc. must be protected from other people. The following files are not properly protected:\n\n";
     
     "PLEASE DO" = "Ändern";
     "DON'T CHANGE" = "Nicht ändern";
+    "CHANGE ANYWAY" = "Change anyway";
     "SEARCH GPG" = "Ich weiß, wo es ist";
     
     /* Changing homedirectory: ask user to move current folder content */
