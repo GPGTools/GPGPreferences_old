@@ -1,6 +1,6 @@
 //
 //  GPGOptions.h
-//  GPGPreferences
+//  GPGPreferences and GPGME
 //
 //  Created by davelopper@users.sourceforge.net on Sun Feb 03 2002.
 //
@@ -37,21 +37,34 @@
     BOOL			hasModifications;
 }
 
+/*"
+ * File locations
+"*/
++ (NSString *) gpgPath;
 + (NSString *) optionsFilename;
 
-+ (void) setGnupgVersion:(NSString *)version;
+/*"
+ * GnuPG version
+"*/
 + (NSString *) gnupgVersion;
 
+/*"
+ * GnuPG home directory
+"*/
 + (NSString *) homeDirectory;
 + (void) setHomeDirectory:(NSString *)homeDirectory;
 + (BOOL) homeDirectoryChanged;
 
+/*"
+ * HTTP proxy
+"*/
 + (NSString *) httpProxy;
 + (void) setHttpProxy:(NSString *)httpProxy;
 + (BOOL) httpProxyChanged;
 
-+ (NSString *) gpgPath;
-
+/*"
+ * Setting options
+"*/
 // -saveOptions is automatically called
 - (void) setOptionValue:(NSString *)value atIndex:(unsigned)index;
 // If value is nil, option is removed
@@ -66,6 +79,9 @@
 - (unsigned) moveOptionsAtIndexes:(NSArray *)indexes toIndex:(unsigned)index;
 // Returns the index of the first moved option
 
+/*"
+ * Getting options
+"*/
 - (NSArray *) optionNames;
 - (NSArray *) optionValues;
 - (NSArray *) optionStates;
@@ -80,13 +96,23 @@
 - (void) setOptionState:(BOOL)state forName:(NSString *)name;
 // If state is YES and option does not yet exist, it is created
 
+/*"
+ * Sub-options
+"*/
 // The following methods are used for --keyserver-options parameters
 - (BOOL) subOptionState:(NSString *)subOptionName forName:(NSString *)optionName;
 - (void) setSubOption:(NSString *)subOptionName state:(BOOL)state forName:(NSString *)optionName;
     // If state is YES and option does not yet exist, it is created
 
+/*"
+ * Loading and saving options
+"*/
+- (void) reloadOptions;
 - (void) saveOptions;
 
+/*"
+ * Getting inactive and active options
+"*/
 - (NSArray *) allOptionValuesForName:(NSString *)name;
 // Returns all values for option name whatever their state is
 - (NSArray *) activeOptionValuesForName:(NSString *)name;

@@ -1,6 +1,6 @@
 //
 //  GPGOptions.m
-//  GPGPreferences
+//  GPGPreferences and GPGME
 //
 //  Created by davelopper@users.sourceforge.net on Sun Feb 03 2002.
 //
@@ -25,6 +25,9 @@
 //
 
 #import "GPGOptions.h"
+#ifdef BUILDINGGPGME
+#import "GPGEngine.h"
+#endif
 
 static NSString *gnupgVersion = nil;
 
@@ -38,6 +41,18 @@ static NSString *gnupgVersion = nil;
 @end
 
 @implementation GPGOptions
+/*"
+ * #GPGOptions class allows you to retrieve options used by %GnuPG, as defined
+ * in #GPGPreferences, from %GnuPG configuration file, read by the executable.
+ *
+ * You can also set options and save them, though this should be the job of
+ * #GPGPreferences only.
+ *
+ * Options are defined by a name, a state (active or not), and, optionally
+ * (sic), a value.
+ *
+ * Some options (keyserver-options) can have sub-options too.
+"*/
 
 + (NSString *) currentEnvironmentVariableValueForName:(NSString *)name
 {
@@ -58,7 +73,6 @@ static NSString *gnupgVersion = nil;
 
 + (void) setFutureEnvironmentVariableValue:(NSString *)value forName:(NSString *)name
 {
-
     // We modify ~/.MacOSX/environment.plist
     NSString			*aDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@".MacOSX"];
     NSString			*filename = [aDirectory stringByAppendingPathComponent:@"environment.plist"];
@@ -105,11 +119,18 @@ static NSString *gnupgVersion = nil;
 }
 
 + (NSString *) defaultHomeDirectory
+/*"
+ * Returns the default %{home directory} for %GnuPG, i.e. #{$HOME/.gnupg}
+"*/
 {
     return [NSHomeDirectory() stringByAppendingPathComponent:@".gnupg"];
 }
 
 + (NSString *) currentHomeDirectory
+/*"
+ * Returns the %{home directory} used by %GnuPG; this might be the %default
+ * one, or the one defined by the environment variable #GNUPGHOME.
+"*/
 {
     NSString	*homeDirectory = [self currentEnvironmentVariableValueForName:@"GNUPGHOME"];
 
@@ -120,6 +141,11 @@ static NSString *gnupgVersion = nil;
 }
 
 + (NSString *) homeDirectory
+/*"
+ * Returns the %{home directory} used by %GnuPG, as configured by user. Maybe
+ * user will need to logout and login to get it active, due to the use of
+ * environment variable #GNUPGHOME.
+"*/
 {
     NSString	*homeDirectory = [self futureEnvironmentVariableValueForName:@"GNUPGHOME"];
 
@@ -130,6 +156,10 @@ static NSString *gnupgVersion = nil;
 }
 
 + (void) setHomeDirectory:(NSString *)homeDirectory
+/*"
+ * Sets the %{home directory} for %GnuPG. Maybe user will need to logout and
+ * login to get it active, due to the use of environment variable #GNUPGHOME.
+"*/
 {
     if(homeDirectory != nil && [homeDirectory rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length > 0)
         [self setFutureEnvironmentVariableValue:homeDirectory forName:@"GNUPGHOME"];
@@ -138,6 +168,10 @@ static NSString *gnupgVersion = nil;
 }
 
 + (BOOL) homeDirectoryChanged
+/*"
+ * Returns whether user changed %GnuPG's %{home directory}, i.e.
+ * #{+homeDirectory} is equal or not to {+currentHomeDirectory}.
+"*/
 {
     return (![[[self homeDirectory] stringByStandardizingPath] isEqualToString:[[self currentHomeDirectory] stringByStandardizingPath]]);
 }
@@ -151,6 +185,10 @@ static NSString *gnupgVersion = nil;
 }
 
 + (NSString *) currentHttpProxy
+/*"
+ * Returns the HTTP proxy currently used by %GnuPG, when connecting to key
+ * servers.
+"*/
 {
     NSString	*httpProxy = [self currentEnvironmentVariableValueForName:@"http_proxy"];
 
@@ -158,6 +196,11 @@ static NSString *gnupgVersion = nil;
 }
 
 + (NSString *) httpProxy
+/*"
+ * Returns the HTTP proxy used by %GnuPG, when connecting to key servers.
+ * Maybe user will need to logout and login to get it active, due to the use
+ * of environment variable #{http_proxy}.
+"*/
 {
     NSString	*httpProxy = [self futureEnvironmentVariableValueForName:@"http_proxy"];
 
@@ -165,6 +208,11 @@ static NSString *gnupgVersion = nil;
 }
 
 + (void) setHttpProxy:(NSString *)httpProxy
+/*"
+ * Sets the HTTP proxy to be used by %GnuPG, when connecting to key servers.
+ * Maybe user will need to logout and login to get it active, due to the use
+ * of environment variable #{http_proxy}.
+"*/
 {
     if([httpProxy rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0)
         [self setFutureEnvironmentVariableValue:httpProxy forName:@"http_proxy"];
@@ -173,6 +221,10 @@ static NSString *gnupgVersion = nil;
 }
 
 + (BOOL) httpProxyChanged
+/*"
+ * Returns whether user changed %GnuPG's HTTP proxy, i.e. #{+httpProxy} is
+ * equal or not to #{+currentHttpProxy}.
+"*/
 {
     NSString	*currentHttpProxy = [self currentHttpProxy];
     NSString	*httpProxy = [self httpProxy];
@@ -189,16 +241,27 @@ static NSString *gnupgVersion = nil;
 }
 
 + (NSString *) gpgPath
+/*"
+ * Returns the expected location of %GnuPG. Currently hardcoded to
+ * #{/usr/local/bin/gpg}, due to libgpgme.
+"*/
 {
     // GPGME does not support another path
     return @"/usr/local/bin/gpg";
 }
 
 + (NSString *) optionsFilename
+/*"
+ * Returns the full path name to %GnuPG configuration file. It depends on
+ * %GnuPG version. If user changed %GnuPG's %{home directory} without logging
+ * out and in, returned value might be not yet valid.
+ *
+ * Raises an exception when %GnuPG version cannot be found out.
+"*/
 {
     NSString	*aVersion = [self gnupgVersion];
     
-    if(aVersion == nil || [aVersion rangeOfString:@"1.0."].length > 0)
+    if(aVersion != nil && [aVersion rangeOfString:@"1.0."].length > 0)
         return [[self homeDirectory] stringByAppendingPathComponent:@"options"];
     else
         return [[self homeDirectory] stringByAppendingPathComponent:@"gpg.conf"];
@@ -283,6 +346,11 @@ static NSString *gnupgVersion = nil;
 }
 
 - (void) reloadOptions
+/*"
+ * Re-reads %GnuPG's configuration file. If user changed %GnuPG's %{home}
+ * %{directory} without logging out and in, options might be not yet active,
+ * and changes won't be taken in account before logging out and in.
+"*/
 {
     NSString	*filename = [[self class] optionsFilename];
     NSString	*optionsAsString;
@@ -321,6 +389,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (id) init
+/*"
+ * Default initializer.
+"*/
 {
     if(self = [super init]){
         optionFileLines = [[NSMutableArray alloc] initWithCapacity:100];
@@ -358,6 +429,10 @@ static NSString *gnupgVersion = nil;
 }
 
 - (void) saveOptions
+/*"
+ * Save options by writing file back. Note that if user changed %GnuPG's %home
+ * %directory without logging out and in, new options might be not yet valid.
+"*/
 {
 #warning TODO: Save only if modified
     [self doSaveOptions];
@@ -405,29 +480,44 @@ static NSString *gnupgVersion = nil;
 }
 
 - (void) setOptionValue:(NSString *)value atIndex:(unsigned)index
+/*"
+ *
+"*/
 {
     [optionValues replaceObjectAtIndex:index withObject:[self normalizedValue:value]];
     [self updateOptionLineAtIndex:index];
 }
 
 - (void) setEmptyOptionValueAtIndex:(unsigned)index
+/*"
+ *
+"*/
 {
     [self setOptionValue:@"\"\"" atIndex:index];
 }
 
 - (void) setOptionName:(NSString *)name atIndex:(unsigned)index
+/*"
+ *
+"*/
 {
     [optionNames replaceObjectAtIndex:index withObject:name];
     [self updateOptionLineAtIndex:index];
 }
 
 - (void) setOptionState:(BOOL)flag atIndex:(unsigned)index
+/*"
+ *
+"*/
 {
     [optionStates replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:flag]];
     [self updateOptionLineAtIndex:index];
 }
 
 - (void) addOptionNamed:(NSString *)name
+/*"
+ * Adds a new option named name, not active, with an empty value.
+"*/
 {
     [optionNames addObject:name];
     [optionValues addObject:@""];
@@ -437,6 +527,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (void) insertOptionNamed:(NSString *)name atIndex:(unsigned)index
+/*"
+ *
+"*/
 {
     int	maxIndex = [optionNames count];
     
@@ -451,6 +544,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (void) removeOptionAtIndex:(unsigned)index
+/*"
+ *
+"*/
 {
     int	maxIndex = [optionNames count];
     
@@ -465,21 +561,38 @@ static NSString *gnupgVersion = nil;
 }
 
 - (NSArray *) optionNames
+/*"
+ * Returns all option names, active or not. The same option name can appear
+ * multiple times.
+"*/
 {
     return optionNames;
 }
 
 - (NSArray *) optionValues
+/*"
+ * Returns all option values, active or not. There are as many option values
+ * as option names returned by #{-optionNames}.
+"*/
 {
     return optionValues;
 }
 
 - (NSArray *) optionStates
+/*"
+ * Returns all option states as an array of NSNumber instances (boolean
+ * values). There are as many option states as option names returned by
+ * #{-optionNames}.
+"*/
 {
     return optionStates;
 }
 
 - (NSString *) optionValueForName:(NSString *)name
+/*"
+ * Returns the option value named name, used by %GnuPG. In case of multiple
+ * occurences of the a named option, returns the used one.
+"*/
 {
     int			anIndex = [optionNames count] - 1;
     NSString	*lastValue = nil;
@@ -500,6 +613,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (NSArray *) optionValuesForName:(NSString *)name activeOnly:(BOOL)activeOnly
+/*"
+ *
+"*/
 {
     int				anIndex = 0;
     int				max = [optionNames count];
@@ -513,21 +629,33 @@ static NSString *gnupgVersion = nil;
 }
 
 - (NSArray *) activeOptionValuesForName:(NSString *)name
+/*"
+ *
+"*/
 {
     return [self optionValuesForName:name activeOnly:YES];
 }
 
 - (NSArray *) allOptionValuesForName:(NSString *)name
+/*"
+ *
+"*/
 {
     return [self optionValuesForName:name activeOnly:NO];
 }
 
 - (void) setEmptyOptionValueForName:(NSString *)name
+/*"
+ *
+"*/
 {
     [self setOptionValue:@"\"\"" forName:name];
 }
 
 - (void) setOptionValue:(NSString *)value forName:(NSString *)name
+/*"
+ *
+"*/
 {
     int	anIndex = 0, maxIndex = [optionNames count];
     int	deletedLineNumber = -1;
@@ -566,6 +694,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (BOOL) optionStateForName:(NSString *)name
+/*"
+ *
+"*/
 {
     int	anIndex = [optionNames count] - 1;
 
@@ -577,6 +708,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (void) setOptionState:(BOOL)state forName:(NSString *)name
+/*"
+ *
+"*/
 {
     int	anIndex = 0, maxIndex = [optionNames count];
     int	deletedLineNumber = -1;
@@ -622,6 +756,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (BOOL) subOptionState:(NSString *)subOptionName forName:(NSString *)optionName
+/*"
+ * Returns subOptionName sub-option's state, in option named optionName.
+"*/
 {
     if([self optionStateForName:optionName]){
         NSArray	*optionParameters;
@@ -640,6 +777,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (void) setSubOption:(NSString *)subOptionName state:(BOOL)state forName:(NSString *)optionName
+/*"
+ * Sets subOptionName sub-option's state, in option named optionName. 
+"*/
 {
     NSString		*disabledSubOptionName = [@"no-" stringByAppendingString:subOptionName];
     NSMutableArray	*subOptions = [NSMutableArray arrayWithArray:[self _subOptionsForName:optionName]];
@@ -652,6 +792,9 @@ static NSString *gnupgVersion = nil;
 }
 
 - (unsigned) moveOptionsAtIndexes:(NSArray *)indexes toIndex:(unsigned)index
+/*"
+ * Reorders options at indexes to new index. Returns new index.
+"*/
 {
     NSEnumerator	*anEnum = [indexes objectEnumerator];
     NSNumber		*anIndex;
@@ -671,16 +814,81 @@ static NSString *gnupgVersion = nil;
     return [optionLineNumbers indexOfObject:[NSNumber numberWithUnsignedInt:lineIndex]];
 }
 
-+ (void) setGnupgVersion:(NSString *)rawVersionString
++ (NSString *) _gnupgVersion
 {
-    [rawVersionString retain];
-    [gnupgVersion release];
-    gnupgVersion = [rawVersionString copy];
-    [rawVersionString release];
+    // Returns cached value, if any, else get version
+    if(gnupgVersion == nil)
+        return [self gnupgVersion];
+    else
+        return gnupgVersion;
+}
+
++ (NSString *) outputFromGPGTaskWithArgument:(NSString *)argument
+{
+    NSTask		*aTask = [[NSTask alloc] init];
+    NSPipe		*aPipe = [NSPipe pipe];
+    NSString	*outputString;
+
+    [aTask setLaunchPath:[self gpgPath]];
+    [aTask setArguments:[NSArray arrayWithObjects:@"--utf8-strings", @"--charset", @"utf8", argument, nil]];
+    [aTask setStandardOutput:aPipe];
+
+    NS_DURING
+        NSData	*outputData;
+        NSRange	aRange;
+
+        [aTask launch];
+        outputData = [[aPipe fileHandleForReading] readDataToEndOfFile];
+        [aTask waitUntilExit];
+
+        outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
+        // Patch! Seems that translated strings are not displayed using passed encoding, but using ISOLatin1!
+        if(outputString == nil)
+            outputString = [[NSString alloc] initWithData:outputData encoding:NSISOLatin1StringEncoding];
+        aRange = [outputString lineRangeForRange:NSMakeRange(0, [outputString length])];
+        aRange = [outputString lineRangeForRange:NSMakeRange(aRange.location, [outputString length] - aRange.location)];
+        outputString = [[outputString autorelease] substringWithRange:aRange];
+        if([aTask terminationStatus] != 0)
+            [NSException raise:NSGenericException format:@"### GPGOptions: error %d during execution of '%@ %@'", [aTask terminationStatus], [aTask launchPath], [[aTask arguments] componentsJoinedByString:@" "]];
+    NS_HANDLER
+        NSLog(@"### GPGOptions: error during execution of '%@ %@': %@ %@", [aTask launchPath], [[aTask arguments] componentsJoinedByString:@" "], localException, [localException userInfo]);
+        [aTask release];
+        [localException raise];
+    NS_ENDHANDLER
+
+    [aTask release];
+
+    return outputString;
 }
 
 + (NSString *) gnupgVersion
+/*"
+ * Returns current %GnuPG version, or raises an exception when %GnuPG
+ * executable cannot be found or returned an error.
+"*/
 {
+    NSString		*aVersion = nil;
+    NSString		*oldVersion = gnupgVersion;
+
+    /*
+#ifdef BUILDINGGPGME
+    NSEnumerator	*anEnum = [[GPGEngine availableEngines] objectEnumerator];
+    GPGEngine		*anEngine;
+
+    while(anEngine = [anEnum nextObject]){
+        if([anEngine engineProtocol] == GPGOpenPGPProtocol){
+            aVersion = [anEngine version];
+            break;
+        }
+    }
+    if(aVersion == nil)
+#endif
+     */
+    aVersion = [self outputFromGPGTaskWithArgument:@"--version"];
+    
+    gnupgVersion = [aVersion retain];
+    [oldVersion release];
+
     return gnupgVersion;
 }
 
