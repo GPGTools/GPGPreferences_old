@@ -30,6 +30,10 @@
 - (void) doSaveOptions;
 @end
 
+@interface NSMutableArray(GPGOptions)
+- (unsigned) gpgMoveObjectsAtIndexes:(NSArray *)indexes toIndex:(unsigned)index;
+@end
+
 @implementation GPGOptions
 
 + (NSString *) currentEnvironmentVariableValueForName:(NSString *)name
@@ -192,37 +196,12 @@
     return [[self homeDirectory] stringByAppendingPathComponent:@"options"];
 }
 
-- (void) reloadOptions
+- (void) parseOptionsFromLines:(NSArray *)lines save:(BOOL)save
 {
-    NSString	*filename = [[self class] optionsFilename];
     unsigned	i, lineCount;
-    NSString	*optionsAsString;
-    NSData		*fileData;
-    BOOL		wasInUnicode = NO;
 
-    [optionFileLines removeAllObjects];
-    [optionNames removeAllObjects];
-    [optionValues removeAllObjects];
-    [optionStates removeAllObjects];
-    [optionLineNumbers removeAllObjects];
-
-    fileData = [[NSData alloc] initWithContentsOfFile:filename];
-    // Check whether file has been saved as Unicode (it shouldn't, but who knows...)
-    if([fileData length] >= 2 && !([fileData length] & 1) && (((short int *)[fileData bytes])[0] == (short int)0xFEFF || ((short int *)[fileData bytes])[0] == (short int)0x0FFFE)){
-        optionsAsString = [[NSString alloc] initWithData:fileData encoding:NSUnicodeStringEncoding];
-        wasInUnicode = YES;
-    }
-    else
-        optionsAsString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
-    [fileData release];
-    if(optionsAsString == nil){
-        NSLog(@"GPGPreferences: Unable to read file %@", filename);
-        // If we were unable to read it, gpg is probably unable too
-        optionsAsString = @"";
-    }
-
-    [optionFileLines setArray:[optionsAsString componentsSeparatedByString:@"\n"]];
-    if(wasInUnicode)
+    [optionFileLines setArray:lines];
+    if(save)
         [self doSaveOptions];
     lineCount = [optionFileLines count];
     for(i = 0; i < lineCount; i++){
@@ -242,7 +221,7 @@
             if(j >= lineLength)
                 continue;
             isCommented = ([aLine characterAtIndex:j] == '#');
-            
+
             if(isCommented && (lineLength - j) == 1)
                 continue;
 
@@ -293,8 +272,44 @@
             [optionValues addObject:aValue];
         }
     }
+}
+
+- (void) reloadOptions
+{
+    NSString	*filename = [[self class] optionsFilename];
+    NSString	*optionsAsString;
+    NSData		*fileData;
+    BOOL		wasInUnicode = NO;
+
+    [optionFileLines removeAllObjects];
+    [optionNames removeAllObjects];
+    [optionValues removeAllObjects];
+    [optionStates removeAllObjects];
+    [optionLineNumbers removeAllObjects];
+
+    fileData = [[NSData alloc] initWithContentsOfFile:filename];
+    // Check whether file has been saved as Unicode (it shouldn't, but who knows...)
+    if([fileData length] >= 2 && !([fileData length] & 1) && (((short int *)[fileData bytes])[0] == (short int)0xFEFF || ((short int *)[fileData bytes])[0] == (short int)0x0FFFE)){
+        optionsAsString = [[NSString alloc] initWithData:fileData encoding:NSUnicodeStringEncoding];
+        wasInUnicode = YES;
+    }
+    else
+        optionsAsString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+    [fileData release];
+    if(optionsAsString == nil){
+        NSLog(@"GPGPreferences: Unable to read file %@", filename);
+        // If we were unable to read it, gpg is probably unable too
+        optionsAsString = @"";
+    }
+
+    [self parseOptionsFromLines:[optionsAsString componentsSeparatedByString:@"\n"] save:wasInUnicode];
     [optionsAsString release];
     hasModifications = NO;
+}
+
+- (NSArray *) optionLines
+{
+    return optionFileLines;
 }
 
 - (id) init
@@ -466,6 +481,19 @@
     return nil;
 }
 
+- (NSArray *) activeOptionValuesForName:(NSString *)name
+{
+    int				anIndex = 0;
+    int				max = [optionNames count];
+    NSMutableArray	*activeOptionValues = [NSMutableArray array];
+    
+    for(; anIndex < max; anIndex++)
+        if([[optionNames objectAtIndex:anIndex] isEqualToString:name] && [[optionStates objectAtIndex:anIndex] boolValue])
+            [activeOptionValues addObject:[optionValues objectAtIndex:anIndex]];
+
+    return activeOptionValues;
+}
+
 - (void) setEmptyOptionValueForName:(NSString *)name
 {
     [self setOptionValue:@"\"\"" forName:name];
@@ -547,6 +575,111 @@
 
     if(deletedLineNumber == -1 && state)
         [self setOptionValue:@"" forName:name];
+}
+
+- (NSArray *) _subOptionsForName:(NSString *)optionName
+{
+    NSString		*subOptionsString = [self optionValueForName:optionName];
+    NSArray			*optionParameters = [subOptionsString componentsSeparatedByString:@","];
+    NSEnumerator	*anEnum = [optionParameters objectEnumerator];
+    NSMutableArray	*subOptions = [NSMutableArray array];
+    NSString		*aString;
+
+    while(aString = [anEnum nextObject])
+        [subOptions addObjectsFromArray:[aString componentsSeparatedByString:@" "]];
+    [subOptions removeObject:@""]; // Removes all occurences
+
+    return subOptions;
+}
+
+- (BOOL) subOptionState:(NSString *)subOptionName forName:(NSString *)optionName
+{
+    if([self optionStateForName:optionName]){
+        NSArray	*optionParameters;
+        int		setIndex, unsetIndex;
+
+        optionParameters = [[[self _subOptionsForName:optionName] reverseObjectEnumerator] allObjects]; // Reversed array
+
+        setIndex = [optionParameters indexOfObject:subOptionName];
+        unsetIndex = [optionParameters indexOfObject:[@"no-" stringByAppendingString:subOptionName]];
+
+        return (setIndex < unsetIndex);
+    }
+    else
+        // In fact we should return the default value...
+        return NO;
+}
+
+- (void) setSubOption:(NSString *)subOptionName state:(BOOL)state forName:(NSString *)optionName
+{
+    NSString		*disabledSubOptionName = [@"no-" stringByAppendingString:subOptionName];
+    NSMutableArray	*subOptions = [NSMutableArray arrayWithArray:[self _subOptionsForName:optionName]];
+    
+    [subOptions removeObject:disabledSubOptionName];
+    [subOptions removeObject:subOptionName];
+    [subOptions addObject:(state ? subOptionName:disabledSubOptionName)];
+    [self setOptionValue:[subOptions componentsJoinedByString:@","] forName:optionName];
+    [self setOptionState:YES forName:optionName];
+}
+
+- (unsigned) moveOptionsAtIndexes:(NSArray *)indexes toIndex:(unsigned)index
+{
+    NSEnumerator	*anEnum = [indexes objectEnumerator];
+    NSNumber		*anIndex;
+    NSMutableArray	*lineIndexes = [NSMutableArray arrayWithCapacity:[indexes count]];
+    unsigned		lineIndex;
+
+    while(anIndex = [anEnum nextObject])
+        [lineIndexes addObject:[optionLineNumbers objectAtIndex:[anIndex unsignedIntValue]]];
+    if(index == [optionLineNumbers count])
+        lineIndex = [optionFileLines count];
+    else
+        lineIndex = [[optionLineNumbers objectAtIndex:index] unsignedIntValue];
+    lineIndex = [optionFileLines gpgMoveObjectsAtIndexes:lineIndexes toIndex:lineIndex];
+    hasModifications = YES;
+    [self saveOptions];
+
+    return [optionLineNumbers indexOfObject:[NSNumber numberWithUnsignedInt:lineIndex]];
+}
+
+@end
+
+@implementation NSMutableArray(GPGOptions)
+
+- (unsigned) gpgMoveObjectsAtIndexes:(NSArray *)indexes toIndex:(unsigned)targetIndex
+{
+    NSEnumerator	*anEnum;
+    NSNumber		*anIndex;
+    NSArray			*originalArray = [NSArray arrayWithArray:self];
+    unsigned		lowerOffset = 0, upperOffset = 0;
+    BOOL			adding = (targetIndex == [self count]);
+    unsigned		newIndex = targetIndex;
+    
+    indexes = [indexes sortedArrayUsingSelector:@selector(compare:)];
+    anEnum = [indexes objectEnumerator];
+    while(anIndex = [anEnum nextObject]){
+        if(adding)
+            [self addObject:[originalArray objectAtIndex:[anIndex unsignedIntValue]]];
+        else
+            [self insertObject:[originalArray objectAtIndex:[anIndex unsignedIntValue]] atIndex:(targetIndex + upperOffset)];
+        upperOffset++;
+    }
+    anEnum = [indexes objectEnumerator];
+    while(anIndex = [anEnum nextObject]){
+        unsigned	index = [anIndex unsignedIntValue];
+
+        if(index < targetIndex){
+            [self removeObjectAtIndex:index + lowerOffset];
+            newIndex--;
+            lowerOffset--;
+        }
+        else{    
+            [self removeObjectAtIndex:index + upperOffset + lowerOffset];
+            upperOffset--;
+        }
+    }
+
+    return newIndex;
 }
 
 @end

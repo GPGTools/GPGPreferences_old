@@ -36,6 +36,8 @@
     BOOL			hasModifications;
 }
 
++ (NSString *) optionsFilename;
+
 + (NSString *) homeDirectory;
 + (void) setHomeDirectory:(NSString *)homeDirectory;
 + (BOOL) homeDirectoryChanged;
@@ -57,6 +59,8 @@
 - (void) addOptionNamed:(NSString *)name;
 - (void) insertOptionNamed:(NSString *)name atIndex:(unsigned)index;
 - (void) removeOptionAtIndex:(unsigned)index;
+- (unsigned) moveOptionsAtIndexes:(NSArray *)indexes toIndex:(unsigned)index;
+// Returns the index of the first moved option
 
 - (NSArray *) optionNames;
 - (NSArray *) optionValues;
@@ -72,6 +76,14 @@
 - (void) setOptionState:(BOOL)state forName:(NSString *)name;
 // If state is YES and option does not yet exist, it is created
 
+// The following methods are used for --keyserver-options parameters
+- (BOOL) subOptionState:(NSString *)subOptionName forName:(NSString *)optionName;
+- (void) setSubOption:(NSString *)subOptionName state:(BOOL)state forName:(NSString *)optionName;
+    // If state is YES and option does not yet exist, it is created
+
 - (void) saveOptions;
+
+- (NSArray *) activeOptionValuesForName:(NSString *)name;
+// Returns all values for option name whose state is active
 
 @end
