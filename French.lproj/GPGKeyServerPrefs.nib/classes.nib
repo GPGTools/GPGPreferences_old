@@ -5,6 +5,7 @@
             ACTIONS = {
                 changeHttpProxy = id; 
                 changeKeyServer = id; 
+                removeServerFromList = id; 
                 toggleAutomaticKeyRetrieval = id; 
                 toggleHttpProxyUse = id; 
                 toggleIncludeDisabled = id; 
@@ -21,6 +22,7 @@
                 isAutomaticKeyRetrievingEnabledButton = NSButton; 
                 isHttpProxyHonoredButton = NSButton; 
                 keyServerListComboBox = NSComboBox; 
+                removeServerButton = NSButton; 
                 warningPlaceholder = NSView; 
                 warningView = NSView; 
             }; 
