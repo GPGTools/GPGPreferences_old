@@ -5,20 +5,21 @@
 //  Created by davelopper@users.sourceforge.net on Sun Feb 03 2002.
 //
 //
-//  Copyright (C) 2002 Mac GPG Project.
+//  Copyright (C) 2002-2003 Mac GPG Project.
 //  
-//  This code is free software; you can redistribute it and/or modify it under
-//  the terms of the GNU General Public License as published by the Free
-//  Software Foundation; either version 2 of the License, or any later version.
+//  This library is free software; you can redistribute it and/or
+//  modify it under the terms of the GNU Lesser General Public
+//  License as published by the Free Software Foundation; either
+//  version 2.1 of the License, or (at your options) any later version.
 //  
-//  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-//  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-//  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-//  details.
-//  
-//  For a copy of the GNU General Public License, visit <http://www.gnu.org/> or
-//  write to the Free Software Foundation, Inc., 59 Temple Place--Suite 330,
-//  Boston, MA 02111-1307, USA.
+//  This library is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//  Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public
+//  License along with this library; if not, write to the Free Software
+//  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
 //  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
 //
@@ -48,37 +49,6 @@
         [warningView removeFromSuperview];
 }
 
-- (NSString *) outputFromGPGTaskWithArgument:(NSString *)argument
-{
-    NSTask				*aTask = [[NSTask alloc] init];
-    NSPipe				*aPipe = [NSPipe pipe];
-    volatile NSString	*outputString;
-
-    [aTask setLaunchPath:[GPGOptions gpgPath]];
-    [aTask setArguments:[NSArray arrayWithObjects:@"--utf8-strings", @"--charset", @"utf8", argument, nil]];
-    [aTask setStandardOutput:aPipe];
-    
-    NS_DURING
-        NSData	*outputData;
-        NSRange	aRange;
-
-        [aTask launch];
-        outputData = [[aPipe fileHandleForReading] readDataToEndOfFile];
-        [aTask waitUntilExit];
-
-        outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
-        aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(0, [(NSString *)outputString length])];
-        aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(aRange.location, [(NSString *)outputString length] - aRange.location)];
-        outputString = [[(NSString *)outputString autorelease] substringWithRange:aRange];
-    NS_HANDLER
-        outputString = nil;
-    NS_ENDHANDLER
-
-    [aTask release];
-
-    return (NSString *)outputString;
-}
-
 - (void) tabItemWillBeSelected
 {
     NSString	*version;
@@ -88,7 +58,7 @@
     [homeDirectoryTextField setStringValue:[GPGOptions homeDirectory]];
     [self updateWarningView];
 
-    version = [self outputFromGPGTaskWithArgument:@"--version"];
+    version = [preferences gnupgVersion];
     if(version != nil)
         [versionTextField setStringValue:version];
     else
@@ -214,6 +184,7 @@
 {
     NSString	*homeDirectory = [homeDirectoryTextField stringValue];
 
+#warning After having changed home directory, we should check file permissions!
     if(homeDirectory != nil && [homeDirectory rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length > 0){
         homeDirectory = [homeDirectory stringByStandardizingPath];
         if(![homeDirectory isAbsolutePath])
@@ -265,7 +236,7 @@
 
 - (IBAction) showWarranty:(id)sender
 {
-    NSString	*warranty = [self outputFromGPGTaskWithArgument:@"--warranty"];
+    NSString	*warranty = [preferences outputFromGPGTaskWithArgument:@"--warranty"];
 
     if(warranty != nil){
         // Let's reformat the string
