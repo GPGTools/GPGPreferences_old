@@ -134,6 +134,13 @@
 
 - (NSString *) comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string
 {
+    NSEnumerator	*anEnum = [keyServerList objectEnumerator];
+    NSString		*aKeyServer;
+
+    while(aKeyServer = [anEnum nextObject])
+        if([aKeyServer hasPrefix:string])
+            return aKeyServer;
+    
     return string;
 }
 
