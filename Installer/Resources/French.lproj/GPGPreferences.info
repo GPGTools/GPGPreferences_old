@@ -1,0 +1,20 @@
+Title Préférences GnuPG
+Version 0.2 (v2)
+Description Ce paquet contient une extension pour les Préférences Système, qui vous permet de régler les options de GnuPG, sans avoir à utiliser le Terminal.
+
+DefaultLocation /Library/PreferencePanes
+Relocatable YES
+DeleteWarning 
+
+## Package Flags
+NeedsAuthorization NO
+Required NO
+Application NO
+RequiresReboot NO
+UseUserMask NO
+##LibrarySubdirectory Standard
+InstallOnly NO
+DisableStop NO
+LongFilenames YES
+OverwritePermissions NO
+InstallFat NO
