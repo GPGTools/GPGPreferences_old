@@ -1,6 +1,6 @@
 Title GnuPG Preferences
-Version 1.1.1 (v7)
-Description Detta paket innehåller en systeminställnings-plug-in som ger dig möjlighet att ändra inställningar för GnuPG 1.0.7 utan att använda terminalprogrammet.
+Version 1.2 (v8)
+Description Detta paket innehåller en systeminställnings-plug-in som ger dig möjlighet att ändra inställningar för GnuPG 1.x utan att använda terminalprogrammet.
 
 DefaultLocation /Library/PreferencePanes
 Relocatable YES
