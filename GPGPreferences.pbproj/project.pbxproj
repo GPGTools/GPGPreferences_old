@@ -660,6 +660,7 @@
 			children = (
 				F5593EE50232658A01A80016,
 				F5593EE60232658A01A80016,
+				F5BB3A6602468FCD01A80016,
 			);
 			isa = PBXVariantGroup;
 			name = GPGPreferences.info;
@@ -683,6 +684,7 @@
 			children = (
 				F5593EE80232658A01A80016,
 				F5593EE90232658A01A80016,
+				F5BB3A6A0246913101A80016,
 			);
 			isa = PBXVariantGroup;
 			name = License.html;
@@ -690,12 +692,14 @@
 			refType = 4;
 		};
 		F5593EE80232658A01A80016 = {
+			fileEncoding = 12;
 			isa = PBXFileReference;
 			name = English;
 			path = English.lproj/License.html;
 			refType = 4;
 		};
 		F5593EE90232658A01A80016 = {
+			fileEncoding = 12;
 			isa = PBXFileReference;
 			name = French;
 			path = French.lproj/License.html;
@@ -705,6 +709,7 @@
 			children = (
 				F5593EEB0232658A01A80016,
 				F5593EEC0232658A01A80016,
+				F5BB3A6802468FCD01A80016,
 			);
 			isa = PBXVariantGroup;
 			name = ReadMe.rtf;
@@ -727,6 +732,7 @@
 			children = (
 				F5593EEE0232658A01A80016,
 				F5593EEF0232658A01A80016,
+				F5BB3A6902468FCD01A80016,
 			);
 			isa = PBXVariantGroup;
 			name = Welcome.rtf;
@@ -1141,6 +1147,31 @@
 			isa = PBXBuildFile;
 			settings = {
 			};
+		};
+		F5BB3A6602468FCD01A80016 = {
+			isa = PBXFileReference;
+			name = Spanish;
+			path = Spanish.lproj/GPGPreferences.info;
+			refType = 4;
+		};
+		F5BB3A6802468FCD01A80016 = {
+			isa = PBXFileReference;
+			name = Spanish;
+			path = Spanish.lproj/ReadMe.rtf;
+			refType = 4;
+		};
+		F5BB3A6902468FCD01A80016 = {
+			isa = PBXFileReference;
+			name = Spanish;
+			path = Spanish.lproj/Welcome.rtf;
+			refType = 4;
+		};
+		F5BB3A6A0246913101A80016 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = Spanish;
+			path = Spanish.lproj/License.html;
+			refType = 4;
 		};
 		F5C36DD002352FF60128824A = {
 			isa = PBXFileReference;
