@@ -128,7 +128,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleGetInfoString</key>
-	<string>GnuPG Preferences 1.1 (v6), Copyright MacGPG Group 2002</string>
+	<string>GnuPG Preferences 1.1.1 (v7), Copyright MacGPG Group 2002</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -140,11 +140,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1 (v6)</string>
+	<string>1.1.1 (v7)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>1.1.1</string>
 	<key>NSMainNibFile</key>
 	<string>GPGPreferences</string>
 	<key>NSPrefPaneIconFile</key>
