@@ -9,6 +9,7 @@
                 toggleHttpProxyUse = id; 
                 toggleIncludeDisabled = id; 
                 toggleIncludeRevoked = id; 
+                toggleIncludeSubkeys = id; 
             }; 
             CLASS = GPGKeyServerPrefs; 
             LANGUAGE = ObjC; 
@@ -16,6 +17,7 @@
                 httpProxyTextField = NSTextField; 
                 includeDisabledButton = NSButton; 
                 includeRevokedButton = NSButton; 
+                includeSubkeysButton = NSButton; 
                 isAutomaticKeyRetrievingEnabledButton = NSButton; 
                 isHttpProxyHonoredButton = NSButton; 
                 keyServerListComboBox = NSComboBox; 
