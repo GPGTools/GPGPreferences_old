@@ -5,20 +5,21 @@
 //  Created by davelopper@users.sourceforge.net on Thu Feb 07 2002.
 //
 //
-//  Copyright (C) 2002 Mac GPG Project.
+//  Copyright (C) 2002-2003 Mac GPG Project.
 //  
-//  This code is free software; you can redistribute it and/or modify it under
-//  the terms of the GNU General Public License as published by the Free
-//  Software Foundation; either version 2 of the License, or any later version.
+//  This library is free software; you can redistribute it and/or
+//  modify it under the terms of the GNU Lesser General Public
+//  License as published by the Free Software Foundation; either
+//  version 2.1 of the License, or (at your options) any later version.
 //  
-//  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-//  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-//  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-//  details.
-//  
-//  For a copy of the GNU General Public License, visit <http://www.gnu.org/> or
-//  write to the Free Software Foundation, Inc., 59 Temple Place--Suite 330,
-//  Boston, MA 02111-1307, USA.
+//  This library is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//  Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public
+//  License along with this library; if not, write to the Free Software
+//  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
 //  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
 //
@@ -26,20 +27,35 @@
 
 #import "GPGKeyServerPrefs.h"
 #import "GPGOptions.h"
+#import "GPGPreferences.h"
 
 
 @implementation GPGKeyServerPrefs
 
 #warning TODO: Suggest http proxy; we could also modify it when SystemPrefs modify it (sync)
 
+- (void) refreshKeyServerList
+{
+    NSString	*filename = [[NSBundle bundleForClass:[self class]] pathForResource:@"KeyServers" ofType:@"plist"];
+    NSArray		*additionalKeyServers = [[preferences userDefaultsDictionary] objectForKey:@"AdditionalKeyServers"];
+
+    [keyServerList release];
+    [keyServerCustomEntries removeAllObjects];
+    keyServerList = [[NSArray alloc] initWithContentsOfFile:filename];
+    NSAssert1(keyServerList != nil, @"Unable to read property list '%@'", filename);
+
+    if(additionalKeyServers != nil){
+        [keyServerCustomEntries setArray:additionalKeyServers];
+        keyServerList = [[additionalKeyServers arrayByAddingObjectsFromArray:keyServerList] retain];
+    }
+}
+
 - (id) initWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferencesInstance
 {
     if(self = [super initWithIdentifier:newIdentifier preferences:preferencesInstance]){
-        NSString	*filename = [[NSBundle bundleForClass:[self class]] pathForResource:@"KeyServers" ofType:@"plist"];
-
-        keyServerList = [[NSArray alloc] initWithContentsOfFile:filename];
-        NSAssert1(keyServerList != nil, @"Unable to read property list '%@'", filename);
         keyServerOptions = [[NSMutableArray alloc] init];
+        keyServerCustomEntries = [[NSMutableArray alloc] init];
+        [self refreshKeyServerList];
     }
 
     return self;
@@ -50,6 +66,7 @@
     [warningView release];
     [keyServerList release];
     [keyServerOptions release];
+    [keyServerCustomEntries release];
 
     [super dealloc];
 }
@@ -81,6 +98,7 @@
     [isAutomaticKeyRetrievingEnabledButton setState:[[self options] subOptionState:@"auto-key-retrieve" forName:@"keyserver-options"]];
     [includeRevokedButton setState:[[self options] subOptionState:@"include-revoked" forName:@"keyserver-options"]];
     [includeDisabledButton setState:[[self options] subOptionState:@"include-disabled" forName:@"keyserver-options"]];
+    [includeSubkeysButton setState:[[self options] subOptionState:@"include-subkeys" forName:@"keyserver-options"]];
 
     aString = [[self options] optionValueForName:@"keyserver"];
     [keyServerListComboBox reloadData];
@@ -102,13 +120,24 @@
 {
     NSString	*newKeyServer = [keyServerListComboBox stringValue];
 
+    // There is no way to remove an entry...
     if([newKeyServer rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0){
         [[self options] setOptionState:YES forName:@"keyserver"];
+        if(![keyServerList containsObject:newKeyServer]){
+            if(![keyServerCustomEntries containsObject:newKeyServer]){
+                [keyServerCustomEntries addObject:newKeyServer];
+                [[preferences userDefaultsDictionary] setObject:keyServerCustomEntries forKey:@"AdditionalKeyServers"];
+                [preferences saveUserDefaults];
+                [self refreshKeyServerList];
+            }
+        }
         [[self options] setOptionValue:newKeyServer forName:@"keyserver"];
     }
-    else
+    else{
         [[self options] setOptionState:NO forName:@"keyserver"];
+    }
     [[self options] saveOptions];
+    [keyServerListComboBox reloadData];
 }
 
 - (void) setKeyServerOption:(NSString *)option toState:(BOOL)flag
@@ -135,6 +164,11 @@
 - (IBAction) toggleIncludeDisabled:(id)sender
 {
     [self setKeyServerOption:@"include-disabled" toState:[includeDisabledButton state]];
+}
+
+- (IBAction) toggleIncludeSubkeys:(id)sender
+{
+    [self setKeyServerOption:@"include-subkeys" toState:[includeSubkeysButton state]];
 }
 
 - (int) numberOfItemsInComboBox:(NSComboBox *)aComboBox
