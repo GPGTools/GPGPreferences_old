@@ -1,0 +1,23 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = GPGPrefController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {initialFirstResponder = NSView; view = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {toggleComment = id; toggleVersion = id; updateComment = id; }; 
+            CLASS = GPGSignaturePrefs; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                commentSwitch = NSButton; 
+                customCommentTextField = NSTextField; 
+                versionSwitch = NSButton; 
+            }; 
+            SUPERCLASS = GPGPrefController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
