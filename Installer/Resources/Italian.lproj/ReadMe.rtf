@@ -1,40 +1,50 @@
-{\rtf1\mac\ansicpg10000\cocoartf102
+{\rtf1\mac\ansicpg10000\cocoartf100
 {\fonttbl\f0\froman\fcharset77 Palatino-Bold;\f1\froman\fcharset77 Palatino-Roman;\f2\froman\fcharset77 Palatino-Italic;
 }
 {\colortbl;\red255\green255\blue255;}
+\vieww12480\viewh9140\viewkind0
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
 
-\f0\b\fs28 \cf0 Cos'\'8f questo ?\
+\f0\b\fs28 \cf0 Cos'\'8f questo pacchetto?\
 
-\f1\b0 Questo pacchetto contiene un plug-in per le Preferenze di Sistema, che permette di impostare le opzioni GnuPG >= 1.0.7 senza dover usare il Terminale o modificare il documento 
-\f2\i options
+\f1\b0 Questo pacchetto contiene un plug-in per le Preferenze di Sistema, che permette di impostare le opzioni GnuPG 1.2.x senza dover usare il Terminale o modificare il documento 
+\f2\i gpg.conf
 \f1\i0  di GnuPG.\
 
-\f0\b IMPORTANTE: occorre avere GnuPG >= 1.0.7; non funziona con versioni precedenti di GnuPG.\
+\f0\b IMPORTANTE: occorre avere GnuPG >= 1.2.x; non funziona con versioni precedenti di GnuPG.\
 
 \f1\b0 Il pacchetto installa un plug-in di nome GnuPG in  
 \f2\i /Library/PreferencePanes
 \f1\i0 ; si pu\'98 anche scegliere la cartella  
 \f2\i Library/PreferencePanes
-\f1\i0  nella vostra cartella principale (createla se necessario), o, per una installazione di rete, 
+\f1\i0  nella propria cartella utente (da creare se non esiste gi\'88), o, per una installazione di rete, 
 \f2\i /Network/Library/PreferencePanes
-\f1\i0 . Dovete controllare che le Preferenze di Sistema non siano aperte prima di cominciare l'installazione.\
+\f1\i0 . Prima di procedere, bisogna assicurarsi che le Preferenze di Sistema non siano aperte.\
 \
 
-\f0\b Che cosa mi fornisce ?\
+\f0\b Che cosa contiene?\
 
 \f1\b0 Una volta che il pacchetto \'8f stato installato, aprite le Preferenze di Sistema: vedrete un nuovo elemento di nome GnuPG. Selezionatelo per aprirlo.\
-Il plug-in prima controlla la vostra configurazione GnuPG e vi suggerisce, se necessario, alcune modifiche:\
+Il plug-in controlla la vostra configurazione GnuPG e poi vi suggerisce, se necessario, alcune modifiche:\
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\li720\ql\qnatural
 \cf0 - gpg deve essere in 
-\f2\i /usr/local/bin/
-\f1\i0 \
+\f2\i /usr/local/bin/\
+- 
+\f1\i0 il file 
+\f2\i options
+\f1\i0  non esiste pi\'9d; GnuPG adesso usa il file 
+\f2\i gpg.conf
+\f1\i0 ; se 
+\f2\i gpg.conf
+\f1\i0  non esiste, ma c'\'8f un vecchio 
+\f2\i options
+\f1\i0 , viene rinominato; se entrambi esistono viene chiesto come procedere.\
 - Se GnuPG non \'8f mai stato configurato, i suoi documenti di base vengono creati\
-- Le opzioni vengono aggiornate dalla versione GnuPG 1.0.6 a GnuPG >= 1.0.7\
+- Le opzioni vengono aggiornate dalla versione GnuPG 1.0.x a GnuPG >= 1.2.x\
 - Le codifiche dei caratteri per GnuPG e il Terminale dovrebbero essere impostate a UTF-8\
-- I documenti GnuPG dovrebbero essere protetti nei confronti delle altre persone\
+- I documenti GnuPG dovrebbero essere protetti dalle altre persone\
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
-\cf0 Dopodich\'8e sar\'88 possibile modificare qualsiasi opzione si desideri. Una delle pi\'9d interessanti opzioni riguarda il server di chiavi da usare.\
+\cf0 Sar\'88 quindi possibile modificare qualsiasi opzione. Una delle pi\'9d interessanti opzioni riguarda il keyserver da usare.\
 
 \f0\b Attenzione:
 \f1\b0  \'8f importante confermare ogni modifca nei campi di testo premendo il tasto a-capo.\
@@ -43,14 +53,14 @@ Il plug-in prima controlla la vostra configurazione GnuPG e vi suggerisce, se ne
 \f0\b Esperti\
 
 \f1\b0 Solo le opzioni pi\'9d importanti vengono mostrate all'utente; questo dovrebbe essere sufficiente per la maggior parte delle persone. Per gli esperti di GnuPG, per\'98, il plug-in offre la possibilit\'88 di modificare qualsiasi opzione tramite il pannello Esperto: si possono aggiungere nuove opzioni e il loro valore, abilitarle o disabilitarle, senza dover modificare il documento 
-\f2\i options.
+\f2\i gpg.conf.
 \f1\i0 \
 \
 
-\f0\b Come funziona ?\
+\f0\b Come funziona?\
 
 \f1\b0 Il plug-in legge e modifica il documento di GnuPG 
-\f2\i options
+\f2\i gpg.conf
 \f1\i0  (che deve essere salvato con la codifica carattere UTF-8). Considera che un'opzione sia disabilitata se la linea che la contiene inizia con un # seguito immediatamente dal nome dell'opzione; il documento 
 \f2\i options
 \f1\i0  di norma
@@ -63,7 +73,18 @@ Il plug-in prima controlla la vostra configurazione GnuPG e vi suggerisce, se ne
 \f0\b History\
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
 
-\f1\b0 \cf0 1.1.1	31 Agosto 2002\
+\f1\b0 \cf0 1.2	24 febbraio 2003\
+	Funziona solo con GnuPG >= 1.2.x\
+	Aggiunta la traduzione italiana\
+	Ora usa 
+\f2\i gpg.conf
+\f1\i0  anzich\'8e 
+\f2\i options
+\f1\i0 \
+	L'elenco dei keyserver ora ricorda tutte le voci personalizzate\
+	Aggiunta l'opzione sulla compabilit\'88 con PGP7\
+	Aggiunta una nuova icona\
+1.1.1	31 Agosto 2002\
 	Aggiunte versioni Danese e Svedese \
 1.1	15 Luglio 2002\
 	Aggiornato a GnuPG 1.0.7 (alcune opzioni sono cambiate dalla versione GnuPG 1.0.6)\
