@@ -30,7 +30,6 @@
 
 @implementation GPGGlobalPrefs
 
-#warning TODO: Use tiff as image format to get transparency
 - (void) dealloc
 {
     [warningView release];
