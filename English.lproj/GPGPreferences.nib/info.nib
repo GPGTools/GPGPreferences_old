@@ -4,13 +4,19 @@
 <dict>
 	<key>IBDocumentLocation</key>
 	<string>136 8 481 349 0 0 1152 746 </string>
+	<key>IBEditorPositions</key>
+	<dict>
+		<key>112</key>
+		<string>377 523 345 80 0 0 1152 848 </string>
+	</dict>
 	<key>IBFramework Version</key>
 	<string>248.0</string>
 	<key>IBOpenObjects</key>
 	<array>
 		<integer>12</integer>
+		<integer>112</integer>
 	</array>
 	<key>IBSystem Version</key>
-	<string>5P48</string>
+	<string>5M28</string>
 </dict>
 </plist>

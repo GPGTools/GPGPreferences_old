@@ -4,7 +4,11 @@
         {
             CLASS = GPGPreferences; 
             LANGUAGE = ObjC; 
-            OUTLETS = {tabView = NSTabView; versionTextField = NSTextField; }; 
+            OUTLETS = {
+                operationMatrix = NSMatrix; 
+                tabView = NSTabView; 
+                versionTextField = NSTextField; 
+            }; 
             SUPERCLASS = NSPreferencePane; 
         }, 
         {
