@@ -68,6 +68,7 @@
 // If value is nil, option is removed
 - (BOOL) optionStateForName:(NSString *)name;
 - (void) setOptionState:(BOOL)state forName:(NSString *)name;
+// If state is YES and option does not yet exist, it is created
 
 - (void) saveOptions;
 
