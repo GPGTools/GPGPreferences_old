@@ -30,11 +30,10 @@
 
 @implementation GPGKeyServerPrefs
 
-#warning TODO: Find key servers
 #warning TODO: Suggest http proxy; we could also modify it when SystemPrefs modify it (sync)
-- (id) initWithIdentifier:(NSString *)newIdentifier
+- (id) initWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferencesInstance
 {
-    if(self = [super initWithIdentifier:newIdentifier]){
+    if(self = [super initWithIdentifier:newIdentifier preferences:preferencesInstance]){
         NSString	*filename = [[NSBundle bundleForClass:[self class]] pathForResource:@"KeyServers" ofType:@"plist"];
 
         keyServerList = [[NSArray alloc] initWithContentsOfFile:filename];
