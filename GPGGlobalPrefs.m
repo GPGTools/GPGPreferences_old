@@ -25,6 +25,7 @@
 
 #import "GPGGlobalPrefs.h"
 #import "GPGOptions.h"
+#import "GPGPreferences.h"
 
 
 @implementation GPGGlobalPrefs
@@ -79,44 +80,11 @@
     return (NSString *)outputString;
 }
 
-- (void) performInitialChecks
-{
-#warning TODO: Implement performInitialChecks
-    // Check that gpg is in /usr/local/bin/ else ask where it is, and make link (=> needs Admin rights)
-    // Check if .gnupg/options exists, i.e. if gpg has already been run; if it has never been used, run it to create the .gnupg directory
-    // Check that --charset utf8 is set, and that --utf8-strings is set (ask only if first time, or if user already did it but modified it)
-    // Check that Terminal uses UTF8, else suggest change (if Terminal is running, user should do it manually, else we can safely modify Terminal prefs: com.apple.Terminal StringEncoding 4) (ask only if first time, or if user already did it but modified it)
-    // Set rights on --homeDirectory (0700) (+ other files?)
-    // Suggest to use ~/Library/GnuPG as homeDirectory (ask only once)
-#if 0
-    NSFileManager	*defaultManager = [NSFileManager defaultManager];
-    NSString		*gpgPath = [GPGOptions gpgPath];
-
-    if(![defaultManager fileExistsAtPath:gpgPath]){
-        NSOpenPanel	*openPanel = [NSOpenPanel openPanel];
-        NSString	*homeDirectory = [GPGOptions homeDirectory];
-
-        [openPanel setCanChooseDirectories:NO];
-        [openPanel setCanChooseFiles:YES];
-        [openPanel setAllowsMultipleSelection:NO];
-        [openPanel setCanSelectHiddenExtension:YES];
-        [openPanel setExtensionHidden:NO];
-        [openPanel setTreatsFilePackagesAsDirectories:YES];
-        [openPanel setPrompt:NSLocalizedStringFromTableInBundle(@"CHOOSE", nil, [NSBundle bundleForClass:[self class]], "")];
-//        [openPanel setAccessoryView:[moveButton superview]];
-//        [moveButton setState:YES];
-
-        [openPanel beginSheetForDirectory:homeDirectory file:nil types:nil modalForWindow:[view window] modalDelegate:self didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:) contextInfo:[homeDirectory retain]];
-    }
-#endif
-}
-
 - (void) tabItemWillBeSelected
 {
     NSString	*version;
     
     [super tabItemWillBeSelected];
-    [self performInitialChecks];
     [gpgPathTextField setStringValue:[GPGOptions gpgPath]];
     [homeDirectoryTextField setStringValue:[GPGOptions homeDirectory]];
     [self updateWarningView];
@@ -125,7 +93,7 @@
     if(version != nil)
         [versionTextField setStringValue:version];
     else
-        [versionTextField setStringValue:NSLocalizedStringFromTableInBundle(@"N/A", nil, [NSBundle bundleForClass:[self class]], "")];
+        [versionTextField setStringValue:NSLocalizedStringFromTableInBundle(@"GPG NOT FOUND", nil, [NSBundle bundleForClass:[self class]], "")];
 }
 
 - (BOOL) setAccessRightsAtPath:(NSString *)path
@@ -252,7 +220,10 @@
         if(![homeDirectory isAbsolutePath])
             homeDirectory = [@"/" stringByAppendingPathComponent:homeDirectory];
 
-        [self setHomeDirectory:homeDirectory];
+        if(![homeDirectory isEqualToString:[[GPGOptions homeDirectory] stringByStandardizingPath]])
+            [self setHomeDirectory:homeDirectory];
+        else
+            [homeDirectoryTextField setStringValue:homeDirectory];
     }
     else
         // We don't accept an empty path
@@ -323,7 +294,7 @@
         NSBeginInformationalAlertSheet(NSLocalizedStringFromTableInBundle(@"WARRANTY", nil, [NSBundle bundleForClass:[self class]], nil), nil, nil, nil, [view window], nil, NULL, NULL, NULL, @"%@", warranty);
     }
     else
-        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"WARRANTY", nil, [NSBundle bundleForClass:[self class]], nil), nil, nil, nil, [view window], nil, NULL, NULL, NULL, @"%@", NSLocalizedStringFromTableInBundle(@"GPG NOT FOUND", nil, [NSBundle bundleForClass:[self class]], nil));
+        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"WARRANTY", nil, [NSBundle bundleForClass:[self class]], nil), nil, nil, nil, [view window], nil, NULL, NULL, NULL, @"%@", NSLocalizedStringFromTableInBundle(@"WARRANTY ERROR", nil, [NSBundle bundleForClass:[self class]], nil));
 }
 
 @end
