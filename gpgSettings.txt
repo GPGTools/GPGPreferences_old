@@ -10,7 +10,12 @@ Packaging
 Version 1:
 All GnuPG global info
 All Keyserver
+Compatibility
 Misc: display all other values in tableView
+
+Version 2:
+All Signatures: Editable comment, notation, policy? What is it for?
+
 
 * GnuPG global info
 GNUPGHOME env var (maybe we should set it to ~/Library/GnuPG/). Check rights on this directory (0700)
