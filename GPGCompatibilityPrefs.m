@@ -30,6 +30,8 @@
 
 enum {
     rfc1991OptionSet = 0,
+    pgp2OptionSet,
+    pgp6OptionSet,
     openPGPOptionSet,
     customOptionSet
 };
@@ -67,6 +69,10 @@ enum {
         if([[optionStates objectAtIndex:i] boolValue] && selectedRow == customOptionSet){
             if([aName isEqualToString:@"rfc1991"])
                 selectedRow = rfc1991OptionSet;
+            else if([aName isEqualToString:@"pgp2"])
+                selectedRow = pgp2OptionSet;
+            else if([aName isEqualToString:@"pgp6"])
+                selectedRow = pgp6OptionSet;
             else if([aName isEqualToString:@"openpgp"])
                 selectedRow = openPGPOptionSet;
             else if([aName isEqualToString:@"force-v3-sigs"])
@@ -74,7 +80,7 @@ enum {
         }
     }
 
-    *pgp5CompatiblePtr = (pgp5Compatible || (selectedRow == rfc1991OptionSet));
+    *pgp5CompatiblePtr = (pgp5Compatible || (selectedRow == rfc1991OptionSet) || (selectedRow == pgp2OptionSet) || (selectedRow == pgp6OptionSet));
 
     return selectedRow;
 }
@@ -86,10 +92,8 @@ enum {
             [warningImageView setImage:warningImage];
     }
     else{
-        if([warningImageView image] != nil){
+        if([warningImageView image] != nil)
             [warningImageView setImage:nil];
-//            [warningImageView setNeedsDisplay:YES];
-        }
     }
 }
 
@@ -102,8 +106,8 @@ enum {
     selectedRow = [self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
 
     [optionMatrix selectCellAtRow:selectedRow column:0];
-    [pgp5Button setEnabled:(selectedRow != rfc1991OptionSet)];
-    [pgp5Button setState:(pgp5Compatible || (selectedRow == rfc1991OptionSet))];
+    [pgp5Button setEnabled:(selectedRow != rfc1991OptionSet && selectedRow != pgp2OptionSet && selectedRow != pgp6OptionSet)];
+    [pgp5Button setState:(pgp5Compatible || (selectedRow == rfc1991OptionSet) || (selectedRow == pgp2OptionSet) || (selectedRow == pgp6OptionSet))];
     [self updateWarning];
 }
 
@@ -114,12 +118,32 @@ enum {
     switch([optionMatrix selectedRow]){
         case rfc1991OptionSet:
             [[self options] setOptionState:YES forName:@"rfc1991"];
+            [[self options] setOptionState:NO forName:@"pgp2"];
+            [[self options] setOptionState:NO forName:@"pgp6"];
+            [[self options] setOptionState:NO forName:@"openpgp"];
+            [pgp5Button setEnabled:NO];
+            [pgp5Button setState:YES];
+            break;
+        case pgp2OptionSet:
+            [[self options] setOptionState:YES forName:@"pgp2"];
+            [[self options] setOptionState:NO forName:@"rfc1991"];
+            [[self options] setOptionState:NO forName:@"pgp6"];
+            [[self options] setOptionState:NO forName:@"openpgp"];
+            [pgp5Button setEnabled:NO];
+            [pgp5Button setState:YES];
+            break;
+        case pgp6OptionSet:
+            [[self options] setOptionState:YES forName:@"pgp6"];
+            [[self options] setOptionState:NO forName:@"rfc1991"];
+            [[self options] setOptionState:NO forName:@"pgp2"];
             [[self options] setOptionState:NO forName:@"openpgp"];
             [pgp5Button setEnabled:NO];
             [pgp5Button setState:YES];
             break;
         case openPGPOptionSet:
             [[self options] setOptionState:NO forName:@"rfc1991"];
+            [[self options] setOptionState:NO forName:@"pgp2"];
+            [[self options] setOptionState:NO forName:@"pgp6"];
             [[self options] setOptionState:YES forName:@"openpgp"];
             [pgp5Button setEnabled:YES];
             (void)[self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
@@ -127,6 +151,8 @@ enum {
             break;
         default:
             [[self options] setOptionState:NO forName:@"rfc1991"];
+            [[self options] setOptionState:NO forName:@"pgp2"];
+            [[self options] setOptionState:NO forName:@"pgp6"];
             [[self options] setOptionState:NO forName:@"openpgp"];
             [pgp5Button setEnabled:YES];
             (void)[self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
