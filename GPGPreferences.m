@@ -28,6 +28,8 @@
 #import "GPGExpertPrefs.h"
 #import "GPGGlobalPrefs.h"
 #import "GPGOptions.h"
+#import "GPGSignaturePrefs.h"
+#import "GPGExtensionsPrefs.h"
 #import "GPGCompatibilityPrefs.h"
 #import "GPGKeyServerPrefs.h"
 #import "authinfo.h"
@@ -48,12 +50,13 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 
 @implementation GPGPreferences
 
-#warning TODO: Create image for bundle, check tiff premultiplied
+#warning TODO: Check tiff premultiplied
+#warning Add bundle icon
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
     if(self = [super initWithBundle:bundle]){
-        tabViewItemControllers = [[NSArray allocWithZone:[self zone]] initWithObjects:[GPGGlobalPrefs controllerWithIdentifier:@"GPGGlobalPrefs" preferences:self], [GPGKeyServerPrefs controllerWithIdentifier:@"GPGKeyServerPrefs" preferences:self], [GPGCompatibilityPrefs controllerWithIdentifier:@"GPGCompatibilityPrefs" preferences:self], [GPGExpertPrefs controllerWithIdentifier:@"GPGExpertPrefs" preferences:self], nil];
+        tabViewItemControllers = [[NSArray allocWithZone:[self zone]] initWithObjects:[GPGGlobalPrefs controllerWithIdentifier:@"GPGGlobalPrefs" preferences:self], [GPGKeyServerPrefs controllerWithIdentifier:@"GPGKeyServerPrefs" preferences:self], [GPGSignaturePrefs controllerWithIdentifier:@"GPGSignaturePrefs" preferences:self], [GPGExtensionsPrefs controllerWithIdentifier:@"GPGExtensionsPrefs" preferences:self], [GPGCompatibilityPrefs controllerWithIdentifier:@"GPGCompatibilityPrefs" preferences:self], [GPGExpertPrefs controllerWithIdentifier:@"GPGExpertPrefs" preferences:self], nil];
     }
 
     return self;
@@ -284,10 +287,10 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     // If Terminal is running, user should do it manually,
     // else we can safely modify Terminal prefs: com.apple.Terminal StringEncoding 4
     // We ask only if first time, or if user already did it but modified it
-    NSNumber			*terminalStringEncodingNumber = [[[NSUserDefaults standardUserDefaults] persistentDomainForName:TERMINAL_DOMAIN_NAME] objectForKey:TERMINAL_STRING_ENCODING_KEY];
-    int					terminalStringEncoding = -1;
-    NSNumber			*lastTerminalStringEncodingNumber = [[self userDefaultsDictionary] objectForKey:@"LastTerminalStringEncoding"];
-    int					lastTerminalStringEncoding = -1;
+    NSNumber	*terminalStringEncodingNumber = [[[NSUserDefaults standardUserDefaults] persistentDomainForName:TERMINAL_DOMAIN_NAME] objectForKey:TERMINAL_STRING_ENCODING_KEY];
+    int			terminalStringEncoding = -1;
+    NSNumber	*lastTerminalStringEncodingNumber = [[self userDefaultsDictionary] objectForKey:@"LastTerminalStringEncoding"];
+    int			lastTerminalStringEncoding = -1;
     
     if(terminalStringEncodingNumber != nil)
         terminalStringEncoding = [terminalStringEncodingNumber intValue];
@@ -361,7 +364,6 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
             NSBundle	*bundle = [self bundle];
             NSString	*message = [NSString stringWithFormat:@"AUTH ERROR %hd", error];
 
-#warning Message according to value; see authinfo.h
             NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"CANNOT EXECUTE OPERATION", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPERATION %@ FAILED (%@).", nil, bundle, ""), commandString, message);
     }
     else{
