@@ -94,4 +94,5 @@ rfc1991 and openpgp are mutually exclusive
 -z N
 --throw-keyid
 --try-all-secrets
+--photo-viewer string
 Display other used options in tableView; recognizes disabled options in lines beginning by # followed immediately by letter (no spacer)
