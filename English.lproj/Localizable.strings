@@ -23,9 +23,8 @@
     "CHANGE TERMINAL STRING ENCODING?" = "Tell Terminal to use UTF-8 string encoding?";
     "CANNOT EXECUTE OPERATION" = "Operation failed";
     "WHERE IS GPG?" = "Where is GnuPG executable?";
-    "UPDATE OPTIONS?" = "Some options need to be updated";
     "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Some files have invalid access rights. Correct them?";
-    "COMMENT SHOULD BE ASCII ONLY" = "Comment field should be ACII only";
+    "COMMENT SHOULD BE ASCII ONLY" = "Comment field should be ASCII only";
     "UPDATE OPTIONS?" = "Update options for GnuPG 1.0.7?";
     
     // Alert messages

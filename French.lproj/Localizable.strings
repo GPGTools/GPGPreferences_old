@@ -15,22 +15,30 @@
     // Alert titles
     "ERROR WHEN MOVING HOMEDIRECTORY" = "Erreur lors du déplacement du dossier";
     "UNABLE TO CREATE DIRECTORY" = "Impossible de créer le dossier";
+    "UNABLE TO MODIFY ACCESS RIGHTS" = "Impossible de protéger des fichiers";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Certains fichiers utilisés par GnuPG ne sont pas protégés correctement. Voulez-vous les corriger?";
     "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Erreur avec les privilèges du dossier";
     "CHANGE CHARSET TO UTF-8?" = "Toujours utiliser le codage de chaînes UTF-8?";
     "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Le Terminal devrait utiliser le codage de chaînes UTF-8";
     "CHANGE TERMINAL STRING ENCODING?" = "Changer les préférences du Terminal pour utiliser le codage de chaînes UTF-8?";
     "CANNOT EXECUTE OPERATION" = "L'opération a échoué";
     "WHERE IS GPG?" = "Où est l'exécutable de GnuPG (gpg)?";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Certains fichiers ne sont pas protégés correctement. Voulez-vous les corriger?";
+    "COMMENT SHOULD BE ASCII ONLY" = "Le champ de commentaire ne devrait contenir que des caractères ASCII";
+    "UPDATE OPTIONS?" = "Mettre à jour les options pour GnuPG 1.0.7?";
     
     // Alert messages
     "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Impossible de déplacer tous les fichiers de %@ vers %@. Veuillez contrôler les privilèges sur ces fichiers.";
     "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Impossible de déplacer le dossier %@ vers %@.";
     "UNABLE TO CREATE DIRECTORY AT %@" = "Impossible de créer le dossier dans %@; veuillez contrôler les privilèges du dossier parent.";
+    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Impossible de protéger les fichiers suivants:\n\n%@";
     "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Le dossier %@ a été déplacé vers %@, mais les privilèges n'ont pu être correctement appliqués à tous les fichiers. Veuillez contrôler que vous êtes bien le propriétaire de ces fichiers.";
     "WHY CHANGING CHARSET..." = "Vous devriez toujours utiliser le codage de chaînes UTF-8 pour GnuPG, sinon vous pourriez avoir des problèmes! Les caractères accentués ainsi que d'autres pourraient être mal interprétés par GnuPG: les noms, et même les mots de passe pourraient être faux! Le codage de chaînes UTF-8 peut coder n'importe quel caractère, et est compris par la plupart des programmes en ligne de commande, comme gpg.";
     "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Si vous utilisez GnuPG via le Terminal (la ligne de commande), vous devez vous assurer que le Terminal et GnuPG utilisent le même codage de chaînes; si vous employez des codages différents, alors vous pourriez avoir des problèmes! Les caractères accentués ainsi que d'autres pourraient être mal interprétés par GnuPG: les noms, et même les mots de passe pourraient être faux! Le codage de chaînes UTF-8 peut coder n'importe quel caractère, et est compris par la plupart des programmes en ligne de commande, comme gpg.\n\nLe Terminal tourne actuellement, vous allez donc devoir le configurer vous-même: dans le Terminal, ouvrez les Préférences, et choisissez le codage de chaînes UTF-8 (dans la partie Shell).";
     "WHY CHANGING TERMINAL SETTINGS..." = "Si vous utilisez GnuPG via le Terminal (la ligne de commande), vous devez vous assurer que le Terminal et GnuPG utilisent le même codage de chaînes; si vous employez des codages différents, alors vous pourriez avoir des problèmes! Les caractères accentués ainsi que d'autres pourraient être mal interprétés par GnuPG: les noms, et même les mots de passe pourraient être faux! Le codage de chaînes UTF-8 peut coder n'importe quel caractère, et est compris par la plupart des programmes en ligne de commande, comme gpg.";
     "WHY GPG MUST BE IN %@..." = "La plupart des applications utilisant GnuPG s'attendent à trouver l'exécutable de GnuPG dans %@; si vous ne le déplacez pas là-bas ni ne faites un lien, alors ces applications ne pourront pas fonctionner.\nNotez que vous avez besoin des privilèges administrateur pour le placer là-bas.";
+    "WHICH ACCESS RIGHTS..." = "Les trousseaux de clés, les extensions, ainsi que d'autres fichiers utilisés par GnuPG devraient être protégés afin d'éviter que d'autres personnes puissent les lire, ou pire, les modifier.";
+    "WHY ONLY ASCII IN COMMENT..." = "Le champ de commentaire, visible dans les signatures en clair par exemple, ne devrait contenir que des caractères ASCII. Vous devriez enlever tout autre caractère, sinon les signatures dans les courriers électroniques pourraient devenir invalides durant le transport.";
     // Errors when moving/linking gpg
     "AUTH ERROR 255" = " à cause d'une erreur interne"; /* kMyAuthorizedCommandInternalError */
     "AUTH ERROR -1" = " à cause d'une erreur interne"; /* kMyAuthorizedCommandInternalError */
@@ -38,10 +46,16 @@
     "AUTH ERROR 2" = " (l'outil privilégié a retourné une erreur)"; /* kMyAuthorizedCommandChildError */
     "AUTH ERROR 3" = " parce que l'autorisation a échoué"; /* kMyAuthorizedCommandAuthFailed */
     "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
-    "OPERATION %@ FAILED (%@)." = "L'opération %@ a échoué%@. Veuillez corriger le problème à la main, ou relancer System Preferences.";
+    "OPERATION %@ FAILED (%@)." = "L'opération '%@' a échoué%@. Veuillez corriger le problème à la main, ou relancer System Preferences.";
+    "OP#1" = "Déplacement d'un fichier";
+    "OP#2" = "Création d'un lien";
+    "OP#3" = "Protection d'un fichier";
+    "WHY UPDATING OPTIONS..." = "Quelques options ont changé dans GnuPG 1.0.7. Le programme peut mettre à jour automatiquement vos options pour GnuPG 1.0.7.";
+    "WHICH ACCESS RIGHTS..." = "Les fichiers utilisés par GnuPG, comme les trousseaux de clés, le fichier d'options, etc. doivent être protégés des autres personnes. Les fichiers suivants ne sont pas protégés correctement:\n\n";
     
     "PLEASE DO" = "Changer";
     "DON'T CHANGE" = "Ne pas changer";
+    "CHANGE ANYWAY" = "Changer quand même";
     "SEARCH GPG" = "Je sais où il est";
     
     /* Changing homedirectory: ask user to move current folder content */
