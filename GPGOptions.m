@@ -2,31 +2,34 @@
 //  GPGOptions.m
 //  GPGPreferences and GPGME
 //
-//  Created by davelopper@users.sourceforge.net on Sun Feb 03 2002.
+//  Created by davelopper at users.sourceforge.net on Sun Feb 03 2002.
 //
 //
-//  Copyright (C) 2002-2003 Mac GPG Project.
+//  Copyright (C) 2002-2005 Mac GPG Project.
 //  
-//  This library is free software; you can redistribute it and/or
-//  modify it under the terms of the GNU Lesser General Public
-//  License as published by the Free Software Foundation; either
-//  version 2.1 of the License, or (at your options) any later version.
+//  This code is free software; you can redistribute it and/or modify it under
+//  the terms of the GNU Lesser General Public License as published by the Free
+//  Software Foundation; either version 2.1 of the License, or (at your option)
+//  any later version.
 //  
-//  This library is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//  Lesser General Public License for more details.
-//
-//  You should have received a copy of the GNU Lesser General Public
-//  License along with this library; if not, write to the Free Software
-//  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
+//  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+//  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+//  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+//  details.
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  You should have received a copy of the GNU Lesser General Public License
+//  along with this program; if not, visit <http://www.gnu.org/> or write to the
+//  Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, 
+//  MA 02111-1307, USA.
+//  
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
-#import "GPGOptions.h"
 #ifdef BUILDINGGPGME
-#import "GPGEngine.h"
+#include <GPGME/GPGOptions.h>
+#include <GPGME/GPGEngine.h>
+#else
+#import "GPGOptions.h"
 #endif
 
 static NSString *gnupgVersion = nil;
@@ -830,7 +833,7 @@ static NSString *gnupgVersion = nil;
 {
     NSTask		*aTask = [[NSTask alloc] init];
     NSPipe		*aPipe = [NSPipe pipe];
-    NSString	*outputString;
+    NSString	*outputString = nil;
 
     [aTask setLaunchPath:[self gpgPath]];
     [aTask setArguments:[NSArray arrayWithObjects:@"--utf8-strings", @"--charset", @"utf8", argument, nil]];
@@ -841,8 +844,10 @@ static NSString *gnupgVersion = nil;
         NSRange	aRange;
 
         [aTask launch];
-        outputData = [[aPipe fileHandleForReading] readDataToEndOfFile];
+//        outputData = [[aPipe fileHandleForReading] readDataToEndOfFile]; // No longer working in all cases:
+//        *** -[NSConcreteFileHandle readDataOfLength:]: Interrupted system call
         [aTask waitUntilExit];
+        outputData = [[aPipe fileHandleForReading] readDataToEndOfFile]; // Reading data after waitUntilExit will not block process as long as data to read does not exceed pipe buffer size, I think. If it does, maybe use readDataToEndOfFileAndNotify?
 
         outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
         // Patch! Seems that translated strings are not displayed using passed encoding, but using ISOLatin1!
