@@ -6,7 +6,7 @@ See g10.c, main(), and man gpg
 Packaging
 =========
 sudo rm -rf "/tmp/GPGPreferences.pkg"
-/usr/bin/package "/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes" Installer/Resources/English.lproj/GPGPreferences.info -d /tmp -r Installer/Resources
+/usr/bin/package "/tmp/GPGPreferences.dst/Library/PreferencePanes" Installer/Resources/English.lproj/GPGPreferences.info -d /tmp -r Installer/Resources -ignoreDSStore
 sudo find -d "/tmp/GPGPreferences.pkg" -type d -name "CVS" -exec rm -rf {} \;
 chmod a+x "/tmp/GPGPreferences.pkg/GPGPreferences.post_install"
 Note that package must be installed with admin rights, because in case of update, the current GnuPG.prefPane contains a file owned by root (the authtool).
@@ -42,6 +42,11 @@ gpg path: at startup, check if exists in /usr/local/bin/gpg; if not, ask creatio
 --no-auto-key-retrieve
 (Create Sherlock plug-in which searches different keyservers for keys)
 Use `host -l pgp.net | grep wwwkeys`
+
+* Import/export
+--import-options (allow-local-sigs repair-hkp-subkey-bug)
+--export-options (include-non-rfc include-local-sigs include-attributes include-sensitive-revkeys)
+--sk-comments, --no-sk-comments
 
 * Algorithms (display all algos)
 --disable-cipher-algo NAME
@@ -85,8 +90,8 @@ rfc1991 and openpgp are mutually exclusive
 --encrypt-to USERID (no trust checking! multiple occurences OK)
 --no-encrypt-to
 
-* Aliases (not yet implemented...)
---alias mynames -u 0x12345678 -u 0x456789ab -z 9 (expands mynames with the following strings)
+* Groups
+--group mynames=0x12345678 0x456789ab (expands mynames with the following recipients)
 
 * Misc
 --use-agent; GPG_AGENT_INFO env var?
