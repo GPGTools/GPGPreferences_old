@@ -1,0 +1,92 @@
+{\rtf1\mac\ansicpg10000\cocoartf100
+{\fonttbl\f0\froman\fcharset77 Palatino-Bold;\f1\froman\fcharset77 Palatino-Roman;\f2\froman\fcharset77 Palatino-Italic;
+}
+{\colortbl;\red255\green255\blue255;}
+\vieww11380\viewh15720\viewkind0
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+
+\f0\b\fs28 \cf0 Was ist das?\
+
+\f1\b0 Dieses Paket beinhaltet eine Erweiterung f\'9fr die Systemeinstellungen, mit der die Optionen von GnuPG 1.0.7 gesetzt werden k\'9annen, ohne Terminal benutzen oder die Optionsdatei von GnuPG modifizieren zu m\'9fssen.\
+
+\f0\b WICHTIG: Sie ben\'9atigen GnuPG 1.0.7; mit fr\'9fheren Versionen von GnuPG wird die Erweiterung nicht zusammenarbeiten.\
+
+\f1\b0 Das Paket installiert eine Erweiterung \'e3GnuPG\'d2 in  
+\f2\i /Library/PreferencePanes
+\f1\i0 ; Sie k\'9annen auch den Ordner 
+\f2\i Library/PreferencePanes
+\f1\i0  in Ihrem Benutzerordner w\'8ahlen (wenn n\'9atig, legen Sie diesen Ordner an), oder im Falle einer Netzwerk-Installation den Ordner 
+\f2\i /Network/Library/PreferencePanes
+\f1\i0 . Sie sollten sicherstellen, dass Systemeinstellungen beendet ist, bevor Sie mit der Installation beginnen.\
+\
+
+\f0\b Was bringt es mir?\
+
+\f1\b0 Sobald das Paket installiert ist, \'9affnen Sie die Systemeinstellungen und Sie sehen ein neues Panel mit Namen \'e3GnuPG\'d2. Klicken Sie darauf, um es zu laden.\
+Die Erweiterung pr\'9fft zun\'8achst die Konfiguration GnuPG und schl\'8agt n\'9atigenfalls \'80nderungen vor:\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li720\ql\qnatural
+\cf0 - gpg muss sich im Verzeichnis 
+\f2\i /usr/local/bin/ 
+\f1\i0 befinden\
+- Wurde GnuPG noch nie konfiguriert, werden die Basisdateien angelegt\
+- Die Optionen werden von GnuPG 1.0.6 nach GnuPG 1.0.7 aktualisiert\
+- Die Text-Kodierung f\'9fr GnuPG und das Terminal sollte auf UTF-8 gesetzt werden\
+- GnuPG Dateien sollten vor dem Zugriff durch andere gesch\'9ftzt werden\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 Danach k\'9annen Sie Optionen \'8andern, wie Sie es f\'9fr richtig erachten. Eine der interessantesten Optionen betrifft den Schl\'9fsselserver.\
+
+\f0\b Warnung:
+\f1\b0  es ist wichtig, dass Sie jede \'80nderung durch Dr\'9fcken der Zeilenschaltung best\'8atigen!\
+\
+
+\f0\b Experten\
+
+\f1\b0 Nur die wichtigsten Optionen werden dem Benutzer gezeigt; dies sollte f\'9fr den Regelfall ausreichen. Dennoch bietet die Erweiterung den GnuPG-Experten die M\'9aglichkeit, jede Option im Reiter \'e3Experte\'d2 zu modifizieren: Sie k\'9annen eine neue Option mit dem entsprechenden Wert anlegen, diese aktivieren oder deaktivieren, ohne dabei selbst Hand an die 
+\f2\i Optionsdatei
+\f1\i0  legen zu m\'9fssen.\
+\
+
+\f0\b Wie funktioniert das?\
+
+\f1\b0 Die Erweiterung liest und \'8andert die 
+\f2\i Optionsdatei
+\f1\i0  von GnuPG (die mit der Text-Kodierung UTF-8 gespeichert werden sollte). Sie unterstellt, dass eine Option deaktiviert ist, wenn eine Zeile mit einem # beginnt, dem unmittelbar die Bezeichnung einer Option folgt; die urspr\'9fnglich angelegte Optionsdatei folgt dieser Regel. Da die Erweiterung direkt die 
+\f2\i Optionsdatei
+\f1\i0  von GnuPG modifiziert, profitieren alle Applikationen, die auf GnuPG zur\'9fckgreifen, von denselben Optionen.\
+\
+
+\f0\b History\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+
+\f1\b0 \cf0 1.1	XX. Juli 2002\
+	Aktualisierung auf GnuPG 1.0.7 (einige Optionen haben sich seit GnuPG 1.0.6 ge\'8andert)\
+	Deutsche Version hinzugef\'9fgt\
+	\'86berpr\'9fft Zugriffsrechte der Dateien von GnuPG\
+	\'86berpr\'9fft, dass Kommentar nur aus ASCII-Zeichen besteht\
+	Neue Schl\'9fsselserveroptionen hinzugef\'9fgt\
+	Neue Kompatibilit\'8atsoptionen hinzugef\'9fgt.\
+	Expertenmodus: Neuordnung der Optionen m\'9aglich, Optionsdatei wird im Finder gezeigt\
+	Lizenz ist nun LGPL (GPL passte nicht).\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.2	18. M\'8arz 2002\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+\cf0 	Liste der Schl\'9fsselserver korrigiert (Das Protokoll war http statt x-hkp!)\
+    	Fehler im Zusammenhang mit leerem Kommentar beseitigt\
+        	Interpretation der Optionsdatei korrigiert\
+            	Spanische Version hinzugef\'9fgt\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.1	12. M\'8arz 2002\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+\cf0 	Installationsproblem beseitigt: Skript hatte keine Ausf\'9fhrungsrechte\
+	Aktualisierungsproblem beseitigt: Zugriffsrechte verhinderten L\'9aschen von Dateien. Administrationsrechte sind nun f\'9fr eine Installation erforderlich.\
+	Ausf\'9fhrlichere Erl\'8auterung der UTF-8 Text-Kodierung.\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.0	11. M\'8arz 2002\
+	Erste Ver\'9affentlichung\
+\
+Copyright 2002, MacGPG Group\
+http://macgpg.sourceforge.net/\
+\
+Die deutsche Lokalisierung stellt den bescheidenen Beitrag von zeitform Internet Dienste zum Mac GPG Projekt dar.\
+http://www.zeitform.de/\
+}
