@@ -1,0 +1,19 @@
+Title GnuPG Preferences
+Versione 1.1.1 (v7)
+Descrizione Questo pacchetto contiene un plug-in per le Preferenze di Sistema che permette di impostare le opzioni per GnuPG 1.0.7 senza dover usare il Terminale.
+
+DefaultLocation /Library/PreferencePanes
+Relocatable YES
+DeleteWarning 
+
+### Package Flags
+NeedsAuthorization YES
+Required NO
+Application NO
+RequiresReboot NO
+UseUserMask NO
+InstallOnly NO
+DisableStop NO
+LongFilenames YES
+OverwritePermissions NO
+InstallFat NO

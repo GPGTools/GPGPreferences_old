@@ -1,0 +1,80 @@
+{
+    // Note that you must use UTF8 encoding when saving this file
+    "VERSION %@" = "Versione %@";
+
+    // Alert title
+    "WARRANTY" = "Garanzia GnuPG";
+    // Alert message
+    "GPG NOT FOUND" = "Non è possibile trovare il programma gpg.";
+    "WARRANTY ERROR" = "Impossibile trovare la garanzia GnuPG, quindi... Nessuna garanzia!";
+
+    // "Open" dialog button
+    "CHOOSE" = "Scegli";
+    "ADD EXTENSION" = "Aggiungi estensione";
+
+    // Alert titles
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Errore nello spostamento della cartella";
+    "UNABLE TO CREATE DIRECTORY" = "Impossibile creare la cartella";
+    "UNABLE TO MODIFY ACCESS RIGHTS" = "Impossibile modificare i permessi del documento";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Alcuni documenti usati da GnuPG non sono protetti adeguatamente. Li devo proteggere ?";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Errore sui permessi della cartella";
+    "CHANGE CHARSET TO UTF-8?" = "Usare sempre la codifica testo UTF-8 ?";
+    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Il Terminale dovrebbe usare la codifica testo UTF-8";
+    "CHANGE TERMINAL STRING ENCODING?" = "Impostare il Terminale in modo che usi la codifica testo UTF-8 ?";
+    "CANNOT EXECUTE OPERATION" = "Operatione fallita";
+    "WHERE IS GPG?" = "Dov'è il programma GnuPG ?";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Alcuni documenti hanno permessi di accesso non validi. Li devo correggere ?";
+    "COMMENT SHOULD BE ASCII ONLY" = "Il campo Commenti dovrebbe contenere solo caratteri ASCII";
+    "UPDATE OPTIONS?" = "Aggiorna le opzioni a GnuPG 1.0.7 ?";
+    
+    // Alert messages
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Impossibile spostare tutti i documenti da %@ a %@. Per favore controlla i permessi dei documenti.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Impossibile spostare la cartella %@ in %@.";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Impossibile creare la cartella in %@; per favore controlla i permessi della cartella superiore.";
+    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Impossibile modificare i permessi di accesso dei seguenti documenti:\n\n%@";
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "La cartella %@ è stata spostata in %@, ma i permessi non possono essere impostati su tutti i documenti. Per favore controlla di essere il proprietario di tutti questi documenti.";
+    "WHY CHANGING CHARSET..." = "Dovresti sempre usare la codifica testo UTF-8 con GnuPG, o potresti avere dei problemi ! I caratteri con accenti, o i caratteri stranieri potrebbero non essere interpretati correttamente da GnuPG: i nomi potrebbero essere male interpretati, e anche le frasi-chiave ! La codifica UTF-8 può codificare qualsiasi carattere ed è compatibile con la maggior parte dei programmi da linea di comando, come il gpg.";
+    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Se tu (o qualche applicazione) usate GnuPG attraverso il Terminale, occorre che sia il terminale che GnuPG usino lo stesso set di caratteri; se non lo fanno, ci saranno dei problemi ! I caratteri con accenti, o i caratteri stranieri scritti sul Terminale non saranno interpretati correttamente da GnuPG: i nomi potrebbero essere male interpretati, e anche le frasi-chiave ! La codifica UTF-8 può codificare qualsiasi carattere ed è compatibile con la maggior parte dei programmi da linea di comando, come il gpg.\n\nIl Terminale è attivo al momento, quindi non posso modificarlo; dovrai farlo tu stesso: vai nel Terminale, apri le sue Preferenze e imposta la Codifica Stringhe a UTF-8 (nella sezione Shell)."
+    "WHY CHANGING TERMINAL SETTINGS..." = "Se tu (o qualche applicazione) usate GnuPG attraverso il Terminale, occorre che sia il terminale che GnuPG usino lo stesso set di caratteri; se non lo fanno, ci saranno dei problemi ! I caratteri con accenti, o i caratteri stranieri scritti sul Terminale non saranno interpretati correttamente da GnuPG: i nomi potrebbero essere male interpretati, e anche le frasi-chiave ! La codifica UTF-8 può codificare qualsiasi carattere ed è compatibile con la maggior parte dei programmi da linea di comando, come il gpg.";
+    "WHY GPG MUST BE IN %@..." = "La maggior parte della applicazioni che sfruttano GnuPG si aspettano che sia in %@; se non lo sposti o non fai un collegamento ad esso in questa posizione, quelle applicazioni non funzioneranno.\nNota che devi avere i permessi di Amministratore per metterlo lì.";
+    "WHICH ACCESS RIGHTS..." = "Gli anelli di chiavi, le estensioni, così come gli altri documenti usati da GnuPG devono essere protetti per evitare che altre persone possano leggeri o, peggio, modificarli.";
+    "WHY ONLY ASCII IN COMMENT..." = "Il campo commento, visibile per esempio nelle firme in chiaro, dovrebbe contenere solo caratteri ASCII. Dovresti togliere qualsiasi altro carattere, altrimenti le firme nella posta potrebbero diventare non valide durante il trasporto.";
+
+    // Errors when moving/linking gpg
+    "AUTH ERROR 255" = ", per un errore interno"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR -1" = ", per un errore interno"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR 1" = " (lo strumento autorizzato non può essere lanciato)"; /* kMyAuthorizedCommandExecFailed */
+    "AUTH ERROR 2" = " (lo strumento autorizzato ha generato un errore)"; /* kMyAuthorizedCommandChildError */
+    "AUTH ERROR 3" = " perché l'autorizzazione è fallita"; /* kMyAuthorizedCommandAuthFailed */
+    "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
+    "OPERATION %@ FAILED (%@)." = "%@ fallito%@. Per favore correggi il problema manualmente, o rilancia le Preferenze di Sistema."; // First arg is an "operation description"; second is the error description.
+
+    // Operation descriptions
+    "OP#1" = "Spostando un documento";
+    "OP#2" = "Creando un collegamento";
+    "OP#3" = "Proteggendo un documento";
+    "WHY UPDATING OPTIONS..." = "Alcune opzioni sono cambiate nel GnuPG 1.0.7. Quelle che avevi impostato possono essere aggiornate automaticamente a GnuPG 1.0.7.";
+    "WHICH ACCESS RIGHTS..." = "I documenti usati da GnuPG, come gli anelli delle chiavi, le opzioni, ecc. devono essere protetti nei confronti degli altri. I seguenti documenti non sono protetti in maniera corretta:\n\n";
+    "PLEASE DO" = "Per favore fallo";
+    "DON'T CHANGE" = "Non cambiare";
+    "CHANGE ANYWAY" = "Cambia comunque";
+    "SEARCH GPG" = "So dov'è";
+    
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
+    "MOVE FILES?" = "Sposta i documenti ?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "Sposta il contenuto di %@ in %@?";
+    // Buttons
+    "MOVE" = "Sposta";
+    "DON'T MOVE" = "Annulla";
+    "CANCEL" = "Cancella";
+    
+    /* Tab titles */
+    "GPGGlobalPrefs" = "Generale";
+    "GPGExpertPrefs" = "Esperto";
+    "GPGCompatibilityPrefs" = "Compatibilità";
+    "GPGKeyServerPrefs" = "Server delle Chiavi";
+    "GPGSignaturePrefs" = "Firma";
+    "GPGExtensionsPrefs" = "Estensioni";
+}

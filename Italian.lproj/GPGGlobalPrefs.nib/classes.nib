@@ -1,0 +1,26 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {changeHomeDirectory = id; chooseHomeDirectory = id; showWarranty = id; }; 
+            CLASS = GPGGlobalPrefs; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                gpgPathTextField = NSTextField; 
+                homeDirectoryTextField = NSTextField; 
+                moveButton = NSButton; 
+                versionTextField = NSTextField; 
+                warningPlaceholder = NSView; 
+                warningView = NSView; 
+            }; 
+            SUPERCLASS = GPGPrefController; 
+        }, 
+        {
+            CLASS = GPGPrefController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {initialFirstResponder = id; view = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

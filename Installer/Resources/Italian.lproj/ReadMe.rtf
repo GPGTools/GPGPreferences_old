@@ -1,0 +1,97 @@
+{\rtf1\mac\ansicpg10000\cocoartf100
+{\fonttbl\f0\froman\fcharset77 Palatino-Bold;\f1\froman\fcharset77 Palatino-Roman;\f2\froman\fcharset77 Palatino-Italic;
+}
+{\colortbl;\red255\green255\blue255;}
+\vieww9000\viewh9000\viewkind0
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+
+\f0\b\fs28 \cf0 Cos'\'8f questo ?\
+
+\f1\b0 Questo pacchetto contiene un plug-in per le Preferenze di Sistema, che permette di impostare le opzioni GnuPG 1.0.7 senza dover usare il Terminale o modificare il documento 
+\f2\i options
+\f1\i0  di GnuPG.\
+
+\f0\b IMPORTANTE: occorre avere GnuPG 1.0.7; non funziona con versioni precedenti di GnuPG.\
+
+\f1\b0 Il pacchetto installa un plug-in di nome GnuPG in  
+\f2\i /Library/PreferencePanes
+\f1\i0 ; si pu\'98 anche scegliere la cartella  
+\f2\i Library/PreferencePanes
+\f1\i0  nella vostra cartella principale (createla se necessario), o, per una installazione di rete, 
+\f2\i /Network/Library/PreferencePanes
+\f1\i0 . Dovete controllare che le Preferenze di Sistema non siano aperte prima di cominciare l'installazione.\
+\
+
+\f0\b Che cosa mi fornisce ?\
+
+\f1\b0 Una volta che il pacchetto \'8f stato installato, aprite le Preferenze di Sistema: vedrete un nuovo elemento di nome GnuPG. Selezionatelo per aprirlo.\
+Il plug-in prima controlla la vostra configurazione GnuPG e vi suggerisce, se necessario, alcune modifiche:\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li720\ql\qnatural
+\cf0 - gpg deve essere in 
+\f2\i /usr/local/bin/
+\f1\i0 \
+- Se GnuPG non \'8f mai stato configurato, i suoi documenti di base vengono creati\
+- Le opzioni vengono aggiornate dalla versione GnuPG 1.0.6 a GnuPG 1.0.7\
+- Le codifiche dei caratteri per GnuPG e il Terminale dovrebbero essere impostate a UTF-8\
+- I documenti GnuPG dovrebbero essere protetti nei confronti delle altre persone\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 Dopodich\'8e sar\'88 possibile modificare qualsiasi opzione si desideri. Una delle pi\'9d interessanti opzioni riguarda il server di chiavi da usare.\
+
+\f0\b Attenzione:
+\f1\b0  \'8f importante confermare ogni modifca nei campi di testo premendo il tasto a-capo.\
+\
+
+\f0\b Esperti\
+
+\f1\b0 Solo le opzioni pi\'9d importanti vengono mostrate all'utente; questo dovrebbe essere sufficiente per la maggior parte delle persone. Per gli esperti di GnuPG, per\'98, il plug-in offre la possibilit\'88 di modificare qualsiasi opzione tramite il pannello Esperto: si possono aggiungere nuove opzioni e il loro valore, abilitarle o disabilitarle, senza dover modificare il documento 
+\f2\i options.
+\f1\i0 \
+\
+
+\f0\b Come funziona ?\
+
+\f1\b0 Il plug-in legge e modifica il documento di GnuPG 
+\f2\i options
+\f1\i0  (che deve essere salvato con la codifica carattere UTF-8). Considera che un'opzione sia disabilitata se la linea che la contiene inizia con un # seguito immediatamente dal nome dell'opzione; il documento 
+\f2\i options
+\f1\i0  di norma
+\f2\i  
+\f1\i0 segue questa regola. Poich\'8e il plug-in modifica direttamente il documento di GnuPG 
+\f2\i options
+\f1\i0 , tutte le applicazioni che usano GnuPG erediteranno le stesse opzioni.\
+\
+
+\f0\b History\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+
+\f1\b0 \cf0 1.1.1	Aug 31, 2002\
+	Added Danish and Swedish versions \
+1.1	Jul 15, 2002\
+	Updated for GnuPG 1.0.7 (some options have changed since GnuPG 1.0.6)\
+	Added German version\
+	Now checks GnuPG files permissions\
+	Now checks the comment is made only of ASCII characters\
+	Added new options for key servers\
+	Added new compatibility options\
+	Expert mode: added option reordering and a button to reveal file in Finder\
+	License is now LGPL (it was incorrect to use GPL).\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.2	March 18, 2002\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+\cf0 	Corrected key server list (protocol was http instead of x-hkp!)\
+    	Corrected bug with empty comment\
+        	Corrected options file parsing\
+            	Added Spanish version\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.1	March 12, 2002\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li1440\fi-1440\ql\qnatural
+\cf0 	Corrected installation problem: script was missing execution rights\
+	Corrected update problem: some file might be not deletable by user, as it could be owned by root; you need now admin rights to perform the install.\
+	More verbose about UTF-8 string encoding.\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 1.0.0	March 11, 2002\
+	Initial public release\
+\
+Copyright 2002, MacGPG Group\
+http://macgpg.sourceforge.net/\
+}
