@@ -208,7 +208,7 @@
 
     fileData = [[NSData alloc] initWithContentsOfFile:filename];
     // Check whether file has been saved as Unicode (it shouldn't, but who knows...)
-    if([fileData length] >= 2 && !([fileData length] & 1) && (((int *)[fileData bytes])[0] == 0xFEFF || ((int *)[fileData bytes])[0] == 0xFFFE)){
+    if([fileData length] >= 2 && !([fileData length] & 1) && (((short int *)[fileData bytes])[0] == (short int)0xFEFF || ((short int *)[fileData bytes])[0] == (short int)0x0FFFE)){
         optionsAsString = [[NSString alloc] initWithData:fileData encoding:NSUnicodeStringEncoding];
         wasInUnicode = YES;
     }
@@ -314,7 +314,7 @@
 {
     NSString	*filename = [[self class] optionsFilename];
 
-    NSAssert1([[optionFileLines componentsJoinedByString:@"\n"] writeToFile:filename atomically:YES], @"Unable to save options in %@", filename);
+    NSAssert1([[[optionFileLines componentsJoinedByString:@"\n"] dataUsingEncoding:NSUTF8StringEncoding] writeToFile:filename atomically:YES], @"Unable to save options in %@", filename);
 }
 
 - (void) saveOptions
@@ -323,6 +323,23 @@
     [self doSaveOptions];
 #warning TODO: Test new options file by running gpg (gpg: /Users/kindov/.gnupg/options:21: invalid option)
     [self reloadOptions];
+}
+
+- (NSString *) normalizedValue:(NSString *)value
+{
+    // Replace \n occurences by \\n
+    if(value == nil)
+        return value;
+    else{
+        NSMutableString	*newValue = [NSMutableString stringWithString:value];
+        int				i;
+
+        for(i = [newValue length] - 1; i >= 0; i--)
+            if([newValue characterAtIndex:i] == '\n')
+                [newValue replaceCharactersInRange:NSMakeRange(i, 1) withString:@"\\n"];
+
+        return newValue;
+    }
 }
 
 - (void) updateOptionLineAtIndex:(unsigned)index
@@ -334,7 +351,7 @@
 
 - (void) setOptionValue:(NSString *)value atIndex:(unsigned)index
 {
-    [optionValues replaceObjectAtIndex:index withObject:value];
+    [optionValues replaceObjectAtIndex:index withObject:[self normalizedValue:value]];
     [self updateOptionLineAtIndex:index];
 }
 
@@ -417,6 +434,7 @@
     int	anIndex = 0, maxIndex = [optionNames count];
     int	deletedLineNumber = -1;
 
+    value = [self normalizedValue:value];
     for(; anIndex < maxIndex; anIndex++){
         if(deletedLineNumber > 0)
             [optionLineNumbers replaceObjectAtIndex:anIndex withObject:[NSNumber numberWithUnsignedInt:[[optionLineNumbers objectAtIndex:anIndex] unsignedIntValue] - deletedLineNumber]];
@@ -431,6 +449,7 @@
                 [optionStates removeObjectAtIndex:anIndex];
                 [optionValues removeObjectAtIndex:anIndex];
                 [optionLineNumbers removeObjectAtIndex:anIndex];
+                anIndex--;
                 maxIndex--;
             }
             else{
