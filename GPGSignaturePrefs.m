@@ -122,6 +122,7 @@ enum {
             [[self options] setOptionState:NO forName:@"comment"];
             [[self options] addOptionNamed:@"comment"]; // Value is empty, but state is NO
             [[self options] setOptionState:YES atIndex:[[[self options] optionStates] count] - 1];
+            [[self options] setEmptyOptionValueAtIndex:[[[self options] optionStates] count] - 1];
             break;
         default:
             [[self options] setOptionValue:comment forName:@"comment"];
@@ -134,8 +135,10 @@ enum {
 - (IBAction) updateComment:(id)sender
 {
     NSString	*comment = [customCommentTextField stringValue];
+    BOOL		isEmptyComment;
 
-    if(comment == nil || [comment rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length == 0){
+    isEmptyComment = (comment == nil || [comment rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length == 0);
+    if(isEmptyComment){
         comment = @"";
         [commentMatrix selectCellAtRow:noCommentChoice column:0];
     }
@@ -143,7 +146,12 @@ enum {
         [commentMatrix selectCellAtRow:customCommentChoice column:0];
 
     [[self options] setOptionValue:comment forName:@"comment"];
-    [[self options] setOptionState:YES forName:@"comment"];
+    [[self options] setOptionState:!isEmptyComment forName:@"comment"];
+    if(isEmptyComment){
+        [[self options] addOptionNamed:@"comment"]; // Value is empty, but state is NO
+        [[self options] setOptionState:YES atIndex:[[[self options] optionStates] count] - 1];
+        [[self options] setEmptyOptionValueAtIndex:[[[self options] optionStates] count] - 1];
+    }
     [[self options] setOptionValue:nil forName:@"default-comment"]; // This option should not be used in options file; let's remove it
     [[self options] saveOptions];
 }
