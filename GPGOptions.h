@@ -87,6 +87,8 @@
 
 - (void) saveOptions;
 
+- (NSArray *) allOptionValuesForName:(NSString *)name;
+// Returns all values for option name whatever their state is
 - (NSArray *) activeOptionValuesForName:(NSString *)name;
 // Returns all values for option name whose state is active
 

@@ -481,25 +481,45 @@ static NSString *gnupgVersion = nil;
 
 - (NSString *) optionValueForName:(NSString *)name
 {
-    int	anIndex = [optionNames count] - 1;
+    int			anIndex = [optionNames count] - 1;
+    NSString	*lastValue = nil;
+    BOOL		lastValueIsActive = NO;
 
     for(; anIndex >= 0; anIndex--)
-        if([[optionNames objectAtIndex:anIndex] isEqualToString:name])
-            return [optionValues objectAtIndex:anIndex];
-    return nil;
+        if([[optionNames objectAtIndex:anIndex] isEqualToString:name]){
+            if(lastValue == nil){
+                lastValue = [optionValues objectAtIndex:anIndex];
+                lastValueIsActive = [[optionStates objectAtIndex:anIndex] boolValue];
+            }
+            else if(!lastValueIsActive && [[optionStates objectAtIndex:anIndex] boolValue]){
+                lastValue = [optionValues objectAtIndex:anIndex];
+                lastValueIsActive = YES;
+            }
+        }
+    return lastValue;
+}
+
+- (NSArray *) optionValuesForName:(NSString *)name activeOnly:(BOOL)activeOnly
+{
+    int				anIndex = 0;
+    int				max = [optionNames count];
+    NSMutableArray	*values = [NSMutableArray array];
+
+    for(; anIndex < max; anIndex++)
+        if([[optionNames objectAtIndex:anIndex] isEqualToString:name] && (!activeOnly || [[optionStates objectAtIndex:anIndex] boolValue]))
+            [values addObject:[optionValues objectAtIndex:anIndex]];
+
+    return values;
 }
 
 - (NSArray *) activeOptionValuesForName:(NSString *)name
 {
-    int				anIndex = 0;
-    int				max = [optionNames count];
-    NSMutableArray	*activeOptionValues = [NSMutableArray array];
-    
-    for(; anIndex < max; anIndex++)
-        if([[optionNames objectAtIndex:anIndex] isEqualToString:name] && [[optionStates objectAtIndex:anIndex] boolValue])
-            [activeOptionValues addObject:[optionValues objectAtIndex:anIndex]];
+    return [self optionValuesForName:name activeOnly:YES];
+}
 
-    return activeOptionValues;
+- (NSArray *) allOptionValuesForName:(NSString *)name
+{
+    return [self optionValuesForName:name activeOnly:NO];
 }
 
 - (void) setEmptyOptionValueForName:(NSString *)name
@@ -551,7 +571,8 @@ static NSString *gnupgVersion = nil;
 
     for(; anIndex >= 0; anIndex--)
         if([[optionNames objectAtIndex:anIndex] isEqualToString:name])
-            return [[optionStates objectAtIndex:anIndex] boolValue];
+            if([[optionStates objectAtIndex:anIndex] boolValue])
+                return YES;
     return NO;
 }
 
