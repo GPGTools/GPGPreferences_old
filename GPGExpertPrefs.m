@@ -57,6 +57,12 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
     [optionsTableView registerForDraggedTypes:[NSArray arrayWithObject:privatePboardType]];
 }
 
+- (void) tabItemWillBeSelected
+{
+    [super tabItemWillBeSelected];
+    [optionsTableView reloadData];
+}
+    
 - (IBAction) addOption:(id)sender
 {
     int	selectedRow = [optionsTableView selectedRow];
