@@ -8,11 +8,11 @@
             SUPERCLASS = NSObject; 
         }, 
         {
-            ACTIONS = {commentMatrixChanged = id; toggleVersion = id; updateComment = id; }; 
+            ACTIONS = {toggleComment = id; toggleVersion = id; updateComment = id; }; 
             CLASS = GPGSignaturePrefs; 
             LANGUAGE = ObjC; 
             OUTLETS = {
-                commentMatrix = NSMatrix; 
+                commentSwitch = NSButton; 
                 customCommentTextField = NSTextField; 
                 versionSwitch = NSButton; 
             }; 
