@@ -462,6 +462,7 @@
 			refType = 4;
 		};
 		F50827270309F9D301000104 = {
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			name = Danish;
 			path = Danish.lproj/Localizable.strings;
@@ -516,6 +517,7 @@
 			refType = 4;
 		};
 		F50A02C302FE09A701000104 = {
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			name = Swedish;
 			path = Swedish.lproj/Localizable.strings;
@@ -561,6 +563,56 @@
 			isa = PBXFileReference;
 			name = Swedish;
 			path = Swedish.lproj/GPGExpertPrefs.nib;
+			refType = 4;
+		};
+		F510D642031FC59E01000001 = {
+			isa = PBXFileReference;
+			name = Swedish;
+			path = Swedish.lproj/ReadMe.rtf;
+			refType = 4;
+		};
+		F510D643031FC59E01000001 = {
+			isa = PBXFileReference;
+			name = Swedish;
+			path = Swedish.lproj/Welcome.rtf;
+			refType = 4;
+		};
+		F510D644031FC5F001000001 = {
+			isa = PBXFileReference;
+			name = Swedish;
+			path = Swedish.lproj/License.html;
+			refType = 4;
+		};
+		F510D645031FC60A01000001 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = Swedish;
+			path = Swedish.lproj/GPGPreferences.info;
+			refType = 4;
+		};
+		F510D646031FC65A01000001 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGPreferences.info;
+			refType = 4;
+		};
+		F510D647031FC6E401000001 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/License.html;
+			refType = 4;
+		};
+		F510D648031FC77A01000001 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/ReadMe.rtf;
+			refType = 4;
+		};
+		F510D649031FC83F01000001 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/Welcome.rtf;
 			refType = 4;
 		};
 		F52A0A28021318E5016C2AB4 = {
@@ -784,6 +836,8 @@
 				F5593EE60232658A01A80016,
 				F5BB3A6602468FCD01A80016,
 				F5CAFDD002DF5D4701000002,
+				F510D645031FC60A01000001,
+				F510D646031FC65A01000001,
 			);
 			isa = PBXVariantGroup;
 			name = GPGPreferences.info;
@@ -809,6 +863,8 @@
 				F5593EE90232658A01A80016,
 				F5BB3A6A0246913101A80016,
 				F5CAFDCF02DE2BFC01000002,
+				F510D644031FC5F001000001,
+				F510D647031FC6E401000001,
 			);
 			isa = PBXVariantGroup;
 			name = License.html;
@@ -835,6 +891,8 @@
 				F5593EEC0232658A01A80016,
 				F5BB3A6802468FCD01A80016,
 				F5CAFDD102DF5DA101000002,
+				F510D642031FC59E01000001,
+				F510D648031FC77A01000001,
 			);
 			isa = PBXVariantGroup;
 			name = ReadMe.rtf;
@@ -859,6 +917,8 @@
 				F5593EEF0232658A01A80016,
 				F5BB3A6902468FCD01A80016,
 				F5CAFDD202DF5DC701000002,
+				F510D643031FC59E01000001,
+				F510D649031FC83F01000001,
 			);
 			isa = PBXVariantGroup;
 			name = Welcome.rtf;
