@@ -28,69 +28,23 @@
 #import "GPGOptions.h"
 
 
-enum {
-    noCommentChoice = 0,
-    defaultCommentChoice,
-    customCommentChoice
-};
-
-
 @implementation GPGSignaturePrefs
 
 - (void) tabItemWillBeSelected
 {
-    unsigned	selectedRow;
-    NSString	*customComment = nil;
-    BOOL		displaysNoComment = NO;
-    BOOL		usesDefaultComment = NO;
-    BOOL		usesCustomComment = NO;
     BOOL		displaysVersion = YES;
     int			i;
     NSArray		*optionNames = [[self options] optionNames];
     NSArray		*optionStates = [[self options] optionStates];
     int			optionNamesCount = [optionNames count];
+    NSString	*customComment;
     
     [super tabItemWillBeSelected];
-    
-    for(i = optionNamesCount - 1; i >= 0; i--){
-        NSString	*aName = [optionNames objectAtIndex:i];
 
-        if([aName isEqualToString:@"comment"]){
-            NSString	*aComment = [[[self options] optionValues] objectAtIndex:i];
-
-            if([aComment isEqualToString:@""]){
-                if([[optionStates objectAtIndex:i] boolValue] && !usesCustomComment && !usesDefaultComment)
-                    displaysNoComment = YES;
-            }
-            else{
-                if([[optionStates objectAtIndex:i] boolValue]){
-                    if(!usesCustomComment)
-                        customComment = aComment;
-                    if(!displaysNoComment && !usesDefaultComment)
-                        usesCustomComment = YES;
-                }
-                else if(customComment == nil)
-                    customComment = aComment;
-            }
-        }
-        else if([aName isEqualToString:@"default-comment"] && [[optionStates objectAtIndex:i] boolValue]){
-            if(!displaysNoComment && !usesCustomComment)
-                usesDefaultComment = YES;
-        }
-    }
-    if(customComment == nil){
-        customComment = @"";
-        if(!usesDefaultComment && !displaysNoComment)
-            usesDefaultComment = YES;
-    }
-    
-    if(usesDefaultComment)
-        selectedRow = defaultCommentChoice;
-    else if(displaysNoComment)
-        selectedRow = noCommentChoice;
-    else
-        selectedRow = customCommentChoice;
-    [commentMatrix selectCellAtRow:selectedRow column:0];
+    [commentSwitch setState:[[self options] optionStateForName:@"comment"]];
+    customComment = [[self options] optionValueForName:@"comment"];
+    if(customComment == nil)
+        customComment = @"";    
     [customCommentTextField setStringValue:customComment];
 
     for(i = optionNamesCount - 1; i >= 0; i--){
@@ -108,51 +62,57 @@ enum {
     [versionSwitch setState:displaysVersion];
 }
 
-- (IBAction) commentMatrixChanged:(id)sender
+- (NSString *) checkComment
 {
     NSString	*comment = [customCommentTextField stringValue];
+    BOOL		isEmptyComment = (comment == nil || [comment rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length == 0);
 
-    switch([commentMatrix selectedRow]){
-        case defaultCommentChoice:
-            [[self options] setOptionValue:comment forName:@"comment"];
-            [[self options] setOptionState:NO forName:@"comment"];
-            break;
-        case noCommentChoice:
-            [[self options] setOptionValue:comment forName:@"comment"];
-            [[self options] setOptionState:NO forName:@"comment"];
-            [[self options] addOptionNamed:@"comment"]; // Value is empty, but state is NO
-            [[self options] setOptionState:YES atIndex:[[[self options] optionStates] count] - 1];
-            [[self options] setEmptyOptionValueAtIndex:[[[self options] optionStates] count] - 1];
-            break;
-        default:
-            [[self options] setOptionValue:comment forName:@"comment"];
-            [[self options] setOptionState:YES forName:@"comment"];
+    if(isEmptyComment){
+        comment = @"";
+        [[self options] setOptionState:NO forName:@"comment"];
     }
-    [[self options] setOptionValue:nil forName:@"default-comment"]; // This option should not be used in options file; let's remove it
+    else if(![comment canBeConvertedToEncoding:NSASCIIStringEncoding]){
+        NSBundle	*bundle = [NSBundle bundleForClass:[self class]];
+
+        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"COMMENT SHOULD BE ASCII ONLY", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"DON'T CHANGE", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"CHANGE ANYWAY", nil, bundle, ""), nil, [view window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), [comment retain], @"%@", NSLocalizedStringFromTableInBundle(@"WHY ONLY ASCII IN COMMENT...", nil, bundle, ""));
+    }
+
+    return comment;
+}
+
+- (IBAction) toggleComment:(id)sender
+{
+    if([commentSwitch state])
+        (void)[self checkComment];
+    [[self options] setOptionState:[commentSwitch state] forName:@"comment"];
     [[self options] saveOptions];
+}
+
+- (void) sheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+    NSString	*comment = (NSString *)contextInfo;
+
+    if(returnCode == NSAlertAlternateReturn){
+        [[self options] setOptionValue:comment forName:@"comment"];
+        [[self options] saveOptions];
+    }
+    else{
+        NSString	*oldComment = [[self options] optionValueForName:@"comment"];
+
+        if(!oldComment)
+            oldComment = @"";
+        [customCommentTextField setStringValue:oldComment];
+        [commentSwitch setState:[[self options] optionStateForName:@"comment"]];
+    }
+
+    [comment release];
 }
 
 - (IBAction) updateComment:(id)sender
 {
-    NSString	*comment = [customCommentTextField stringValue];
-    BOOL		isEmptyComment;
-
-    isEmptyComment = (comment == nil || [comment rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length == 0);
-    if(isEmptyComment){
-        comment = @"";
-        [commentMatrix selectCellAtRow:noCommentChoice column:0];
-    }
-    else
-        [commentMatrix selectCellAtRow:customCommentChoice column:0];
-
+    NSString	*comment = [self checkComment];
+    
     [[self options] setOptionValue:comment forName:@"comment"];
-    [[self options] setOptionState:!isEmptyComment forName:@"comment"];
-    if(isEmptyComment){
-        [[self options] addOptionNamed:@"comment"]; // Value is empty, but state is NO
-        [[self options] setOptionState:YES atIndex:[[[self options] optionStates] count] - 1];
-        [[self options] setEmptyOptionValueAtIndex:[[[self options] optionStates] count] - 1];
-    }
-    [[self options] setOptionValue:nil forName:@"default-comment"]; // This option should not be used in options file; let's remove it
     [[self options] saveOptions];
 }
 

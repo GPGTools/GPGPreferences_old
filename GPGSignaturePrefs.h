@@ -29,12 +29,12 @@
 
 @interface GPGSignaturePrefs : GPGPrefController
 {
-    IBOutlet NSMatrix		*commentMatrix;
+    IBOutlet NSButton		*commentSwitch;
     IBOutlet NSTextField	*customCommentTextField;
     IBOutlet NSButton		*versionSwitch;
 }
 
-- (IBAction) commentMatrixChanged:(id)sender;
+- (IBAction) toggleComment:(id)sender;
 - (IBAction) updateComment:(id)sender;
 - (IBAction) toggleVersion:(id)sender;
 
