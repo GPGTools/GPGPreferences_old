@@ -130,7 +130,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleGetInfoString</key>
-	<string>GnuPG Preferences (v8), Copyright MacGPG Group 2002-2003</string>
+	<string>GnuPG Preferences 1.2 (v9), Copyright MacGPG Group 2002-2003</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -142,11 +142,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>(v8)</string>
+	<string>1.2 (v9)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>(v8)</string>
+	<string>1.2</string>
 	<key>NSMainNibFile</key>
 	<string>GPGPreferences</string>
 	<key>NSPrefPaneIconFile</key>
@@ -633,7 +633,7 @@
 			refType = 4;
 		};
 		F528091D032A948B01000001 = {
-			fileEncoding = 30;
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			name = Italian;
 			path = Italian.lproj/GPGPreferences.info;
@@ -899,7 +899,7 @@
 			};
 		};
 		F5593EDF0232637C01A80016 = {
-			fileEncoding = 4;
+			fileEncoding = 10;
 			isa = PBXFileReference;
 			name = French;
 			path = French.lproj/InfoPlist.strings;
@@ -954,7 +954,7 @@
 			refType = 4;
 		};
 		F5593EE50232658A01A80016 = {
-			fileEncoding = 30;
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			name = English;
 			path = English.lproj/GPGPreferences.info;
@@ -1438,7 +1438,7 @@
 			};
 		};
 		F5BB3A6602468FCD01A80016 = {
-			fileEncoding = 30;
+			fileEncoding = 4;
 			isa = PBXFileReference;
 			name = Spanish;
 			path = Spanish.lproj/GPGPreferences.info;
