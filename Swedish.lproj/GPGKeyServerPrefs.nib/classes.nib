@@ -1,0 +1,35 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                changeHttpProxy = id; 
+                changeKeyServer = id; 
+                toggleAutomaticKeyRetrieval = id; 
+                toggleHttpProxyUse = id; 
+                toggleIncludeDisabled = id; 
+                toggleIncludeRevoked = id; 
+            }; 
+            CLASS = GPGKeyServerPrefs; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                httpProxyTextField = NSTextField; 
+                includeDisabledButton = NSButton; 
+                includeRevokedButton = NSButton; 
+                isAutomaticKeyRetrievingEnabledButton = NSButton; 
+                isHttpProxyHonoredButton = NSButton; 
+                keyServerListComboBox = NSComboBox; 
+                warningPlaceholder = NSView; 
+                warningView = NSView; 
+            }; 
+            SUPERCLASS = GPGPrefController; 
+        }, 
+        {
+            CLASS = GPGPrefController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {initialFirstResponder = NSView; view = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

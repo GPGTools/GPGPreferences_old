@@ -1,0 +1,79 @@
+{
+    // Note that you must use UTF8 encoding when saving this file
+    "VERSION %@" = "Version %@";
+
+    // Alert title
+    "WARRANTY" = "GnuPG-Garanti";
+    // Alert message
+    "GPG NOT FOUND" = "gpg-programmet kunde inte hittas.";
+    "WARRANTY ERROR" = "Kunde inte hitta GnuPG garantin, dvs... Ingen garanti!";
+
+    // "Open" dialog button
+    "CHOOSE" = "Välj";
+    "ADD EXTENSION" = "Lägg till tillägg";
+
+    // Alert titles
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Ett fel uppstod när mappen flyttades";
+    "UNABLE TO CREATE DIRECTORY" = "Kunde inte skapa mapp";
+    "UNABLE TO MODIFY ACCESS RIGHTS" = "Kunde inte ändra filens rättigheter";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Vissa filer som används av GnuPG saknar tillräckligt skydd. Vill du skydda dem?";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Mapprättighetsfel";
+    "CHANGE CHARSET TO UTF-8?" = "Vill du alltid använda UTF-8 som textkodning?";
+    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Terminalprogrammet bör använda UTF-8 som teckenkodning";
+    "CHANGE TERMINAL STRING ENCODING?" = "Vill du låta terminalprogrammet använda UTF-8 teckenkodning?";
+    "CANNOT EXECUTE OPERATION" = "Operationen misslyckades";
+    "WHERE IS GPG?" = "Var finns GnuPG-programmet?";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Vissa filer har felaktiga accessrättigheter. Vill du att de skall rättas?";
+    "COMMENT SHOULD BE ASCII ONLY" = "Kommentarfältet skall vara i ren ASCII";
+    "UPDATE OPTIONS?" = "Vill du uppgradera inställningarna för GnuPG 1.0.7?";
+    
+    // Alert messages
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Kunde inte flytta alla filer från %@ till %@. Var god och kontrollera filrättigheterna.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Kunde inte flytta mappen %@ till %@.";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Kunde inte skapa mapp vid %@; var god och kontrollera rättigheterna till den överliggande mappen.";
+    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Kunde inte ändra rättigheterna för följande filer:\n\n%@";
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Mappen %@ flyttades till %@, men rättigheterna kunde ställas in på alla filer. Var god och kontrollera att du är ägare till dessa filer.";
+    "WHY CHANGING CHARSET..." = "Du bör alltid använda UTF-8 som teckenkodning med GnuPG, annars så kan problem uppstå! Tecken med accenter, eller icke engelska tecken inskrivna i terminalen kommer inte att tolkas korrekt av GnuPG: namn kan bli felstavade, och likaså lösenfraser! UTF-8-teckenkodning kan koda alla tecken och förstås av de flesta kommandoradsverktyg, inklusive gpg.";
+    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Om du (eller något program) använder GnuPG via terminalen, så måste du se till att både terminalen and GnuPG använder samma teckenkodning; om de inte gör det så kan problem uppstå! Tecken med accenter, eller icke engelska tecken inskrivna i terminalen kommer inte att tolkas korrekt av GnuPG: namn kan bli felstavade, och likaså lösenfraser! UTF-8-teckenkodning kan koda alla tecken och är kompatibel med de flesta kommandoradsverktyg, inklusive gpg.\n\nTerminalen är för närvarande igång, och därmed kan jag ej modifiera dess inställningar; du måste göra detta själv: aktivera Terminal, öppna dess inställningspanel, och välj Teckenkodning till UTF-8 (i kommandotolksdelen).";
+    "WHY CHANGING TERMINAL SETTINGS..." = "Om du (eller något program) använder GnuPG via terminalen, så måste du se till att både terminalen and GnuPG använder samma teckenkodning; om de inte gör det så kan problem uppstå! Tecken med accenter, eller icke engelska tecken inskrivna i terminalen kommer inte att tolkas korrekt av GnuPG: namn kan bli felstavade, och likaså lösenfraser! UTF-8-teckenkodning kan koda alla tecken och är kompatibel med de flesta kommandoradsverktyg, inklusive gpg.";
+    "WHY GPG MUST BE IN %@..." = "De flesta program som beror på GnuPG förväntar sig att det ligger i %@; om du inte flyttar det eller skapar en länk till det i den platsen, så kommer dessa program ej att fungera.\nTänk på att du behöver administratörsprivilegier för att flytta filerna dit.";
+    "WHICH ACCESS RIGHTS..." = "Nyckelringar, tillägg och även andra filer som GnuPG använder bör skyddas för att undvika att andra personer skulle kunna läsa, eller i värsta fall ändra dem.";
+    "WHY ONLY ASCII IN COMMENT..." = "Kommentarsfältet, som till exempel är synligt i klartextsignaturer, bör endast innehålla ASCII-tecken. Du bör ta bort alla andra tecken, annars kan signaturer i e-brev bli ogiltiga under transport.";
+    // Errors when moving/linking gpg
+    "AUTH ERROR 255" = ", på grund av ett internt fel"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR -1" = ", på grund av ett internt fel"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR 1" = " (det auktoriserade verktyket kunde inte startas)"; /* kMyAuthorizedCommandExecFailed */
+    "AUTH ERROR 2" = " (det auktoriserade verktyket rapporterade ett fel)"; /* kMyAuthorizedCommandChildError */
+    "AUTH ERROR 3" = " på grund av att auktoriseringen misslyckades"; /* kMyAuthorizedCommandAuthFailed */
+    "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
+    "OPERATION %@ FAILED (%@)." = "%@ misslyckades%@. Var god och rätta detta manuellt eller starta om Systeminställningar."; // First arg is an "operation description"; second is the error description.
+    // Operation descriptions
+    "OP#1" = "Flyttar fil";
+    "OP#2" = "Skapar länk";
+    "OP#3" = "Skyddar fil";
+    "WHY UPDATING OPTIONS..." = "Vissa inställningar har ändrats i GnuPG 1.0.7. De som du har definierat kan uppdateras automatiskt till GnuPG 1.0.7.";
+    "WHICH ACCESS RIGHTS..." = "Filer som används av GnuPG, till exempel nyckelringar, inställningar, etc. måste skyddas från andra personer. Följande filer saknar tillräckligt skydd:\n\n";
+    
+    "PLEASE DO" = "Vänligen utför";
+    "DON'T CHANGE" = "Ändra inte";
+    "CHANGE ANYWAY" = "Ändra ändå";
+    "SEARCH GPG" = "Jag vet var den finns";
+    
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
+    "MOVE FILES?" = "Flytta filer?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "Flytta innehållet i %@ till %@?";
+    // Buttons
+    "MOVE" = "Flytta";
+    "DON'T MOVE" = "Flytta inte";
+    "CANCEL" = "Avbryt";
+    
+    /* Tab titles */
+    "GPGGlobalPrefs" = "Allmänt";
+    "GPGExpertPrefs" = "Expert";
+    "GPGCompatibilityPrefs" = "Kompatibilitet";
+    "GPGKeyServerPrefs" = "Nyckelserver";
+    "GPGSignaturePrefs" = "Signatur";
+    "GPGExtensionsPrefs" = "Tillägg";
+}
