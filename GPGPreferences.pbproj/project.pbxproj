@@ -179,9 +179,9 @@
 				F52A0A2A021318E5016C2AB4,
 				F52A0A3102132D50016C2AB4,
 				F52CD02702146B320157668B,
-				F52CD02A02147A850157668B,
 				F59073CE022D933101A80016,
 				F59073DA022D97A101A80016,
+				F5C36DD202352FF70128824A,
 			);
 			isa = PBXResourcesBuildPhase;
 			name = "Bundle Resources";
@@ -233,7 +233,7 @@
 				F5FBE292020D84FE01E2136E,
 				F5FBE297020DD14601E2136E,
 				F5FBE298020DD14601E2136E,
-				F52CD02902147A850157668B,
+				F5C36DD002352FF60128824A,
 			);
 			isa = PBXGroup;
 			name = Resources;
@@ -548,17 +548,6 @@
 		};
 		F52CD02702146B320157668B = {
 			fileRef = F52CD02602146B320157668B;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		F52CD02902147A850157668B = {
-			isa = PBXFileReference;
-			path = "mac-gpg-logo.tiff";
-			refType = 4;
-		};
-		F52CD02A02147A850157668B = {
-			fileRef = F52CD02902147A850157668B;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -972,6 +961,17 @@
 		};
 		F59073DA022D97A101A80016 = {
 			fileRef = F59073CF022D97A101A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5C36DD002352FF60128824A = {
+			isa = PBXFileReference;
+			path = "mac-gpg-logo.tiff";
+			refType = 2;
+		};
+		F5C36DD202352FF70128824A = {
+			fileRef = F5C36DD002352FF60128824A;
 			isa = PBXBuildFile;
 			settings = {
 			};
