@@ -3,77 +3,77 @@
     "VERSION %@" = "Version %@";
 
     // Alert title
-    "WARRANTY" = "GnuPG Garanti";
+    "WARRANTY" = "GnuPG Warranty";
     // Alert message
-    "GPG NOT FOUND" = "gpg ekskverbar kunne ikke findes.";
-    "WARRANTY ERROR" = "Kunne ikke finde GnuPG garanti, s√• der er ingen garanti!";
+    "GPG NOT FOUND" = "gpg executable could not be found.";
+    "WARRANTY ERROR" = "Unable to get GnuPG warranty, so... No warranty!";
 
     // "Open" dialog button
-    "CHOOSE" = "V√¶lg";
-    "ADD EXTENSION" = "Tilf√∏j udviddelse";
+    "CHOOSE" = "Choose";
+    "ADD EXTENSION" = "Add extension";
 
     // Alert titles
-    "ERROR WHEN MOVING HOMEDIRECTORY" = "Fejl ved flytning af folder";
-    "UNABLE TO CREATE DIRECTORY" = "Ude af stand til at skabe folder";
-    "UNABLE TO MODIFY ACCESS RIGHTS" = "Ude af stand til at √¶ndre filrettigheder";
-    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Nogle GPG filer er ikke beskyttet rigtigt. Skal de besyttes?";
-    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Fejl i mappe rettighed";
-    "CHANGE CHARSET TO UTF-8?" = "Brug altid UTF-8 string kodning?";
-    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Terminal skal bruge UTF-8 streng kodning";
-    "CHANGE TERMINAL STRING ENCODING?" = "Set Terminal til at bruge UTF-8 streng kodning?";
-    "CANNOT EXECUTE OPERATION" = "Fejl i udf√∏rsel";
-    "WHERE IS GPG?" = "Hvor er GnuPG?";
-    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Nogle filer har forkerte rettigheder. Skal de korrigeres?";
-    "COMMENT SHOULD BE ASCII ONLY" = "Kommentar felt m√• kun v√¶re ASCII";
-    "UPDATE OPTIONS?" = "Updateringsmuligheder for GnuPG 1.0.7?";
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Error when moving folder";
+    "UNABLE TO CREATE DIRECTORY" = "Unable to create folder";
+    "UNABLE TO MODIFY ACCESS RIGHTS" = "Unable to modify file access rights";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Some files used by GnuPG are not protected correctly. Protect them?";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Folder privilege error";
+    "CHANGE CHARSET TO UTF-8?" = "Always use UTF-8 as string encoding?";
+    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Terminal should use UTF-8 string encoding";
+    "CHANGE TERMINAL STRING ENCODING?" = "Tell Terminal to use UTF-8 string encoding?";
+    "CANNOT EXECUTE OPERATION" = "Operation failed";
+    "WHERE IS GPG?" = "Where is GnuPG executable?";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Some files have invalid access rights. Correct them?";
+    "COMMENT SHOULD BE ASCII ONLY" = "Comment field should be ASCII only";
+    "UPDATE OPTIONS?" = "Update options for GnuPG 1.0.7?";
     
     // Alert messages
-    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Kan ikke flytte alle filer i %@ til %@. Check fil rettigheder.";
-    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Kan ikke flytte mappe %@ til %@.";
-    "UNABLE TO CREATE DIRECTORY AT %@" = "Kan ikke skabe mappe i %@; Check rettigheder for overliggende mappe.";
-    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Kan ikke √¶ndre fil rettighederne for f√∏lgende filer:\n\n%@";
-    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Mappen %@ er blevet flyttet %@, men rettigheder kunne ikke s√¶ttes for alle filer. Check at du er ejeren af alle de n√¶vnte filer.";
-    "WHY CHANGING CHARSET..." = "Du skal altid bruge UTF-8 string kodning med GnuPG, ellers vil du f√• problemer! Karakterer med accenter, eller udenlandske karakter vil ellers ikke blive  korrect oversat af GnuPG: navne kan blive fejlstavet, sammen med hele s√¶tninger! UTF-8 string kodning kan kode enhvert bogstav og bliver forst√•et af de fleste kommandolinie v√¶rkt√∏jer, som gpg.";
-    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Hvis du bruger GnuPG via terminalen (eller andre programmer), skal du tage h√∏jde for at terminalen and GnuPG bruger det samme karakters√¶t ; hvis de ikke g√∏r det, kan der ske fejl! Bogstaver med accenter, or udenlandske bogstaver skrevet i terminalen vil ikke blive rigtig fortolket af GnuPG: naven vil blive fejlstavet, sammen med hele s√¶tninger! UTF-8 string kodning kan kode et hvert bogstav og er kompatibel med alle kommandoline v√¶rkt√∏jer som f.eks. gpg.\n\nTerminalen er √•ben, s√• jeg kan ikke √¶ndre det; Du bliver n√∏d til at g√∏re det selv: Open preferencer i Terminalen, og s√¶t String Encoding til UTF-8 (Shell).";
-    "WHY CHANGING TERMINAL SETTINGS..." = "Hvis du bruger GnuPG via terminalen (eller andre programmer), skal du tage h√∏jde for at terminalen and GnuPG bruger det samme karakters√¶t ; hvis de ikke g√∏r det, kan der ske fejl! Bogstaver med accenter, eller udenlandske bogstaver skrevet i terminalen vil ikke blive rigtig fortolket af GnuPG: navne vil blive fejlstavet, sammen med hele s√¶tninger! UTF-8 string kodning kan kode et hvert bogstav og er kompatibel med alle kommandoline v√¶rkt√∏jer som f.eks. gpg.";
-    "WHY GPG MUST BE IN %@..." = "De fleste programmer som benytter GnuPG forventer at det findes i %@; hvis du ikke flytter det eller laver en link til dette sted, vil disse programmer ikke virke.\nHusk at du har brug for admin rettiger til dette.";
-    "WHICH ACCESS RIGHTS..." = "N√∏gleringe, udviddelser, og andre filer brugt af GnuPG skal beskyttes mod at blive l√¶st eller v√¶rre √¶ndret endnu at blive √¶ndret af andre.";
-    "WHY ONLY ASCII IN COMMENT..." = "Kommentarfeldtet synligt i clear-signed signaturer m√•   kun indeholde ASCII bogstaver. Du skal fjerne alle andre bogstaver, ellers kan signaturer i emails blive ugyldige under transporten.";
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Unable to move all the files of %@ to %@. Please check the file privileges.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Unable to move folder %@ to %@.";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Unable to create folder at %@; please check the privileges of the parent folder.";
+    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Unable to modify access rights on the following files:\n\n%@";
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Folder %@ has been moved to %@, but privileges could not be set on all files. Please check that you are the owner of all these files.";
+    "WHY CHANGING CHARSET..." = "You should always use the UTF-8 string encoding with GnuPG, or you'll get in trouble! Characters with accents, or foreign characters might not be correctly interpreted by GnuPG: names might be mis-spelled, as well as passphrases! UTF-8 string encoding can encode any character and is understood by most command-line utilities, like gpg.";
+    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "If you (or some applications) use GnuPG via Terminal, you must take care that both Terminal and GnuPG use the same character set; if they don't, you'll get in trouble! Characters with accents, or foreign characters typed in the Terminal will not be correctly interpreted by GnuPG: names might be mis-spelled, as well as passphrases! UTF-8 string encoding can encode any character and is compatible with most command-line utilities, like gpg.\n\nTerminal is currently running, thus forbidding me to modify it; you need to do it yourself: go to Terminal, open its Preferences, and set the String Encoding to UTF-8 (in the Shell part).";
+    "WHY CHANGING TERMINAL SETTINGS..." = "If you (or some applications) use GnuPG via Terminal, you must take care that both Terminal and GnuPG use the same character set; if they don't, you'll get in trouble! Characters with accents, or foreign characters typed in the Terminal will not be correctly interpreted by GnuPG: names might be mis-spelled, as well as passphrases! UTF-8 string encoding can encode any character and is understood by most command-line utilities, like gpg.";
+    "WHY GPG MUST BE IN %@..." = "Most applications depending on GnuPG expect it to be located in %@; if you don't move it nor make a link to it in that location, these applications will not work.\nNote that you need administrator rights to put it there.";
+    "WHICH ACCESS RIGHTS..." = "Key rings, extensions, as well as other files used by GnuPG should be protected to avoid other people to be able to read, or worse, modify them.";
+    "WHY ONLY ASCII IN COMMENT..." = "The comment field, visible in clear-signed signatures for example, should contain only ASCII characters. You should remove any other character, else signatures in mails might become invalid during transport.";
     // Errors when moving/linking gpg
-    "AUTH ERROR 255" = ", pga intern fejl"; /* kMyAuthorizedCommandInternalError */
-    "AUTH ERROR -1" = ", pga intern fej"; /* kMyAuthorizedCommandInternalError */
-    "AUTH ERROR 1" = " (det autoriserede v√¶rkt√∏j kunne ikke √•bnes)"; /* kMyAuthorizedCommandExecFailed */
-    "AUTH ERROR 2" = " (det autoriserede v√¶rkt√∏j reporterede en fejl)"; /* kMyAuthorizedCommandChildError */
-    "AUTH ERROR 3" = " fordi autorisationen fejlede"; /* kMyAuthorizedCommandAuthFailed */
+    "AUTH ERROR 255" = ", due to an internal error"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR -1" = ", due to an internal error"; /* kMyAuthorizedCommandInternalError */
+    "AUTH ERROR 1" = " (the authorized tool could not be launched)"; /* kMyAuthorizedCommandExecFailed */
+    "AUTH ERROR 2" = " (the authorized tool reported an error)"; /* kMyAuthorizedCommandChildError */
+    "AUTH ERROR 3" = " because the authorization failed"; /* kMyAuthorizedCommandAuthFailed */
     "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
-    "OPERATION %@ FAILED (%@)." = "%@ fejlede%@. Korriger venligst selv problemet, eller genstart System Preferencer."; // F√∏rste arg er en "operationsbeskrivelse"; det andet er fejlbeskrivelsen.
+    "OPERATION %@ FAILED (%@)." = "%@ failed%@. Please correct the problem manually, or relaunch System Preferences."; // First arg is an "operation description"; second is the error description.
     // Operation descriptions
-    "OP#1" = "Flyt fil";
-    "OP#2" = "Skab link";
-    "OP#3" = "Beskyt fil";
-    "WHY UPDATING OPTIONS..." = "Nogle egenskaber er blevet √¶ndret i GnuPG 1.0.7. Dem som du har defineret kan opdatares automatisk af GnuPG 1.0.7.";
-    "WHICH ACCESS RIGHTS..." = "Filer benyttet af GnuPG, som n√∏gleringe, muligheder m.m. skal v√¶re beskyttet fra andre folk. De f√∏lgende filer er ikke beskyttet:\n\n";
+    "OP#1" = "Moving file";
+    "OP#2" = "Creating link";
+    "OP#3" = "Protecting file";
+    "WHY UPDATING OPTIONS..." = "Some options have changed in GnuPG 1.0.7. The ones you defined can be updated automatically for GnuPG 1.0.7.";
+    "WHICH ACCESS RIGHTS..." = "Files used by GnuPG, like key rings, options, etc. must be protected from other people. The following files are not properly protected:\n\n";
     
-    "PLEASE DO" = "V√¶rsgo";
-    "DON'T CHANGE" = "Lad v√¶rre med at foretage √¶ndringer";
-    "CHANGE ANYWAY" = "Du kan foretage √¶ndringer";
-    "SEARCH GPG" = "Jeg ved hvor det er";
+    "PLEASE DO" = "Please do";
+    "DON'T CHANGE" = "Don't change";
+    "CHANGE ANYWAY" = "Change anyway";
+    "SEARCH GPG" = "I know where it is";
     
     /* Changing homedirectory: ask user to move current folder content */
     // Title
-    "MOVE FILES?" = "Flyt filer?";
+    "MOVE FILES?" = "Move files?";
     // Message
-    "MOVE CONTENT OF %@ TO %@" = "Flyt indholdet af %@ til %@?";
+    "MOVE CONTENT OF %@ TO %@" = "Move content of %@ to %@?";
     // Buttons
-    "MOVE" = "Flyt";
-    "DON'T MOVE" = "Flyt ikke";
-    "CANCEL" = "Fortryd";
+    "MOVE" = "Move";
+    "DON'T MOVE" = "Don't";
+    "CANCEL" = "Cancel";
     
     /* Tab titles */
-    "GPGGlobalPrefs" = "Generel";
+    "GPGGlobalPrefs" = "General";
     "GPGExpertPrefs" = "Expert";
-    "GPGCompatibilityPrefs" = "Kompatibilitet";
-    "GPGKeyServerPrefs" = "Nøgle Server";
-    "GPGSignaturePrefs" = "Signatur";
-    "GPGExtensionsPrefs" = "Udviddelser";
+    "GPGCompatibilityPrefs" = "Compatibility";
+    "GPGKeyServerPrefs" = "Key Server";
+    "GPGSignaturePrefs" = "Signature";
+    "GPGExtensionsPrefs" = "Extensions";
 }

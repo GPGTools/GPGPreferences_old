@@ -53,6 +53,7 @@
 				German,
 				Spanish,
 				Swedish,
+				Danish,
 			);
 			mainGroup = 089C166AFE841209C02AAC07;
 			projectDirPath = "";
@@ -261,6 +262,7 @@
 				F56EE6320243C36801A80016,
 				F599A066027CE17901D17707,
 				F50A02C202FE09A701000104,
+				F50827260309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
@@ -434,6 +436,7 @@
 				F56EE6330243C36801A80016,
 				F599A068027CE17901D17707,
 				F50A02C402FE09A701000104,
+				F50827280309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = GPGPreferences.nib;
@@ -451,6 +454,60 @@
 			isa = PBXBuildFile;
 			settings = {
 			};
+		};
+		F50827260309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/InfoPlist.strings;
+			refType = 4;
+		};
+		F50827270309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/Localizable.strings;
+			refType = 4;
+		};
+		F50827280309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGPreferences.nib;
+			refType = 4;
+		};
+		F50827290309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGGlobalPrefs.nib;
+			refType = 4;
+		};
+		F508272A0309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGKeyServerPrefs.nib;
+			refType = 4;
+		};
+		F508272B0309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGSignaturePrefs.nib;
+			refType = 4;
+		};
+		F508272C0309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGExtensionsPrefs.nib;
+			refType = 4;
+		};
+		F508272D0309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGCompatibilityPrefs.nib;
+			refType = 4;
+		};
+		F508272E0309F9D301000104 = {
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/GPGExpertPrefs.nib;
+			refType = 4;
 		};
 		F50A02C202FE09A701000104 = {
 			isa = PBXFileReference;
@@ -513,6 +570,7 @@
 				F56EE6380243C36801A80016,
 				F599A06D027CE17901D17707,
 				F50A02C902FE09A701000104,
+				F508272D0309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = GPGCompatibilityPrefs.nib;
@@ -560,6 +618,7 @@
 				F56EE6350243C36801A80016,
 				F599A06A027CE17901D17707,
 				F50A02C602FE09A701000104,
+				F508272A0309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = GPGKeyServerPrefs.nib;
@@ -607,6 +666,7 @@
 				F5770C70023585EC0128824A,
 				F599A067027CE17901D17707,
 				F50A02C302FE09A701000104,
+				F50827270309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -851,6 +911,7 @@
 				F56EE6360243C36801A80016,
 				F599A06B027CE17901D17707,
 				F50A02C702FE09A701000104,
+				F508272B0309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = GPGSignaturePrefs.nib;
@@ -1139,6 +1200,7 @@
 				F56EE6370243C36801A80016,
 				F599A06C027CE17901D17707,
 				F50A02C802FE09A701000104,
+				F508272C0309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = GPGExtensionsPrefs.nib;
@@ -1296,6 +1358,7 @@
 				F56EE6340243C36801A80016,
 				F599A069027CE17901D17707,
 				F50A02C502FE09A701000104,
+				F50827290309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = GPGGlobalPrefs.nib;
@@ -1376,6 +1439,7 @@
 				F56EE6390243C36801A80016,
 				F599A06E027CE17901D17707,
 				F50A02CA02FE09A701000104,
+				F508272E0309F9D301000104,
 			);
 			isa = PBXVariantGroup;
 			name = GPGExpertPrefs.nib;
