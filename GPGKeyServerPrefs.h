@@ -32,6 +32,8 @@
     IBOutlet NSTextField	*httpProxyTextField;
     IBOutlet NSButton		*isAutomaticKeyRetrievingEnabledButton;
     IBOutlet NSButton		*isHttpProxyHonoredButton;
+    IBOutlet NSButton		*includeRevokedButton;
+    IBOutlet NSButton		*includeDisabledButton;
     IBOutlet NSComboBox		*keyServerListComboBox;
     IBOutlet NSView			*warningPlaceholder;
     IBOutlet NSView			*warningView;
@@ -43,5 +45,7 @@
 - (IBAction) changeKeyServer:(id)sender;
 - (IBAction) toggleAutomaticKeyRetrieval:(id)sender;
 - (IBAction) toggleHttpProxyUse:(id)sender;
+- (IBAction) toggleIncludeRevoked:(id)sender;
+- (IBAction) toggleIncludeDisabled:(id)sender;
 
 @end
