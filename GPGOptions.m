@@ -529,6 +529,20 @@ static NSString *gnupgVersion = nil;
     [optionFileLines addObject:[@"#" stringByAppendingString:name]];
 }
 
+- (void) addOptionNamed:(NSString *)name value:(NSString *)value state:(BOOL)state
+/*"
+ * Adds a new option named name, with an value and state. Does not disable 
+ * existing options with save name. Use it only when option can appear multiple 
+ * times.
+"*/
+{
+    [optionNames addObject:name];
+    [optionValues addObject:value];
+    [optionStates addObject:[NSNumber numberWithBool:state]];
+    [optionLineNumbers addObject:[NSNumber numberWithUnsignedInt:[optionFileLines count]]];
+    [optionFileLines addObject:[NSString stringWithFormat:@"%@%@ %@", (state ? @"":@"#"), name, value]];
+}
+
 - (void) insertOptionNamed:(NSString *)name atIndex:(unsigned)index
 /*"
  *

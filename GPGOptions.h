@@ -83,12 +83,13 @@ extern "C" {
 - (void) setOptionName:(NSString *)name atIndex:(unsigned)index;
 - (void) setOptionState:(BOOL)flag atIndex:(unsigned)index;
 
-// -saveOptions is automatically called
 - (void) addOptionNamed:(NSString *)name;
+- (void) addOptionNamed:(NSString *)name value:(NSString *)value state:(BOOL)state;
 - (void) insertOptionNamed:(NSString *)name atIndex:(unsigned)index;
 - (void) removeOptionAtIndex:(unsigned)index;
 - (unsigned) moveOptionsAtIndexes:(NSArray *)indexes toIndex:(unsigned)index;
 // Returns the index of the first moved option
+// -saveOptions is automatically called
 
 /*"
  * Getting options
