@@ -1,0 +1,19 @@
+Title GnuPG Preferencer
+Version 1.1 (v6)
+Description Denne pakke indeholder en plug-in til System Preferencer som tillader dig at foretage ¾ndringer i ops¾tningen i GnuPG 1.0.7 uden at det er n¿dvendigt at bruge Terminalen.
+
+DefaultLocation /Library/PreferencePanes
+Relocatable YES
+DeleteWarning 
+
+### Package Flags
+NeedsAuthorization YES
+Required NO
+Application NO
+RequiresReboot NO
+UseUserMask NO
+InstallOnly NO
+DisableStop NO
+LongFilenames YES
+OverwritePermissions NO
+InstallFat NO
