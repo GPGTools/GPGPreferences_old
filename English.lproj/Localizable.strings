@@ -10,6 +10,7 @@
 
     // "Open" dialog button
     "CHOOSE" = "Choose";
+    "ADD EXTENSION" = "Add extension";
 
     // Alert titles
     "ERROR WHEN MOVING HOMEDIRECTORY" = "Error when moving folder";
@@ -58,4 +59,6 @@
     "GPGExpertPrefs" = "Expert";
     "GPGCompatibilityPrefs" = "Compatibility";
     "GPGKeyServerPrefs" = "Key Server";
+    "GPGSignaturePrefs" = "Signature";
+    "GPGExtensionsPrefs" = "Extensions";
 }
