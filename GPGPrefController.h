@@ -27,10 +27,12 @@
 
 
 @class GPGOptions;
+@class GPGPreferences;
 
 
 @interface GPGPrefController : NSObject
 {
+    GPGPreferences	*preferences;
     IBOutlet NSView	*initialFirstResponder;
     NSString		*identifier;
     NSTabViewItem	*tabViewItem;
@@ -38,9 +40,9 @@
     GPGOptions		*options;
 }
 
-+ (id) controllerWithIdentifier:(NSString *)newIdentifier;
++ (id) controllerWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferences;
 
-- (id) initWithIdentifier:(NSString *)newIdentifier;
+- (id) initWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferences;
 - (void) awakeFromNib;
 
 - (NSTabViewItem *) tabViewItem;

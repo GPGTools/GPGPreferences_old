@@ -25,19 +25,21 @@
 
 #import "GPGPrefController.h"
 #import "GPGOptions.h"
+#import "GPGPreferences.h"
 
 
 @implementation GPGPrefController
 
-+ (id) controllerWithIdentifier:(NSString *)newIdentifier
++ (id) controllerWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferencesInstance
 {
-    return [[[self alloc] initWithIdentifier:newIdentifier] autorelease];
+    return [[[self alloc] initWithIdentifier:newIdentifier preferences:preferencesInstance] autorelease];
 }
 
-- (id) initWithIdentifier:(NSString *)newIdentifier
+- (id) initWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferencesInstance
 {
     if(self = [self init]){
         identifier = [newIdentifier copy];
+        preferences = preferencesInstance; // Do not retain it to avoid retain-cycle
     }
 
     return self;
