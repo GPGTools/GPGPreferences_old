@@ -6,7 +6,7 @@
     "WARRANTY" = "GnuPG-Garanti";
     // Alert message
     "GPG NOT FOUND" = "gpg-programmet kunde inte hittas.";
-    "WARRANTY ERROR" = "Kunde inte hitta GnuPG garantin, dvs... Ingen garanti!";
+    "WARRANTY ERROR" = "Kunde inte hitta GnuPG-garantin, dvs... Ingen garanti!";
 
     // "Open" dialog button
     "CHOOSE" = "Välj";
