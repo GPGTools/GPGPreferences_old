@@ -49,6 +49,8 @@
 			projectDirPath = "";
 			targets = (
 				089C1673FE841209C02AAC07,
+				F59073C4022D92E301A80016,
+				F59073D1022D97A101A80016,
 			);
 		};
 		089C166AFE841209C02AAC07 = {
@@ -58,6 +60,7 @@
 				089C167CFE841241C02AAC07,
 				089C1671FE841209C02AAC07,
 				19C28FB8FE9D52D311CA2CBB,
+				F5593EE10232658A01A80016,
 			);
 			isa = PBXGroup;
 			name = GPGPreferences;
@@ -101,6 +104,8 @@
 				WRAPPER_EXTENSION = prefPane;
 			};
 			dependencies = (
+				F59073C3022D92E301A80016,
+				F59073D0022D97A101A80016,
 			);
 			isa = PBXBundleTarget;
 			name = GPGPreferences;
@@ -114,7 +119,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleGetInfoString</key>
-	<string>GnuPG Preferences 0.1 (v1), Copyright MacGPG Group 2002</string>
+	<string>GnuPG Preferences 0.2 (v2), Copyright MacGPG Group 2002</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -122,15 +127,15 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>GPGPreferences</string>
+	<string>GnuPG Preferences</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1 (v1)</string>
+	<string>0.2 (v2)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.1 (v1)</string>
+	<string>0.2.0</string>
 	<key>NSMainNibFile</key>
 	<string>GPGPreferences</string>
 	<key>NSPrefPaneIconFile</key>
@@ -154,6 +159,7 @@
 				F5FBE2A1020DDC7401E2136E,
 				F52A0A2D021320FE016C2AB4,
 				F52A0A34021334A8016C2AB4,
+				F59073BC022D8E1801A80016,
 			);
 			isa = PBXHeadersBuildPhase;
 			name = Headers;
@@ -174,6 +180,8 @@
 				F52A0A3102132D50016C2AB4,
 				F52CD02702146B320157668B,
 				F52CD02A02147A850157668B,
+				F59073CE022D933101A80016,
+				F59073DA022D97A101A80016,
 			);
 			isa = PBXResourcesBuildPhase;
 			name = "Bundle Resources";
@@ -188,6 +196,7 @@
 				F5FBE2A2020DDC7401E2136E,
 				F52A0A2E021320FE016C2AB4,
 				F52A0A35021334A8016C2AB4,
+				F59073BD022D8E1801A80016,
 			);
 			isa = PBXSourcesBuildPhase;
 			name = Sources;
@@ -197,6 +206,8 @@
 			files = (
 				1058C7AFFEA557BF11CA2CBB,
 				F506C036013D953901CA16C8,
+				F59073C0022D918E01A80016,
+				F557037D022EE77B01A80016,
 			);
 			isa = PBXFrameworksBuildPhase;
 			name = "Frameworks & Libraries";
@@ -231,6 +242,7 @@
 		089C167DFE841241C02AAC07 = {
 			children = (
 				089C167EFE841241C02AAC07,
+				F5593EDF0232637C01A80016,
 			);
 			isa = PBXVariantGroup;
 			name = InfoPlist.strings;
@@ -271,6 +283,9 @@
 				F52A0A2C021320FE016C2AB4,
 				F5FBE29B020DD61201E2136E,
 				F5FBE29C020DD61201E2136E,
+				F59073B9022D8E1801A80016,
+				F59073BA022D8E1801A80016,
+				F59073BB022D8E1801A80016,
 			);
 			isa = PBXGroup;
 			name = Classes;
@@ -290,6 +305,9 @@
 			children = (
 				1058C7ADFEA557BF11CA2CBB,
 				F506C035013D953901CA16C8,
+				F59073BF022D918E01A80016,
+				F59073C1022D92E301A80016,
+				F557037C022EE77B01A80016,
 			);
 			isa = PBXGroup;
 			name = "Linked Frameworks";
@@ -329,6 +347,8 @@
 		19C28FB8FE9D52D311CA2CBB = {
 			children = (
 				06F27B2EFFEEEFEF11CA0E56,
+				F59073C2022D92E301A80016,
+				F59073CF022D97A101A80016,
 			);
 			isa = PBXGroup;
 			name = Products;
@@ -392,6 +412,7 @@
 		F506C042013D9D8C01CA16C8 = {
 			children = (
 				F506C043013D9D8C01CA16C8,
+				F53869240232BC2701A80016,
 			);
 			isa = PBXVariantGroup;
 			name = GPGPreferences.nib;
@@ -413,6 +434,7 @@
 		F52A0A28021318E5016C2AB4 = {
 			children = (
 				F52A0A29021318E5016C2AB4,
+				F53869270232BC2701A80016,
 			);
 			isa = PBXVariantGroup;
 			name = GPGCompatibilityPrefs.nib;
@@ -456,6 +478,7 @@
 		F52A0A2F02132D50016C2AB4 = {
 			children = (
 				F52A0A3002132D50016C2AB4,
+				F53869260232BC2701A80016,
 			);
 			isa = PBXVariantGroup;
 			name = GPGKeyServerPrefs.nib;
@@ -499,6 +522,7 @@
 		F52B34DA020F1BC50197BDCC = {
 			children = (
 				F52B34DB020F1BC50197BDCC,
+				F5593EE00232637C01A80016,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -539,6 +563,419 @@
 			settings = {
 			};
 		};
+		F53869240232BC2701A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/GPGPreferences.nib;
+			refType = 4;
+		};
+		F53869250232BC2701A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/GPGGlobalPrefs.nib;
+			refType = 4;
+		};
+		F53869260232BC2701A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/GPGKeyServerPrefs.nib;
+			refType = 4;
+		};
+		F53869270232BC2701A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/GPGCompatibilityPrefs.nib;
+			refType = 4;
+		};
+		F53869280232BC2701A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/GPGExpertPrefs.nib;
+			refType = 4;
+		};
+		F557037C022EE77B01A80016 = {
+			isa = PBXFrameworkReference;
+			name = Carbon.framework;
+			path = /System/Library/Frameworks/Carbon.framework;
+			refType = 0;
+		};
+		F557037D022EE77B01A80016 = {
+			fileRef = F557037C022EE77B01A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5593EDF0232637C01A80016 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/InfoPlist.strings;
+			refType = 4;
+		};
+		F5593EE00232637C01A80016 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/Localizable.strings;
+			refType = 4;
+		};
+		F5593EE10232658A01A80016 = {
+			children = (
+				F5593EE20232658A01A80016,
+				F5593EE30232658A01A80016,
+			);
+			isa = PBXGroup;
+			path = Installer;
+			refType = 4;
+		};
+		F5593EE20232658A01A80016 = {
+			isa = PBXFileReference;
+			path = GPGPreferences.pmsp;
+			refType = 4;
+		};
+		F5593EE30232658A01A80016 = {
+			children = (
+				F5593EE40232658A01A80016,
+				F5593EE70232658A01A80016,
+				F5593EEA0232658A01A80016,
+				F5593EED0232658A01A80016,
+				F5593EF00232658A01A80016,
+			);
+			isa = PBXGroup;
+			path = Resources;
+			refType = 4;
+		};
+		F5593EE40232658A01A80016 = {
+			children = (
+				F5593EE50232658A01A80016,
+				F5593EE60232658A01A80016,
+			);
+			isa = PBXVariantGroup;
+			name = GPGPreferences.info;
+			path = "";
+			refType = 4;
+		};
+		F5593EE50232658A01A80016 = {
+			isa = PBXFileReference;
+			name = English;
+			path = "English.lproj/GPGPreferences-0.2.info";
+			refType = 4;
+		};
+		F5593EE60232658A01A80016 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = French;
+			path = "French.lproj/GPGPreferences-0.2.info";
+			refType = 4;
+		};
+		F5593EE70232658A01A80016 = {
+			children = (
+				F5593EE80232658A01A80016,
+				F5593EE90232658A01A80016,
+			);
+			isa = PBXVariantGroup;
+			name = License.html;
+			path = "";
+			refType = 4;
+		};
+		F5593EE80232658A01A80016 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/License.html;
+			refType = 4;
+		};
+		F5593EE90232658A01A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/License.html;
+			refType = 4;
+		};
+		F5593EEA0232658A01A80016 = {
+			children = (
+				F5593EEB0232658A01A80016,
+				F5593EEC0232658A01A80016,
+			);
+			isa = PBXVariantGroup;
+			name = ReadMe.rtf;
+			path = "";
+			refType = 4;
+		};
+		F5593EEB0232658A01A80016 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/ReadMe.rtf;
+			refType = 4;
+		};
+		F5593EEC0232658A01A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/ReadMe.rtf;
+			refType = 4;
+		};
+		F5593EED0232658A01A80016 = {
+			children = (
+				F5593EEE0232658A01A80016,
+				F5593EEF0232658A01A80016,
+			);
+			isa = PBXVariantGroup;
+			name = Welcome.rtf;
+			path = "";
+			refType = 4;
+		};
+		F5593EEE0232658A01A80016 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/Welcome.rtf;
+			refType = 4;
+		};
+		F5593EEF0232658A01A80016 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/Welcome.rtf;
+			refType = 4;
+		};
+		F5593EF00232658A01A80016 = {
+			isa = PBXExecutableFileReference;
+			path = "GPGPreferences-0.1.post_install";
+			refType = 4;
+		};
+		F59073B9022D8E1801A80016 = {
+			isa = PBXFileReference;
+			path = authapp.c;
+			refType = 4;
+		};
+		F59073BA022D8E1801A80016 = {
+			isa = PBXFileReference;
+			path = authinfo.h;
+			refType = 4;
+		};
+		F59073BB022D8E1801A80016 = {
+			isa = PBXFileReference;
+			path = authtool.c;
+			refType = 4;
+		};
+		F59073BC022D8E1801A80016 = {
+			fileRef = F59073BA022D8E1801A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073BD022D8E1801A80016 = {
+			fileRef = F59073B9022D8E1801A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073BF022D918E01A80016 = {
+			isa = PBXFrameworkReference;
+			name = Security.framework;
+			path = /System/Library/Frameworks/Security.framework;
+			refType = 0;
+		};
+		F59073C0022D918E01A80016 = {
+			fileRef = F59073BF022D918E01A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073C1022D92E301A80016 = {
+			isa = PBXFrameworkReference;
+			name = CoreFoundation.framework;
+			path = /System/Library/Frameworks/CoreFoundation.framework;
+			refType = 0;
+		};
+		F59073C2022D92E301A80016 = {
+			isa = PBXExecutableFileReference;
+			path = authtool;
+			refType = 3;
+		};
+		F59073C3022D92E301A80016 = {
+			isa = PBXTargetDependency;
+			target = F59073C4022D92E301A80016;
+		};
+		F59073C4022D92E301A80016 = {
+			buildPhases = (
+				F59073C5022D92E301A80016,
+				F59073C7022D92E301A80016,
+				F59073C9022D92E301A80016,
+				F59073CC022D92E301A80016,
+			);
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = authtool;
+				REZ_EXECUTABLE = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+			);
+			isa = PBXToolTarget;
+			name = authtool;
+			productInstallPath = /usr/local/bin;
+			productName = authtool;
+			productReference = F59073C2022D92E301A80016;
+			shouldUseHeadermap = 0;
+		};
+		F59073C5022D92E301A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+				F59073C6022D92E301A80016,
+			);
+			isa = PBXHeadersBuildPhase;
+			name = Headers;
+		};
+		F59073C6022D92E301A80016 = {
+			fileRef = F59073BA022D8E1801A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073C7022D92E301A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+				F59073C8022D92E301A80016,
+			);
+			isa = PBXSourcesBuildPhase;
+			name = Sources;
+		};
+		F59073C8022D92E301A80016 = {
+			fileRef = F59073BB022D8E1801A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073C9022D92E301A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+				F59073CA022D92E301A80016,
+				F59073CB022D92E301A80016,
+			);
+			isa = PBXFrameworksBuildPhase;
+			name = "Frameworks & Libraries";
+		};
+		F59073CA022D92E301A80016 = {
+			fileRef = F59073BF022D918E01A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073CB022D92E301A80016 = {
+			fileRef = F59073C1022D92E301A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073CC022D92E301A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			name = "ResourceManager Resources";
+		};
+		F59073CE022D933101A80016 = {
+			fileRef = F59073C2022D92E301A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073CF022D97A101A80016 = {
+			isa = PBXExecutableFileReference;
+			path = authtool.bak;
+			refType = 3;
+		};
+		F59073D0022D97A101A80016 = {
+			isa = PBXTargetDependency;
+			target = F59073D1022D97A101A80016;
+		};
+		F59073D1022D97A101A80016 = {
+			buildPhases = (
+				F59073D2022D97A101A80016,
+				F59073D4022D97A101A80016,
+				F59073D6022D97A101A80016,
+				F59073D9022D97A101A80016,
+			);
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = authtool.bak;
+				REZ_EXECUTABLE = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+			);
+			isa = PBXToolTarget;
+			name = authtool.bak;
+			productInstallPath = /usr/local/bin;
+			productName = authtool.bak;
+			productReference = F59073CF022D97A101A80016;
+			shouldUseHeadermap = 0;
+		};
+		F59073D2022D97A101A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+				F59073D3022D97A101A80016,
+			);
+			isa = PBXHeadersBuildPhase;
+			name = Headers;
+		};
+		F59073D3022D97A101A80016 = {
+			fileRef = F59073BA022D8E1801A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073D4022D97A101A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+				F59073D5022D97A101A80016,
+			);
+			isa = PBXSourcesBuildPhase;
+			name = Sources;
+		};
+		F59073D5022D97A101A80016 = {
+			fileRef = F59073BB022D8E1801A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073D6022D97A101A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+				F59073D7022D97A101A80016,
+				F59073D8022D97A101A80016,
+			);
+			isa = PBXFrameworksBuildPhase;
+			name = "Frameworks & Libraries";
+		};
+		F59073D7022D97A101A80016 = {
+			fileRef = F59073BF022D918E01A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073D8022D97A101A80016 = {
+			fileRef = F59073C1022D92E301A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F59073D9022D97A101A80016 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			name = "ResourceManager Resources";
+		};
+		F59073DA022D97A101A80016 = {
+			fileRef = F59073CF022D97A101A80016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		F5FBE27C020D720801E2136E = {
 			children = (
 				F5FBE27D020D723C01E2136E,
@@ -568,6 +1005,7 @@
 		F5FBE287020D7FBD01E2136E = {
 			children = (
 				F5FBE288020D7FBD01E2136E,
+				F53869250232BC2701A80016,
 			);
 			isa = PBXVariantGroup;
 			name = GPGGlobalPrefs.nib;
@@ -644,6 +1082,7 @@
 		F5FBE294020DCDF201E2136E = {
 			children = (
 				F5FBE295020DCDF201E2136E,
+				F53869280232BC2701A80016,
 			);
 			isa = PBXVariantGroup;
 			name = GPGExpertPrefs.nib;
