@@ -1,8 +1,54 @@
 {\rtf1\mac\ansicpg10000\cocoartf100
-{\fonttbl\f0\froman\fcharset77 Palatino-Roman;}
+{\fonttbl\f0\froman\fcharset77 Palatino-Bold;\f1\froman\fcharset77 Palatino-Roman;\f2\froman\fcharset77 Palatino-Italic;
+}
 {\colortbl;\red255\green255\blue255;}
-\margl1440\margr1440\vieww9000\viewh9000\viewkind0
 \pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
 
-\f0\fs28 \cf0 Ce paquet contient un plug-in pour les Pr\'8ef\'8erences Syst\'8fme, qui vous permet de r\'8egler les options de GnuPG, sans avoir \'88 utiliser le Terminal.\
+\f0\b\fs28 \cf0 Qu'est-ce que c'est?\
+
+\f1\b0 Ce paquet contient une extension pour les Pr\'8ef\'8erences Syst\'8fme (System Preferences), qui vous permet de r\'8egler les options de GnuPG, sans avoir \'88 utiliser le Terminal ou modifier le fichier 
+\f2\i options
+\f1\i0  de GnuPG.\
+Le paquet installe une extension GnuPG dans 
+\f2\i /Library/PreferencePanes
+\f1\i0 ; vous pouvez aussi choisir le dossier 
+\f2\i Library/PreferencePanes
+\f1\i0  dans votre compte (cr\'8eez-le si n\'8ecessaire), ou, pour une installation r\'8eseau, 
+\f2\i /Network/Library/PreferencePanes
+\f1\i0 . Vous devriez vous assurer que System Preferences ne tourne pas avant de lancer l'installation.\
+\
+
+\f0\b Qu'est-ce que \'8da m'apporte?\
+
+\f1\b0 Une fois le paquet install\'8e, lancez System Preferences: vous verrez un nouvel \'8el\'8ement appel\'8e GnuPG. Cliquez dessus pour le charger.\
+L'extension va d'abord proc\'8eder \'88 quelques contr\'99les concernant votre configuration GnuPG, et, le cas \'8ech\'8eant, vous sugg\'8erer d'y apporter quelques modifications:\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\li720\ql\qnatural
+\cf0 - gpg doit se trouver dans 
+\f2\i /usr/local/bin/
+\f1\i0 \
+- Si GnuPG n'a jamais \'8et\'8e configur\'8e, ses fichiers de base sont cr\'8e\'8es\
+- Le codage de cha\'94nes de GnuPG et du Terminal devrait \'90tre UTF-8\
+\pard\tx1440\tx2880\tx4320\tx5760\tx7200\ql\qnatural
+\cf0 Ensuite libre \'88 vous de modifier les diff\'8erentes options de GnuPG. Une des options les plus int\'8eressantes est celle concernant le serveur de cl\'8es.\
+\
+
+\f0\b Experts\
+
+\f1\b0 Seules les options les plus importantes sont pr\'8esent\'8ees; cela devrait suffire pour la majorit\'8e des gens. Toutefois, pour les experts en GnuPG, l'extension offre la possibilit\'8e de modifier n'importe quelle option depuis l'onglet Expert: vous pouvez entrer une option et sa valeur, en activer une autre ou la d\'8esactiver, sans avoir besoin de modifier le fichier 
+\f2\i options
+\f1\i0 .\
+\
+
+\f0\b Comment \'8da marche?\
+
+\f1\b0 L'extension lit et modifie le fichier 
+\f2\i options
+\f1\i0  de GnuPG (qui doit utiliser l'encodage de cha\'94nes UTF-8). Elle consid\'8fre qu'une option est d\'8esactiv\'8ee si la ligne contenant l'option commence par le caract\'8fre # imm\'8ediatement suivi par le nom de l'option; le fichier 
+\f2\i options
+\f1\i0  cr\'8e\'8e par d\'8efaut suit cette r\'8fgle. Du fait que l'extension modifie directement le fichier 
+\f2\i options
+\f1\i0 , toutes les applications utilisant GnuPG b\'8en\'8eficient des m\'90mes options.\
+\
+Copyright 2002, MacGPG Group\
+http://macgpg.sourceforge.net/\
 }
