@@ -395,6 +395,71 @@
 			settings = {
 			};
 		};
+		55F4B5D7041D3AF500000001 = {
+			fileEncoding = 30;
+			isa = PBXExecutableFileReference;
+			name = postinstall;
+			path = Resources/postinstall;
+			refType = 4;
+		};
+		55F4B5D8041D3B5500000001 = {
+			children = (
+				55F4B5D9041D3B5500000001,
+				55F4B5DA041D3B8F00000001,
+				55F4B5DB041D3B9E00000001,
+				55F4B5DC041D3BB100000001,
+				55F4B5DD041D3BC600000001,
+				55F4B5DE041D3BD800000001,
+				55F4B5DF041D3BE700000001,
+			);
+			isa = PBXVariantGroup;
+			name = Description.plist;
+			path = "";
+			refType = 4;
+		};
+		55F4B5D9041D3B5500000001 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = Danish;
+			path = Danish.lproj/Description.plist;
+			refType = 4;
+		};
+		55F4B5DA041D3B8F00000001 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/Description.plist;
+			refType = 4;
+		};
+		55F4B5DB041D3B9E00000001 = {
+			isa = PBXFileReference;
+			name = French;
+			path = French.lproj/Description.plist;
+			refType = 4;
+		};
+		55F4B5DC041D3BB100000001 = {
+			isa = PBXFileReference;
+			name = German;
+			path = German.lproj/Description.plist;
+			refType = 4;
+		};
+		55F4B5DD041D3BC600000001 = {
+			isa = PBXFileReference;
+			name = Italian;
+			path = Italian.lproj/Description.plist;
+			refType = 4;
+		};
+		55F4B5DE041D3BD800000001 = {
+			isa = PBXFileReference;
+			name = Spanish;
+			path = Spanish.lproj/Description.plist;
+			refType = 4;
+		};
+		55F4B5DF041D3BE700000001 = {
+			isa = PBXFileReference;
+			name = Swedish;
+			path = Swedish.lproj/Description.plist;
+			refType = 4;
+		};
 //550
 //551
 //552
@@ -599,20 +664,6 @@
 			path = Swedish.lproj/License.html;
 			refType = 4;
 		};
-		F510D645031FC60A01000001 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			name = Swedish;
-			path = Swedish.lproj/GPGPreferences.info;
-			refType = 4;
-		};
-		F510D646031FC65A01000001 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			name = Danish;
-			path = Danish.lproj/GPGPreferences.info;
-			refType = 4;
-		};
 		F510D647031FC6E401000001 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -630,13 +681,6 @@
 			isa = PBXFileReference;
 			name = Danish;
 			path = Danish.lproj/Welcome.rtf;
-			refType = 4;
-		};
-		F528091D032A948B01000001 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			name = Italian;
-			path = Italian.lproj/GPGPreferences.info;
 			refType = 4;
 		};
 		F528091E032A948B01000001 = {
@@ -916,6 +960,7 @@
 			children = (
 				F5593EE20232658A01A80016,
 				F5593EE30232658A01A80016,
+				55F4B5D7041D3AF500000001,
 			);
 			isa = PBXGroup;
 			path = Installer;
@@ -928,43 +973,13 @@
 		};
 		F5593EE30232658A01A80016 = {
 			children = (
-				F5593EE40232658A01A80016,
+				55F4B5D8041D3B5500000001,
 				F5593EE70232658A01A80016,
 				F5593EEA0232658A01A80016,
 				F5593EED0232658A01A80016,
-				F5593EF00232658A01A80016,
 			);
 			isa = PBXGroup;
 			path = Resources;
-			refType = 4;
-		};
-		F5593EE40232658A01A80016 = {
-			children = (
-				F5593EE50232658A01A80016,
-				F5593EE60232658A01A80016,
-				F5BB3A6602468FCD01A80016,
-				F5CAFDD002DF5D4701000002,
-				F510D645031FC60A01000001,
-				F510D646031FC65A01000001,
-				F528091D032A948B01000001,
-			);
-			isa = PBXVariantGroup;
-			name = GPGPreferences.info;
-			path = "";
-			refType = 4;
-		};
-		F5593EE50232658A01A80016 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			name = English;
-			path = English.lproj/GPGPreferences.info;
-			refType = 4;
-		};
-		F5593EE60232658A01A80016 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			name = French;
-			path = French.lproj/GPGPreferences.info;
 			refType = 4;
 		};
 		F5593EE70232658A01A80016 = {
@@ -1048,12 +1063,6 @@
 			isa = PBXFileReference;
 			name = French;
 			path = French.lproj/Welcome.rtf;
-			refType = 4;
-		};
-		F5593EF00232658A01A80016 = {
-			fileEncoding = 30;
-			isa = PBXExecutableFileReference;
-			path = GPGPreferences.post_install;
 			refType = 4;
 		};
 		F56A3E0F0236B48C01A80013 = {
@@ -1437,13 +1446,6 @@
 			settings = {
 			};
 		};
-		F5BB3A6602468FCD01A80016 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			name = Spanish;
-			path = Spanish.lproj/GPGPreferences.info;
-			refType = 4;
-		};
 		F5BB3A6802468FCD01A80016 = {
 			isa = PBXFileReference;
 			name = Spanish;
@@ -1468,13 +1470,6 @@
 			isa = PBXFileReference;
 			name = German;
 			path = German.lproj/License.html;
-			refType = 4;
-		};
-		F5CAFDD002DF5D4701000002 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			name = German;
-			path = German.lproj/GPGPreferences.info;
 			refType = 4;
 		};
 		F5CAFDD102DF5DA101000002 = {

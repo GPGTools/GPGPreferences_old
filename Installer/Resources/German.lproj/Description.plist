@@ -1,0 +1,5 @@
+{
+    IFPkgDescriptionTitle = "Einstellungen für GnuPG";
+    IFPkgDescriptionVersion = "1.2 (v9)";
+    IFPkgDescriptionDescription = "Dieses Paket beinhaltet eine Erweiterung für die Systemeinstellungen, mit der die Optionen von GnuPG 1.2.x oder später gesetzt werden können, ohne das Terminal benutzen zu müssen.";
+}
