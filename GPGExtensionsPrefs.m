@@ -263,7 +263,8 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
         if(fileExists)
             [cell setFont:[[NSFontManager sharedFontManager] convertFont:[cell font] toNotHaveTrait:NSItalicFontMask]];
         else
-#warning Does not work
+            // Problem: the default System font, Lucida, doesn't have
+            // an italic trait => the following call has no effect in this case.
             [cell setFont:[[NSFontManager sharedFontManager] convertFont:[cell font] toHaveTrait:NSItalicFontMask]];
     }
 }
