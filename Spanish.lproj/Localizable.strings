@@ -1,7 +1,7 @@
 {
     // Note that you must use UTF8 encoding when saving this file
     "VERSION %@" = "Versión %@";
-    "N/A" = "No se ha podido obtener la garantía de GnuPG, así que... ¡no hay garantía!";
+    "WARRANTY ERROR" = "No se ha podido obtener la garantía de GnuPG, así que... ¡no hay garantía!";
     "WARRANTY" = "Garantía de GnuPG";
     "GPG NOT FOUND" = "No se ha encontrado el ejecutable gpg.";
     "CHOOSE" = "Elegir";
