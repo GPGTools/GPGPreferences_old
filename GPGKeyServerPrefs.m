@@ -182,6 +182,7 @@
         oldSelectedKeyServerIndex++;
     if(oldSelectedKeyServerIndex < 0){
         [keyServerListComboBox setStringValue:@""];
+        newSelectedKeyServer = nil;
     }
     else{
         newSelectedKeyServer = [keyServerList objectAtIndex:oldSelectedKeyServerIndex];
@@ -196,7 +197,7 @@
                 [[self options] removeOptionAtIndex:anIndex - deletedCount];
                 deletedCount++;
             }
-            if(!foundOne && [aValue isEqualToString:newSelectedKeyServer]){
+            if(!foundOne && newSelectedKeyServer && [aValue isEqualToString:newSelectedKeyServer]){
                 [[self options] setOptionState:YES atIndex:anIndex - deletedCount];
                 foundOne = YES;
             }
