@@ -34,6 +34,9 @@
 #import "GPGKeyServerPrefs.h"
 #import "authinfo.h"
 #import <Carbon/Carbon.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 
 #define TERMINAL_UTF8_STRING_ENCODING	(4)
@@ -41,17 +44,17 @@
 #define TERMINAL_STRING_ENCODING_KEY	@"StringEncoding"
 
 
-OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorizedCommandOperation, const char *fileArgument, CFBundleRef bundle); // Implemented in authapp.c
+OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorizedCommandOperation, const char *fileArgument, uid_t uid, gid_t gid, mode_t mode, CFBundleRef bundle); // Implemented in authapp.c
 
 @interface GPGPreferences(Private)
 - (void) startTests;
 - (void) nextTest;
+- (OSErr) executeOperation:(int)command forFilename:(NSString *)filename owner:(uid_t)owner group:(gid_t)group mode:(mode_t)mode;
 @end
 
 @implementation GPGPreferences
 
-#warning TODO: Check tiff premultiplied
-#warning Add bundle icon
+#warning TODO: Add bundle icon
 
 - (id) initWithBundle:(NSBundle *)bundle
 {
@@ -228,6 +231,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     else
         lastCharset = @"";
     
+    [options release];
     if(shouldChange){
         NSBundle	*bundle = [self bundle];
 
@@ -235,13 +239,141 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     }
     else
         [self nextTest];
-    [options release];
+}
+
+- (void) fileRightSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+    NSDictionary	*aDict = (NSDictionary *)contextInfo;
+
+    if(returnCode == NSOKButton){
+        NSEnumerator	*anEnum = [[aDict objectForKey:@"badFiles"] objectEnumerator];
+        NSString		*aPath;
+        NSFileManager	*defaultManager = [NSFileManager defaultManager];
+        NSMutableArray	*stillBadPaths = [NSMutableArray array];
+
+        while(aPath = [anEnum nextObject]){
+            NSDictionary	*attr = [NSDictionary dictionaryWithDictionary:[defaultManager fileAttributesAtPath:aPath traverseLink:YES]];
+
+            if(![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()]){
+                OSErr	error = [self executeOperation:kMyAuthorizedCommandSetOwnerAndMode forFilename:aPath owner:getuid() group:getgid() mode:[[attr objectForKey:NSFilePosixPermissions] intValue] & ~(S_IRWXG|S_IRWXO)];
+
+                if(error)
+                    [stillBadPaths addObject:aPath];
+            }
+            else{
+                NSNumber	*newPosix = [NSNumber numberWithInt:[[attr objectForKey:NSFilePosixPermissions] intValue] & ~(S_IRWXG|S_IRWXO)];
+
+                if(![defaultManager changeFileAttributes:[NSDictionary dictionaryWithObject:newPosix forKey:NSFilePosixPermissions] atPath:aPath]){
+                    [stillBadPaths addObject:aPath];
+                }
+            }
+        }
+
+        anEnum = [[aDict objectForKey:@"badExtensions"] objectEnumerator];
+        while(aPath = [anEnum nextObject]){
+            NSDictionary	*attr = [NSDictionary dictionaryWithDictionary:[defaultManager fileAttributesAtPath:aPath traverseLink:YES]];
+
+            if(![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()]){
+                OSErr	error = [self executeOperation:kMyAuthorizedCommandSetOwnerAndMode forFilename:aPath owner:0 group:0 mode:(S_IRUSR|S_IXUSR|S_IXGRP|S_IXOTH)]; // root/wheel r-x--x--x
+
+                if(error)
+                    [stillBadPaths addObject:aPath];
+            }
+            else{
+                NSNumber	*newPosix = [NSNumber numberWithInt:(S_IRUSR|S_IXUSR|S_IXGRP|S_IXOTH)]; // r-x--x--x
+
+                if(![defaultManager changeFileAttributes:[NSDictionary dictionaryWithObject:newPosix forKey:NSFilePosixPermissions] atPath:aPath]){
+                    [stillBadPaths addObject:aPath];
+                }
+            }
+        }
+
+        if([stillBadPaths count]){
+            NSBundle	*bundle = [self bundle];
+            NSString	*message = [NSString stringWithFormat:@"UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@", [stillBadPaths componentsJoinedByString:@"\n"]];
+
+            [aDict release];
+            NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO MODIFY ACCESS RIGHTS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, @"%@", NSLocalizedStringFromTableInBundle(message, nil, bundle, ""));
+        }
+        else{
+            [aDict release];
+            [self nextTest];
+        }
+    }
+    else{
+        [aDict release];
+        [self nextTest];
+    }
 }
 
 - (void) checkGNUPGHOMERights
 {
     // Set rights on --homeDirectory (0700) (+ other files?)
-    [self nextTest];
+    // gpg checks rights on extensions, keyrings, options, trustDB and random_seed
+    // We check only the default files
+    // See gpg code: g10/misc.c, check_permissions()
+    NSFileManager	*defaultManager = [NSFileManager defaultManager];
+    NSString		*homeDirectory = [GPGOptions homeDirectory];
+    NSMutableArray	*files = [NSMutableArray arrayWithObjects:[homeDirectory stringByAppendingPathComponent:@"random_seed"], [homeDirectory stringByAppendingPathComponent:@"secring.gpg"], [homeDirectory stringByAppendingPathComponent:@"pubring.gpg"], [homeDirectory stringByAppendingPathComponent:@"trustdb.gpg"], [homeDirectory stringByAppendingPathComponent:@"options"], nil];
+    NSEnumerator	*anEnum;
+    NSString		*aPath;
+    NSMutableArray	*badFiles = [NSMutableArray array];
+    NSMutableArray	*badExtensions = [NSMutableArray array];
+    GPGOptions		*options = [[GPGOptions alloc] init];
+
+    [files addObjectsFromArray:[options activeOptionValuesForName:@"keyring"]];
+    [files addObjectsFromArray:[options activeOptionValuesForName:@"secret-keyring"]];
+
+    anEnum = [files objectEnumerator];
+    while(aPath = [anEnum nextObject]){
+        if([defaultManager fileExistsAtPath:aPath]){
+            NSDictionary	*attr = [defaultManager fileAttributesAtPath:aPath traverseLink:YES];
+
+            if([[attr objectForKey:NSFileType] isEqualToString:NSFileTypeRegular]){
+                // User must be owner
+                if(![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()])
+                    [badFiles addObject:aPath];
+                // group and others may not read/write/exec
+                else if([[attr objectForKey:NSFilePosixPermissions] intValue] & (S_IRWXG|S_IRWXO)){
+                    attr = [defaultManager fileAttributesAtPath:[aPath stringByDeletingLastPathComponent] traverseLink:YES];
+                    if(![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()] || [[attr objectForKey:NSFilePosixPermissions] intValue] & (S_IRWXG|S_IRWXO))
+                        [badFiles addObject:aPath];
+                }
+            }
+        }
+    }
+
+    [files setArray:[options activeOptionValuesForName:@"load-extension"]];
+    anEnum = [files objectEnumerator];
+    while(aPath = [anEnum nextObject]){
+        if(![aPath isAbsolutePath])
+            aPath = [@"/usr/local/lib/gnupg" stringByAppendingPathComponent:aPath];
+        if([defaultManager fileExistsAtPath:aPath]){
+            NSDictionary	*attr = [defaultManager fileAttributesAtPath:aPath traverseLink:YES];
+
+            if([[attr objectForKey:NSFileType] isEqualToString:NSFileTypeRegular]){
+                // owner must be user or root
+                if(![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()] && ![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:@"root"])
+                    [badExtensions addObject:aPath];
+                // group and others may not write, except if parentDir's owner is user or root,
+                // and parentDir is not readable/writable/executable for group/others
+                else if([[attr objectForKey:NSFilePosixPermissions] intValue] & (S_IWGRP|S_IWOTH)){
+                    attr = [defaultManager fileAttributesAtPath:[aPath stringByDeletingLastPathComponent] traverseLink:YES];
+                    if((![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()]  && ![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:@"root"]) || [[attr objectForKey:NSFilePosixPermissions] intValue] & (S_IRWXG|S_IRWXO))
+                        [badExtensions addObject:aPath];
+                }
+            }
+        }
+    }
+    [options release];
+
+    if([badExtensions count] || [badFiles count]){
+        NSBundle	*bundle = [self bundle];
+
+        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"PLEASE DO", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"DON'T CHANGE", nil, bundle, ""), nil, [[self mainView] window], self, NULL, @selector(fileRightSheetDidDismiss:returnCode:contextInfo:), [[NSDictionary alloc] initWithObjectsAndKeys:badFiles, @"badFiles", badExtensions, @"badExtensions", nil], @"%@", [NSLocalizedStringFromTableInBundle(@"WHICH ACCESS RIGHTS...", nil, bundle, "") stringByAppendingString:[[badFiles arrayByAddingObjectsFromArray:badExtensions] componentsJoinedByString:@"\n"]]);
+    }
+    else
+        [self nextTest];
 }
 
 - (void) checkGNUPGHOMESuggestion
@@ -251,6 +383,32 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     // Maybe it's better if user can't easily manipulate gpg files
     // like keyrings, trustdb; no risk that she breaks something.
     [self nextTest];
+}
+
+- (void) checkComment
+{
+    // Same test as in GPGSignaturePrefs, but done only once here
+    GPGOptions	*options = [[GPGOptions alloc] init];
+    NSString	*comment = [options optionValueForName:@"comment"];
+    BOOL		isEmptyComment = (comment == nil || [comment rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length == 0);
+
+    [options release];
+    if(!isEmptyComment && ![comment canBeConvertedToEncoding:NSASCIIStringEncoding]){
+        NSString	*lastComment = [[self userDefaultsDictionary] objectForKey:@"LastComment"];
+
+        if(!lastComment){
+            NSBundle	*bundle = [self bundle];
+
+            [[self userDefaultsDictionary] setObject:comment forKey:@"LastComment"];
+            [self saveUserDefaults];
+            // WARNING: same title/message as in GPGSignaturePrefs
+            NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"COMMENT SHOULD BE ASCII ONLY", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, @"%@", NSLocalizedStringFromTableInBundle(@"WHY ONLY ASCII IN COMMENT...", nil, bundle, ""));
+        }
+        else
+            [self nextTest];
+    }
+    else
+        [self nextTest];
 }
 
 - (void) terminalStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
@@ -321,11 +479,10 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
             
             if(outStatus == noErr){
                 // If Terminal is running, ask user to do it herself
-                NSBeginInformationalAlertSheet(NSLocalizedStringFromTableInBundle(@"SUGGEST CHANGE TERMINAL STRING ENCODING", nil, bundle, ""), nil, nil, nil, [[self mainView] window], nil, NULL, NULL, NULL, @"%@", NSLocalizedStringFromTableInBundle(@"WHY AND HOW CHANGE TERMINAL SETTINGS...", nil, bundle, ""));
-
                 // We won't bother user asking her once again, unless she changed encoding to something else
                 [[self userDefaultsDictionary] setObject:[NSNumber numberWithInt:terminalStringEncoding] forKey:@"LastTerminalStringEncoding"];
                 [self saveUserDefaults];
+                NSBeginInformationalAlertSheet(NSLocalizedStringFromTableInBundle(@"SUGGEST CHANGE TERMINAL STRING ENCODING", nil, bundle, ""), nil, nil, nil, [[self mainView] window], nil, NULL, NULL, NULL, @"%@", NSLocalizedStringFromTableInBundle(@"WHY AND HOW CHANGE TERMINAL SETTINGS...", nil, bundle, ""));
             }
             else
                 // Seems that Terminal is not running; we can modify its preferences
@@ -342,12 +499,10 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         [self nextTest];
 }
 
-- (void) executeOperationForFilename:(NSString *)filename
+- (OSErr) executeOperation:(int)command forFilename:(NSString *)filename owner:(uid_t)owner group:(gid_t)group mode:(mode_t)mode
 {
     NSString	*bundleIdentifier = [[self bundle] bundleIdentifier];
     NSString	*commandString = nil;
-    OSErr		error;
-    int			command = [[operationMatrix selectedCell] tag];
     
     switch(command){
         case kMyAuthorizedCommandLink:
@@ -356,15 +511,26 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         case kMyAuthorizedCommandMove:
             commandString = @".moveGPG";
             break;
+        case kMyAuthorizedCommandSetOwnerAndMode:
+            commandString = @".setOwnerAndMode";
+            break;
         default:
             [NSException raise:NSInternalInconsistencyException format:@"Unknown command - matrix selected cell tag = %d", [[operationMatrix selectedCell] tag]];
     }
-    error = GPGPreferences_ExecuteAdminCommand([[bundleIdentifier stringByAppendingString:commandString] cString], command, [filename fileSystemRepresentation], CFBundleGetBundleWithIdentifier((CFStringRef)bundleIdentifier));
-    if(error != noErr){
-            NSBundle	*bundle = [self bundle];
-            NSString	*message = [NSString stringWithFormat:@"AUTH ERROR %hd", error];
+    return GPGPreferences_ExecuteAdminCommand([[bundleIdentifier stringByAppendingString:commandString] cString], command, [filename fileSystemRepresentation], owner, group, mode, CFBundleGetBundleWithIdentifier((CFStringRef)bundleIdentifier));
+}
 
-            NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"CANNOT EXECUTE OPERATION", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPERATION %@ FAILED (%@).", nil, bundle, ""), commandString, message);
+- (void) executeOperationForFilename:(NSString *)filename
+{
+    int		command = [[operationMatrix selectedCell] tag];
+    OSErr	error = [self executeOperation:command forFilename:filename owner:-1 group:-1 mode:-1];
+    
+    if(error != noErr){
+        NSBundle	*bundle = [self bundle];
+        NSString	*message = [NSString stringWithFormat:@"AUTH ERROR %hd", error];
+        NSString	*commandString = [NSString stringWithFormat:@"OP#%d", command];
+
+        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"CANNOT EXECUTE OPERATION", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPERATION %@ FAILED (%@).", nil, bundle, ""), NSLocalizedStringFromTableInBundle(commandString, nil, bundle, ""), NSLocalizedStringFromTableInBundle(message, nil, bundle, ""));
     }
     else{
         [[self controllerForIdentifier:[[tabView selectedTabViewItem] identifier]] tabItemWillBeSelected]; // Forces refresh of view
@@ -416,9 +582,49 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         [self nextTest];
 }
 
+- (void) updateOptionsSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+    if(returnCode == NSOKButton){
+        GPGOptions	*options = [[GPGOptions alloc] init];
+        NSString	*honorHTTPProxy = [options optionValueForName:@"honor-http-proxy"];
+        NSString	*noAutoKeyRetrieve = [options optionValueForName:@"no-auto-key-retrieve"];
+
+        [options setOptionValue:nil forName:@"default-comment"]; // Deprecated with gpg 1.0.7
+
+        if(honorHTTPProxy != nil)
+            [options setSubOption:@"honor-http-proxy" state:[options optionStateForName:@"honor-http-proxy"] forName:@"keyserver-options"];
+        [options setOptionValue:nil forName:@"honor-http-proxy"]; // Deprecated with gpg 1.0.7
+
+        if(noAutoKeyRetrieve != nil)
+            [options setSubOption:@"auto-key-retrieve" state:![options optionStateForName:@"no-auto-key-retrieve"] forName:@"keyserver-options"];
+        [options setOptionValue:nil forName:@"no-auto-key-retrieve"]; // Deprecated with gpg 1.0.7
+
+        [options saveOptions];
+        [options release];
+    }
+    [self nextTest];
+}
+
+- (void) updateOptionsFor107
+{
+    GPGOptions	*options = [[GPGOptions alloc] init];
+    NSString	*honorHTTPProxy = [options optionValueForName:@"honor-http-proxy"];
+    NSString	*noAutoKeyRetrieve = [options optionValueForName:@"no-auto-key-retrieve"];
+    NSString	*defaultComment = [options optionValueForName:@"default-comment"];
+
+    [options release];
+    if(honorHTTPProxy != nil || noAutoKeyRetrieve != nil || defaultComment != nil){
+        NSBundle	*bundle = [self bundle];
+
+        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UPDATE OPTIONS?", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"PLEASE DO", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"DON'T CHANGE", nil, bundle, ""), nil, [[self mainView] window], self, NULL, @selector(updateOptionsSheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"WHY UPDATING OPTIONS...", nil, bundle, ""));
+    }
+    else
+        [self nextTest];
+}
+
 - (void) startTests
 {
-    testSelectors = [[NSArray alloc] initWithObjects:@"checkGPGLocation", @"checkGPGHasBaseFiles", @"checkCharsetIsUTF8", @"checkTerminalStringEncoding", @"checkGNUPGHOMERights", @"checkGNUPGHOMESuggestion", nil];
+    testSelectors = [[NSArray alloc] initWithObjects:@"checkGPGLocation", @"checkGPGHasBaseFiles", @"updateOptionsFor107", @"checkCharsetIsUTF8", @"checkTerminalStringEncoding", @"checkGNUPGHOMERights", @"checkGNUPGHOMESuggestion", @"checkComment", nil];
     currentTestSelector = [testSelectors objectAtIndex:0];
     [self checkGPGLocation];
 }
