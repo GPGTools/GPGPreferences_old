@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
 CFBundleName = "GnuPG";
-CFBundleShortVersionString = "1.1.1 (v7)";
-CFBundleGetInfoString = "Préférences GnuPG version 1.1.1 (v7), Copyright 2002, MacGPG Group.";
-NSHumanReadableCopyright = "Copyright 2002, MacGPG Group.";
+CFBundleShortVersionString = "(v8)";
+CFBundleGetInfoString = "Préférences GnuPG version (v8), Copyright 2002-2003, MacGPG Group.";
+NSHumanReadableCopyright = "Copyright 2002-2003, MacGPG Group.";
