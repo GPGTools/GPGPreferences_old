@@ -2,10 +2,12 @@
 <!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
 <plist version="0.9">
 <dict>
+	<key>IBDocumentLocation</key>
+	<string>90 10 356 240 0 0 1024 746 </string>
 	<key>IBEditorPositions</key>
 	<dict>
 		<key>5</key>
-		<string>296 324 560 345 0 0 1152 746 </string>
+		<string>214 324 560 345 0 0 1024 746 </string>
 	</dict>
 	<key>IBFramework Version</key>
 	<string>248.0</string>
@@ -14,6 +16,6 @@
 		<integer>5</integer>
 	</array>
 	<key>IBSystem Version</key>
-	<string>5Q45</string>
+	<string>5S60</string>
 </dict>
 </plist>
