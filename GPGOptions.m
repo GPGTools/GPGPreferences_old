@@ -230,22 +230,33 @@
         unsigned	lineLength = [aLine length];
 
         if(lineLength > 0){
-            BOOL		isCommented = ([aLine characterAtIndex:0] == '#');
+            BOOL		isCommented;
             unsigned	startIndex, endIndex;
+            int			j = 0;
+            NSString	*aValue;
 
-            if(isCommented && lineLength == 1)
+            // Trim spacers
+            for(; j < lineLength; j++)
+                if(!isspace([aLine characterAtIndex:j]))
+                    break;
+            if(j >= lineLength)
+                continue;
+            isCommented = ([aLine characterAtIndex:j] == '#');
+            
+            if(isCommented && (lineLength - j) == 1)
                 continue;
 
-            if(isCommented && isspace([aLine characterAtIndex:1]))
-                // A line beginning with a # followed by a space (and ...) is considered as a comment
+            if(isCommented && isspace([aLine characterAtIndex:j + 1]))
+                // A line beginning with a # followed by a spacer is considered as a comment for GPGPreferences
                 continue;
-            // else we consider it as a disabled option
-            // Note that an option value cannot begin or end with a space, nor can it contain a carriage return.
+            // else _we_ consider it as a disabled option
+            // Note that if an option value begins or ends with a space, or contains a carriage return,
+            // then it must be double-quoted, or \n must be escaped
 
-            // Option name terminates at the first non spacer character or at end of line
+            // Option name terminates at the first non spacer character or at the end of line
 
             // First we skip prepending spaces
-            for(startIndex = (isCommented ? 1:0); startIndex < lineLength; startIndex++){
+            for(startIndex = j + (isCommented ? 1:0); startIndex < lineLength; startIndex++){
                 if(!isspace([aLine characterAtIndex:startIndex]))
                     break;
             }
@@ -276,8 +287,10 @@
                 if(!isspace([aLine characterAtIndex:endIndex]))
                     break;
             }
-            [optionValues addObject:[aLine substringWithRange:NSMakeRange(startIndex, endIndex - startIndex + 1)]];
-
+            aValue = [aLine substringWithRange:NSMakeRange(startIndex, endIndex - startIndex + 1)];
+            if([aValue characterAtIndex:0] == '"' && [aValue length] > 1 && [aValue characterAtIndex:[aValue length] - 1] == '"')
+                aValue = [aValue substringWithRange:NSMakeRange(1, [aValue length] - 2)]; // We unquote it
+            [optionValues addObject:aValue];
         }
     }
     [optionsAsString release];
@@ -313,8 +326,12 @@
 - (void) doSaveOptions
 {
     NSString	*filename = [[self class] optionsFilename];
+    NSString	*content = [optionFileLines componentsJoinedByString:@"\n"];
+    
+    if(![content hasSuffix:@"\n"])
+        content = [content stringByAppendingString:@"\n"];
 
-    NSAssert1([[[optionFileLines componentsJoinedByString:@"\n"] dataUsingEncoding:NSUTF8StringEncoding] writeToFile:filename atomically:YES], @"Unable to save options in %@", filename);
+    NSAssert1([[content dataUsingEncoding:NSUTF8StringEncoding] writeToFile:filename atomically:YES], @"Unable to save options in %@", filename);
 }
 
 - (void) saveOptions
@@ -328,15 +345,30 @@
 - (NSString *) normalizedValue:(NSString *)value
 {
     // Replace \n occurences by \\n
+    // Enclose with double-quotes if necessary
     if(value == nil)
         return value;
     else{
         NSMutableString	*newValue = [NSMutableString stringWithString:value];
         int				i;
+        BOOL			needsDoubleQuotes = NO;
+        BOOL			isLastChar = YES;
 
-        for(i = [newValue length] - 1; i >= 0; i--)
-            if([newValue characterAtIndex:i] == '\n')
+        for(i = [newValue length] - 1; i >= 0; i--){
+            unichar	aChar = [newValue characterAtIndex:i];
+            
+            if(isLastChar){
+                isLastChar = NO;
+                needsDoubleQuotes = isspace(aChar);
+            }
+            if(aChar == '\n')
                 [newValue replaceCharactersInRange:NSMakeRange(i, 1) withString:@"\\n"];
+            else if(i == 0)
+                needsDoubleQuotes = (needsDoubleQuotes || isspace(aChar));
+        }
+
+        if(needsDoubleQuotes)
+            newValue = [NSString stringWithFormat:@"\"%@\"", newValue];
 
         return newValue;
     }
@@ -353,6 +385,11 @@
 {
     [optionValues replaceObjectAtIndex:index withObject:[self normalizedValue:value]];
     [self updateOptionLineAtIndex:index];
+}
+
+- (void) setEmptyOptionValueAtIndex:(unsigned)index
+{
+    [self setOptionValue:@"\"\"" atIndex:index];
 }
 
 - (void) setOptionName:(NSString *)name atIndex:(unsigned)index
@@ -427,6 +464,11 @@
         if([[optionNames objectAtIndex:anIndex] isEqualToString:name])
             return [optionValues objectAtIndex:anIndex];
     return nil;
+}
+
+- (void) setEmptyOptionValueForName:(NSString *)name
+{
+    [self setOptionValue:@"\"\"" forName:name];
 }
 
 - (void) setOptionValue:(NSString *)value forName:(NSString *)name

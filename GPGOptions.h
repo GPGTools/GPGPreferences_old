@@ -49,6 +49,7 @@
 // -saveOptions is automatically called
 - (void) setOptionValue:(NSString *)value atIndex:(unsigned)index;
 // If value is nil, option is removed
+- (void) setEmptyOptionValueAtIndex:(unsigned)index;
 - (void) setOptionName:(NSString *)name atIndex:(unsigned)index;
 - (void) setOptionState:(BOOL)flag atIndex:(unsigned)index;
 
@@ -66,6 +67,7 @@
 // Returns nil if option is not defined
 - (void) setOptionValue:(NSString *)value forName:(NSString *)name;
 // If value is nil, option is removed
+- (void) setEmptyOptionValueForName:(NSString *)name;
 - (BOOL) optionStateForName:(NSString *)name;
 - (void) setOptionState:(BOOL)state forName:(NSString *)name;
 // If state is YES and option does not yet exist, it is created
