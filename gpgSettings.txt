@@ -4,7 +4,9 @@ In case of options which should be declared once or never (or in case of mutuall
 See g10.c, main(), and man gpg
 
 Packaging
-/usr/bin/package '/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes' Installer/Resources/English.lproj/GPGPreferences-0.1.info -d /tmp -r Installer/Resources
+/usr/bin/package "/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes" Installer/Resources/English.lproj/GPGPreferences.info -d /tmp -r Installer/Resources
+find "/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes" -type d -name "CVS" -exec rm -rf {} \;
+find "/tmp/GPGPreferences.dst$HOME/Library/PreferencePanes" -type d -exec chmod u+w {} \;
 
 
 Version 1:
