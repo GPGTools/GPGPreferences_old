@@ -1,5 +1,5 @@
 Title GnuPG Preferences
-Version 1.2 (v8)
+Version 1.2 (v9)
 Description Questo pacchetto contiene un plug-in per le Preferenze di Sistema che permette di impostare le opzioni per GnuPG 1.2.x (e successive) senza dover usare il Terminale.
 
 DefaultLocation /Library/PreferencePanes

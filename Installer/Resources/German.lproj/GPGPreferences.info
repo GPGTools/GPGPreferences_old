@@ -1,6 +1,6 @@
-Title Einstellungen f�r GnuPG
-Version 1.2 (v8)
-Description Dieses Paket beinhaltet eine Erweiterung für die Systemeinstellungen, mit der die Optionen von GnuPG 1.2.x oder sp�ter gesetzt werden können, ohne das Terminal benutzen zu müssen.
+Title Einstellungen für GnuPG
+Version 1.2 (v9)
+Description Dieses Paket beinhaltet eine Erweiterung für die Systemeinstellungen, mit der die Optionen von GnuPG 1.2.x oder später gesetzt werden können, ohne das Terminal benutzen zu müssen.
 
 DefaultLocation /Library/PreferencePanes
 Relocatable YES
