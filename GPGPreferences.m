@@ -5,20 +5,21 @@
 //  Created by davelopper@users.sourceforge.net on Sun Feb 03 2002.
 //
 //
-//  Copyright (C) 2002 Mac GPG Project.
+//  Copyright (C) 2002-2003 Mac GPG Project.
 //  
-//  This code is free software; you can redistribute it and/or modify it under
-//  the terms of the GNU General Public License as published by the Free
-//  Software Foundation; either version 2 of the License, or any later version.
+//  This library is free software; you can redistribute it and/or
+//  modify it under the terms of the GNU Lesser General Public
+//  License as published by the Free Software Foundation; either
+//  version 2.1 of the License, or (at your options) any later version.
 //  
-//  This code is distributed in the hope that it will be useful, but WITHOUT ANY
-//  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-//  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-//  details.
-//  
-//  For a copy of the GNU General Public License, visit <http://www.gnu.org/> or
-//  write to the Free Software Foundation, Inc., 59 Temple Place--Suite 330,
-//  Boston, MA 02111-1307, USA.
+//  This library is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//  Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public
+//  License along with this library; if not, write to the Free Software
+//  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
 //  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
 //
@@ -159,7 +160,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     // Note that we run it twice: the first time gpg creates the .gnupg/options file,
     // the second time it creates the keyrings.
     // (This should be done by EasyGnuPG installer)
-    if(![[NSFileManager defaultManager] fileExistsAtPath:[[GPGOptions homeDirectory] stringByAppendingPathComponent:@"options"]]){
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[GPGOptions optionsFilename]]){
         int	i;
         
         for(i = 0; i < 2; i++){
@@ -314,7 +315,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     // See gpg code: g10/misc.c, check_permissions()
     NSFileManager	*defaultManager = [NSFileManager defaultManager];
     NSString		*homeDirectory = [GPGOptions homeDirectory];
-    NSMutableArray	*files = [NSMutableArray arrayWithObjects:[homeDirectory stringByAppendingPathComponent:@"random_seed"], [homeDirectory stringByAppendingPathComponent:@"secring.gpg"], [homeDirectory stringByAppendingPathComponent:@"pubring.gpg"], [homeDirectory stringByAppendingPathComponent:@"trustdb.gpg"], [homeDirectory stringByAppendingPathComponent:@"options"], nil];
+    NSMutableArray	*files = [NSMutableArray arrayWithObjects:[homeDirectory stringByAppendingPathComponent:@"random_seed"], [homeDirectory stringByAppendingPathComponent:@"secring.gpg"], [homeDirectory stringByAppendingPathComponent:@"pubring.gpg"], [homeDirectory stringByAppendingPathComponent:@"trustdb.gpg"], [GPGOptions optionsFilename], nil];
     NSEnumerator	*anEnum;
     NSString		*aPath;
     NSMutableArray	*badFiles = [NSMutableArray array];
@@ -622,9 +623,108 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         [self nextTest];
 }
 
+- (void) renameOrDeleteOptionsSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+    NSFileManager	*defaultManager = [NSFileManager defaultManager];
+    NSString		*gpgConf = [GPGOptions optionsFilename];
+    NSString		*optionsFile = [[GPGOptions homeDirectory] stringByAppendingPathComponent:@"options"];
+    BOOL			hasError = NO;
+    NSBundle		*bundle = [self bundle];
+    
+    switch(returnCode){
+        case NSAlertAlternateReturn:
+            // Use options
+            hasError = !([defaultManager removeFileAtPath:gpgConf handler:nil] && [defaultManager movePath:optionsFile toPath:gpgConf handler:nil]);
+            if(hasError){
+                NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS %@ IN %@ - MESSAGE", nil, bundle, ""), optionsFile, gpgConf);
+                return;
+            }
+            break;
+        case NSAlertDefaultReturn:
+            // Use gpg.conf
+            hasError = !([defaultManager removeFileAtPath:optionsFile handler:nil]);
+            if(hasError){
+                NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO DELETE OPTIONS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"UNABLE TO DELETE OPTIONS %@ - MESSAGE", nil, bundle, ""), optionsFile);
+                return;
+            }
+    }
+
+    [self nextTest];
+}
+
+- (void) renameOptionsSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+    if(returnCode == NSAlertDefaultReturn){
+        // Do rename
+        NSFileManager	*defaultManager = [NSFileManager defaultManager];
+        NSString		*gpgConf = [GPGOptions optionsFilename];
+        NSString		*optionsFile = [[GPGOptions homeDirectory] stringByAppendingPathComponent:@"options"];
+        BOOL			hasError;
+
+        hasError = !([defaultManager movePath:optionsFile toPath:gpgConf handler:nil]);
+        if(hasError){
+            NSBundle	*bundle = [self bundle];
+
+            NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS %@ IN %@ - MESSAGE", nil, bundle, ""), optionsFile, gpgConf);
+            return;
+        }
+    }
+
+    [self nextTest];
+}
+
+- (void) updateOptionsFor12
+{
+    NSString		*gpgConf = [GPGOptions optionsFilename];
+
+    if([[gpgConf lastPathComponent] isEqualToString:@"gpg.conf"]){
+        // Since 1.2.x, options file is deprecated and now named gpg.conf
+        // If both files exist, we ask user which file to keep
+        if(![[[self userDefaultsDictionary] objectForKey:@"AskedOptionsRenaming"] intValue]){
+            NSString		*options = [[GPGOptions homeDirectory] stringByAppendingPathComponent:@"options"];
+            NSFileManager	*defaultManager = [NSFileManager defaultManager];
+
+            [[self userDefaultsDictionary] setObject:[NSNumber numberWithBool:YES] forKey:@"AskedOptionsRenaming"];
+            [self saveUserDefaults];
+
+            if([defaultManager fileExistsAtPath:options]){
+                NSBundle	*bundle = [self bundle];
+
+                if([defaultManager fileExistsAtPath:gpgConf]){
+                    // Ask user's choice: options, gpg.conf, cancel
+                    NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"WHICH OPTIONS FILE?", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"gpg.conf", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"options", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"CANCEL", nil, bundle, ""), [[self mainView] window], self, NULL, @selector(renameOrDeleteOptionsSheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPTIONS FILE DELETING OR RENAMING", nil, bundle, ""));
+                    return;
+                }
+                else{
+                    // Ask user's confirmation for renaming options in gpg.conf
+                    NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"RENAME OPTIONS FILE?", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"PLEASE DO", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"DON'T CHANGE", nil, bundle, ""), nil, [[self mainView] window], self, NULL, @selector(renameOptionsSheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPTIONS FILE RENAMING", nil, bundle, ""));
+                    return;
+                }
+            }
+            // else, already OK
+        }
+    }
+    
+    [self nextTest];
+}
+
+- (void) checkGPGVersion
+{
+    NSString	*aVersion = [self gnupgVersion];
+
+    if(aVersion == nil || [aVersion rangeOfString:@"1.0."].length > 0){
+        NSBundle	*bundle = [self bundle];
+
+        NSBeginCriticalAlertSheet(NSLocalizedStringFromTableInBundle(@"GPG IS TOO OLD", nil, bundle, ""), nil, nil, nil, [[self mainView] window], nil, NULL, NULL, NULL, NSLocalizedStringFromTableInBundle(@"GPGPREFERENCES CANNOT WORK WITH OLD GPG", nil, bundle, ""));
+        // We stop performing tests
+    }
+    else
+        [self nextTest];
+}
+
 - (void) startTests
 {
-    testSelectors = [[NSArray alloc] initWithObjects:@"checkGPGLocation", @"checkGPGHasBaseFiles", @"updateOptionsFor107", @"checkCharsetIsUTF8", @"checkTerminalStringEncoding", @"checkGNUPGHOMERights", @"checkGNUPGHOMESuggestion", @"checkComment", nil];
+    testSelectors = [[NSArray alloc] initWithObjects:@"checkGPGLocation", @"checkGPGVersion", @"updateOptionsFor12", @"checkGPGHasBaseFiles", @"updateOptionsFor107", @"checkCharsetIsUTF8", @"checkTerminalStringEncoding", @"checkGNUPGHOMERights", @"checkGNUPGHOMESuggestion", @"checkComment", nil];
     currentTestSelector = [testSelectors objectAtIndex:0];
     [self checkGPGLocation];
 }
@@ -642,6 +742,50 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         currentTestSelector = [testSelectors objectAtIndex:currentIndex];
         [self performSelector:NSSelectorFromString(currentTestSelector) withObject:nil afterDelay:0.0];
     }
+}
+
+- (NSString *) outputFromGPGTaskWithArgument:(NSString *)argument
+{
+    NSTask		*aTask = [[NSTask alloc] init];
+    NSPipe		*aPipe = [NSPipe pipe];
+    NSString	*outputString;
+
+    [aTask setLaunchPath:[GPGOptions gpgPath]];
+    [aTask setArguments:[NSArray arrayWithObjects:@"--utf8-strings", @"--charset", @"utf8", argument, nil]];
+    [aTask setStandardOutput:aPipe];
+
+    NS_DURING
+        NSData	*outputData;
+        NSRange	aRange;
+
+        [aTask launch];
+        outputData = [[aPipe fileHandleForReading] readDataToEndOfFile];
+        [aTask waitUntilExit];
+
+        outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
+        aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(0, [(NSString *)outputString length])];
+        aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(aRange.location, [(NSString *)outputString length] - aRange.location)];
+        outputString = [[(NSString *)outputString autorelease] substringWithRange:aRange];
+    NS_HANDLER
+        NSLog(@"### GPGPreferences: error during execution of '%@ %@': %@ %@", [aTask launchPath], [[aTask arguments] componentsJoinedByString:@" "], localException, [localException userInfo]);
+        outputString = nil;
+    NS_ENDHANDLER
+
+    [aTask release];
+
+    return (NSString *)outputString;
+}
+
+- (NSString *) gnupgVersion
+{
+    NSString	*gnupgVersion = [GPGOptions gnupgVersion];
+
+    if(gnupgVersion == nil){
+        gnupgVersion = [self outputFromGPGTaskWithArgument:@"--version"];
+        [GPGOptions setGnupgVersion:gnupgVersion];
+    }
+
+    return gnupgVersion;
 }
 
 @end
