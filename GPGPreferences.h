@@ -31,8 +31,15 @@
     NSArray					*tabViewItemControllers;
     IBOutlet NSTabView		*tabView;
     IBOutlet NSTextField	*versionTextField;
+    IBOutlet NSMatrix		*operationMatrix;
+    NSMutableDictionary		*userDefaultsDictionary;
+    NSArray					*testSelectors;
+    NSString				*currentTestSelector;
 }
 
 - (void) mainViewDidLoad;
+
+- (NSMutableDictionary *) userDefaultsDictionary;
+- (void) saveUserDefaults;
 
 @end
