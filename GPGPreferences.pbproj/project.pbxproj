@@ -45,6 +45,13 @@
 				06F27B31FFEEEFEF11CA0E56,
 			);
 			isa = PBXProject;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				Spanish,
+			);
 			mainGroup = 089C166AFE841209C02AAC07;
 			projectDirPath = "";
 			targets = (
@@ -523,6 +530,7 @@
 			children = (
 				F52B34DB020F1BC50197BDCC,
 				F5593EE00232637C01A80016,
+				F5770C70023585EC0128824A,
 			);
 			isa = PBXVariantGroup;
 			name = Localizable.strings;
@@ -726,6 +734,13 @@
 		F5593EF00232658A01A80016 = {
 			isa = PBXExecutableFileReference;
 			path = "GPGPreferences-0.1.post_install";
+			refType = 4;
+		};
+		F5770C70023585EC0128824A = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			name = Spanish;
+			path = Spanish.lproj/Localizable.strings;
 			refType = 4;
 		};
 		F59073B9022D8E1801A80016 = {

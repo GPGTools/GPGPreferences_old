@@ -1,0 +1,25 @@
+{
+    // Note that you must use UTF8 encoding when saving this file
+    "VERSION %@" = "Versión %@";
+    "N/A" = "No se ha podido obtener la garantía de GnuPG, así que... ¡no hay garantía!";
+    "WARRANTY" = "Garantía de GnuPG";
+    "GPG NOT FOUND" = "No se ha encontrado el ejecutable gpg.";
+    "CHOOSE" = "Elegir";
+    "UNABLE TO CREATE DIRECTORY" = "No se ha podido crear el directorio.";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "No se ha podido crear el directorio en %@; por favor, compruebe los permisos del directorio superior.";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Error en los permisos del directorio";
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Se ha movido el directorio %@ a %@, pero no se ha podido establecer los permisos de todos los ficheros. Por favor, compruebe que usted es el propietario de todos estos ficheros.";
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Error al mover el directorio";
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "No se ha podido mover todos los ficheros de %@ a %@. Por favor, compruebe los permisos del fichero.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "No se ha podido mover el directorio %@ a %@.";
+    "MOVE FILES?" = "¿Mover ficheros?";
+    "MOVE" = "Mover";
+    "DON'T MOVE" = "No mover";
+    "CANCEL" = "Cancelar";
+    "MOVE CONTENT OF %@ TO %@" = "¿Mover el contenido de %@ a %@?";
+
+    "GPGGlobalPrefs" = "General";
+    "GPGExpertPrefs" = "Experto";
+    "GPGCompatibilityPrefs" = "Compatibilidad";
+    "GPGKeyServerPrefs" = "Servidor de claves";
+}
