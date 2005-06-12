@@ -1,6 +1,6 @@
 //
 //  GPGOptions.m
-//  GPGPreferences and GPGME
+//  GPGPreferences and MacGPGME
 //
 //  Created by davelopper at users.sourceforge.net on Sun Feb 03 2002.
 //
@@ -25,11 +25,11 @@
 //  More info at <http://macgpg.sourceforge.net/>
 //
 
-#ifdef BUILDINGGPGME
-#include <GPGME/GPGOptions.h>
-#include <GPGME/GPGEngine.h>
+#ifdef BUILDING_MAC_GPGME
+#include <MacGPGME/GPGOptions.h>
+#include <MacGPGME/GPGEngine.h>
 #else
-#import "GPGOptions.h"
+#include "GPGOptions.h"
 #endif
 
 static NSString *gnupgVersion = nil;
@@ -249,7 +249,7 @@ static NSString *gnupgVersion = nil;
  * #{/usr/local/bin/gpg}, due to libgpgme.
 "*/
 {
-    // GPGME does not support another path
+    // MacGPGME does not support another path, yet
     return @"/usr/local/bin/gpg";
 }
 

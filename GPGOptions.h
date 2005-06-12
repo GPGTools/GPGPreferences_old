@@ -1,6 +1,6 @@
 //
 //  GPGOptions.h
-//  GPGPreferences and GPGME
+//  GPGPreferences and MacGPGME
 //
 //  Created by davelopper at users.sourceforge.net on Sun Feb 03 2002.
 //
