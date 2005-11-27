@@ -34,6 +34,11 @@
 
 static NSString *gnupgVersion = nil;
 
+#ifdef BUILDING_MAC_GPGME
+NSString * const GPGUserDefaultsSuiteName = @"net.sourceforge.macgpg";
+NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
+#endif
+
 
 @interface GPGOptions(Private)
 - (void) doSaveOptions;
@@ -126,6 +131,7 @@ static NSString *gnupgVersion = nil;
  * Returns the default %{home directory} for %GnuPG, i.e. #{$HOME/.gnupg}
 "*/
 {
+#warning Use +[GPGEngine defaultHomeDirectory]
     return [NSHomeDirectory() stringByAppendingPathComponent:@".gnupg"];
 }
 
@@ -135,6 +141,7 @@ static NSString *gnupgVersion = nil;
  * one, or the one defined by the environment variable #GNUPGHOME.
 "*/
 {
+#warning Use -[GPGEngine homeDirectory]
     NSString	*homeDirectory = [self currentEnvironmentVariableValueForName:@"GNUPGHOME"];
 
     if(homeDirectory == nil)
@@ -205,6 +212,7 @@ static NSString *gnupgVersion = nil;
  * of environment variable #{http_proxy}.
 "*/
 {
+#warning deprecated?
     NSString	*httpProxy = [self futureEnvironmentVariableValueForName:@"http_proxy"];
 
     return httpProxy;
@@ -217,6 +225,7 @@ static NSString *gnupgVersion = nil;
  * of environment variable #{http_proxy}.
 "*/
 {
+#warning deprecated?
     if([httpProxy rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0)
         [self setFutureEnvironmentVariableValue:httpProxy forName:@"http_proxy"];
     else
@@ -249,6 +258,7 @@ static NSString *gnupgVersion = nil;
  * #{/usr/local/bin/gpg}, due to libgpgme.
 "*/
 {
+#warning Use -[GPGEngine executablePath]
     // MacGPGME does not support another path, yet
     return @"/usr/local/bin/gpg";
 }
@@ -798,7 +808,7 @@ static NSString *gnupgVersion = nil;
 
 - (void) setSubOption:(NSString *)subOptionName state:(BOOL)state forName:(NSString *)optionName
 /*"
- * Sets subOptionName sub-option's state, in option named optionName. 
+ * Sets subOptionName sub-option's state, in option named optionName, and enables option. 
 "*/
 {
     NSString		*disabledSubOptionName = [@"no-" stringByAppendingString:subOptionName];
@@ -892,8 +902,10 @@ static NSString *gnupgVersion = nil;
     NSString		*aVersion = nil;
     NSString		*oldVersion = gnupgVersion;
 
-    /*
-#ifdef BUILDINGGPGME
+#warning FIXME Cache result?
+#warning Use -[GPGEngine version]
+
+//#ifdef BUILDING_MAC_GPGME
     NSEnumerator	*anEnum = [[GPGEngine availableEngines] objectEnumerator];
     GPGEngine		*anEngine;
 
@@ -904,8 +916,8 @@ static NSString *gnupgVersion = nil;
         }
     }
     if(aVersion == nil)
-#endif
-     */
+//#endif
+     
     aVersion = [self outputFromGPGTaskWithArgument:@"--version"];
     
     gnupgVersion = [aVersion retain];

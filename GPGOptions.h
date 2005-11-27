@@ -29,6 +29,9 @@
 #define GPGOPTIONS_H
 
 #include <Foundation/Foundation.h>
+#ifdef BUILDING_MAC_GPGME
+#include <MacGPGME/GPGDefines.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,6 +40,19 @@ extern "C" {
 #endif
 #endif
 
+#ifdef BUILDING_MAC_GPGME
+/*"
+ * Name of the user defaults domain global for all MacGPGME-based applications
+ * (%{net.sourceforge.macgpg}).
+"*/
+GPG_EXPORT NSString * const GPGUserDefaultsSuiteName;
+
+/*"
+ * Name of the user defaults key containing the default path to the gpg 
+ * executable (%GPGOpenPGPExecutablePath).
+"*/
+GPG_EXPORT NSString * const GPGOpenPGPExecutablePathKey;
+#endif
 
 @interface GPGOptions : NSObject
 {
