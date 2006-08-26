@@ -5,7 +5,7 @@
 //  Created by davelopper at users.sourceforge.net on Sun Feb 03 2002.
 //
 //
-//  Copyright (C) 2002-2005 Mac GPG Project.
+//  Copyright (C) 2002-2006 Mac GPG Project.
 //  
 //  This code is free software; you can redistribute it and/or modify it under
 //  the terms of the GNU Lesser General Public License as published by the Free
@@ -25,19 +25,13 @@
 //  More info at <http://macgpg.sourceforge.net/>
 //
 
-#ifdef BUILDING_MAC_GPGME
 #include <MacGPGME/GPGOptions.h>
 #include <MacGPGME/GPGEngine.h>
-#else
-#include "GPGOptions.h"
-#endif
 
 static NSString *gnupgVersion = nil;
 
-#ifdef BUILDING_MAC_GPGME
 NSString * const GPGUserDefaultsSuiteName = @"net.sourceforge.macgpg";
 NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
-#endif
 
 
 @interface GPGOptions(Private)
@@ -49,20 +43,8 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 @end
 
 @implementation GPGOptions
-/*"
- * #GPGOptions class allows you to retrieve options used by %GnuPG, as defined
- * in #GPGPreferences, from %GnuPG configuration file, read by the executable.
- *
- * You can also set options and save them, though this should be the job of
- * #GPGPreferences only.
- *
- * Options are defined by a name, a state (active or not), and, optionally
- * (sic), a value.
- *
- * Some options (keyserver-options) can have sub-options too.
-"*/
 
-+ (NSString *) currentEnvironmentVariableValueForName:(NSString *)name
++ (NSString *) activeEnvironmentVariableValueForName:(NSString *)name
 {
     return [[[NSProcessInfo processInfo] environment] objectForKey:name];
 }
@@ -85,17 +67,17 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
     NSString			*aDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@".MacOSX"];
     NSString			*filename = [aDirectory stringByAppendingPathComponent:@"environment.plist"];
     NSMutableDictionary	*environment = [NSMutableDictionary dictionaryWithContentsOfFile:filename];
-    NSString			*currentValue;
+    NSString			*activeValue;
     BOOL				isModified;
 
     if(environment == nil){
         environment = [NSMutableDictionary dictionary];
-        currentValue = nil;
+        activeValue = nil;
     }
     else
-        currentValue = [environment objectForKey:name];
+        activeValue = [environment objectForKey:name];
     
-    if(currentValue == nil){
+    if(activeValue == nil){
         if(value == nil)
             isModified = NO;
         else
@@ -105,7 +87,7 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
         if(value == nil)
             isModified = YES;
         else
-            isModified = ![currentValue isEqualToString:value];
+            isModified = ![activeValue isEqualToString:value];
     }
     
     if(isModified){
@@ -127,22 +109,15 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 + (NSString *) defaultHomeDirectory
-/*"
- * Returns the default %{home directory} for %GnuPG, i.e. #{$HOME/.gnupg}
-"*/
 {
 #warning Use +[GPGEngine defaultHomeDirectory]
     return [NSHomeDirectory() stringByAppendingPathComponent:@".gnupg"];
 }
 
-+ (NSString *) currentHomeDirectory
-/*"
- * Returns the %{home directory} used by %GnuPG; this might be the %default
- * one, or the one defined by the environment variable #GNUPGHOME.
-"*/
++ (NSString *) activeHomeDirectory
 {
 #warning Use -[GPGEngine homeDirectory]
-    NSString	*homeDirectory = [self currentEnvironmentVariableValueForName:@"GNUPGHOME"];
+    NSString	*homeDirectory = [self activeEnvironmentVariableValueForName:@"GNUPGHOME"];
 
     if(homeDirectory == nil)
         return [self defaultHomeDirectory];
@@ -151,11 +126,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 + (NSString *) homeDirectory
-/*"
- * Returns the %{home directory} used by %GnuPG, as configured by user. Maybe
- * user will need to logout and login to get it active, due to the use of
- * environment variable #GNUPGHOME.
-"*/
 {
     NSString	*homeDirectory = [self futureEnvironmentVariableValueForName:@"GNUPGHOME"];
 
@@ -166,10 +136,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 + (void) setHomeDirectory:(NSString *)homeDirectory
-/*"
- * Sets the %{home directory} for %GnuPG. Maybe user will need to logout and
- * login to get it active, due to the use of environment variable #GNUPGHOME.
-"*/
 {
     if(homeDirectory != nil && [homeDirectory rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].length > 0)
         [self setFutureEnvironmentVariableValue:homeDirectory forName:@"GNUPGHOME"];
@@ -178,12 +144,8 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 + (BOOL) homeDirectoryChanged
-/*"
- * Returns whether user changed %GnuPG's %{home directory}, i.e.
- * #{+homeDirectory} is equal or not to {+currentHomeDirectory}.
-"*/
 {
-    return (![[[self homeDirectory] stringByStandardizingPath] isEqualToString:[[self currentHomeDirectory] stringByStandardizingPath]]);
+    return (![[[self homeDirectory] stringByStandardizingPath] isEqualToString:[[self activeHomeDirectory] stringByStandardizingPath]]);
 }
 
 + (NSString *) systemHttpProxy
@@ -194,23 +156,14 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
     return nil;
 }
 
-+ (NSString *) currentHttpProxy
-/*"
- * Returns the HTTP proxy currently used by %GnuPG, when connecting to key
- * servers.
-"*/
++ (NSString *) activeHttpProxy
 {
-    NSString	*httpProxy = [self currentEnvironmentVariableValueForName:@"http_proxy"];
+    NSString	*httpProxy = [self activeEnvironmentVariableValueForName:@"http_proxy"];
 
     return httpProxy;
 }
 
 + (NSString *) httpProxy
-/*"
- * Returns the HTTP proxy used by %GnuPG, when connecting to key servers.
- * Maybe user will need to logout and login to get it active, due to the use
- * of environment variable #{http_proxy}.
-"*/
 {
 #warning deprecated?
     NSString	*httpProxy = [self futureEnvironmentVariableValueForName:@"http_proxy"];
@@ -219,11 +172,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 + (void) setHttpProxy:(NSString *)httpProxy
-/*"
- * Sets the HTTP proxy to be used by %GnuPG, when connecting to key servers.
- * Maybe user will need to logout and login to get it active, due to the use
- * of environment variable #{http_proxy}.
-"*/
 {
 #warning deprecated?
     if([httpProxy rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0)
@@ -233,15 +181,11 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 + (BOOL) httpProxyChanged
-/*"
- * Returns whether user changed %GnuPG's HTTP proxy, i.e. #{+httpProxy} is
- * equal or not to #{+currentHttpProxy}.
-"*/
 {
-    NSString	*currentHttpProxy = [self currentHttpProxy];
+    NSString	*activeHttpProxy = [self activeHttpProxy];
     NSString	*httpProxy = [self httpProxy];
 
-    if(currentHttpProxy == nil)
+    if(activeHttpProxy == nil)
         if(httpProxy == nil)
             return NO;
         else
@@ -249,28 +193,15 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
     else if(httpProxy == nil)
         return YES;
     else
-        return ![currentHttpProxy isEqualToString:httpProxy];
+        return ![activeHttpProxy isEqualToString:httpProxy];
 }
 
 + (NSString *) gpgPath
-/*"
- * Returns the expected location of %GnuPG. Currently hardcoded to
- * #{/usr/local/bin/gpg}, due to libgpgme.
-"*/
 {
-#warning Use -[GPGEngine executablePath]
-    // MacGPGME does not support another path, yet
-    return @"/usr/local/bin/gpg";
+    return [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] executablePath];
 }
 
 + (NSString *) optionsFilename
-/*"
- * Returns the full path name to %GnuPG configuration file. It depends on
- * %GnuPG version. If user changed %GnuPG's %{home directory} without logging
- * out and in, returned value might be not yet valid.
- *
- * Raises an exception when %GnuPG version cannot be found out.
-"*/
 {
     NSString	*aVersion = [self gnupgVersion];
     
@@ -359,11 +290,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) reloadOptions
-/*"
- * Re-reads %GnuPG's configuration file. If user changed %GnuPG's %{home}
- * %{directory} without logging out and in, options might be not yet active,
- * and changes won't be taken in account before logging out and in.
-"*/
 {
     NSString	*filename = [[self class] optionsFilename];
     NSString	*optionsAsString;
@@ -402,9 +328,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (id) init
-/*"
- * Default initializer.
-"*/
 {
     if(self = [super init]){
         optionFileLines = [[NSMutableArray alloc] initWithCapacity:100];
@@ -442,10 +365,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) saveOptions
-/*"
- * Save options by writing file back. Note that if user changed %GnuPG's %home
- * %directory without logging out and in, new options might be not yet valid.
-"*/
 {
 #warning TODO: Save only if modified
     [self doSaveOptions];
@@ -493,44 +412,29 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) setOptionValue:(NSString *)value atIndex:(unsigned)index
-/*"
- *
-"*/
 {
     [optionValues replaceObjectAtIndex:index withObject:[self normalizedValue:value]];
     [self updateOptionLineAtIndex:index];
 }
 
 - (void) setEmptyOptionValueAtIndex:(unsigned)index
-/*"
- *
-"*/
 {
     [self setOptionValue:@"\"\"" atIndex:index];
 }
 
 - (void) setOptionName:(NSString *)name atIndex:(unsigned)index
-/*"
- *
-"*/
 {
     [optionNames replaceObjectAtIndex:index withObject:name];
     [self updateOptionLineAtIndex:index];
 }
 
 - (void) setOptionState:(BOOL)flag atIndex:(unsigned)index
-/*"
- *
-"*/
 {
     [optionStates replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:flag]];
     [self updateOptionLineAtIndex:index];
 }
 
 - (void) addOptionNamed:(NSString *)name
-/*"
- * Adds a new option named name, not active, with an empty value.
-"*/
 {
     [optionNames addObject:name];
     [optionValues addObject:@""];
@@ -540,11 +444,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) addOptionNamed:(NSString *)name value:(NSString *)value state:(BOOL)state
-/*"
- * Adds a new option named name, with an value and state. Does not disable 
- * existing options with save name. Use it only when option can appear multiple 
- * times.
-"*/
 {
     [optionNames addObject:name];
     [optionValues addObject:value];
@@ -554,9 +453,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) insertOptionNamed:(NSString *)name atIndex:(unsigned)index
-/*"
- *
-"*/
 {
     unsigned	maxIndex = [optionNames count];
     
@@ -571,9 +467,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) removeOptionAtIndex:(unsigned)index
-/*"
- *
-"*/
 {
     unsigned	maxIndex = [optionNames count];
     
@@ -588,39 +481,21 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (NSArray *) optionNames
-/*"
- * Returns all option names, active or not. The same option name can appear
- * multiple times.
-"*/
 {
     return optionNames;
 }
 
 - (NSArray *) optionValues
-/*"
- * Returns all option values, active or not. There are as many option values
- * as option names returned by #{-optionNames}.
-"*/
 {
     return optionValues;
 }
 
 - (NSArray *) optionStates
-/*"
- * Returns all option states as an array of NSNumber instances (boolean
- * values). There are as many option states as option names returned by
- * #{-optionNames}.
-"*/
 {
     return optionStates;
 }
 
 - (NSString *) optionValueForName:(NSString *)name
-/*"
- * Returns the option value named name, used by %GnuPG. In case of multiple
- * occurences of the a named option, returns the used one. Note that option
- * might be inactive!
-"*/
 {
     int			anIndex = [optionNames count] - 1;
     NSString	*lastValue = nil;
@@ -641,9 +516,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (NSArray *) optionValuesForName:(NSString *)name activeOnly:(BOOL)activeOnly
-/*"
- *
-"*/
 {
     int				anIndex = 0;
     int				max = [optionNames count];
@@ -657,35 +529,21 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (NSArray *) activeOptionValuesForName:(NSString *)name
-/*"
- * Returns all values set for this option name, providing that option
- * is active. First value is the used value, in case no more than one
- * value is considered by GnuPG.
-"*/
 {
     return [self optionValuesForName:name activeOnly:YES];
 }
 
 - (NSArray *) allOptionValuesForName:(NSString *)name
-/*"
- *
-"*/
 {
     return [self optionValuesForName:name activeOnly:NO];
 }
 
 - (void) setEmptyOptionValueForName:(NSString *)name
-/*"
- *
-"*/
 {
     [self setOptionValue:@"\"\"" forName:name];
 }
 
 - (void) setOptionValue:(NSString *)value forName:(NSString *)name
-/*"
- *
-"*/
 {
     int	anIndex = 0, maxIndex = [optionNames count];
     int	deletedLineNumber = -1;
@@ -724,9 +582,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (BOOL) optionStateForName:(NSString *)name
-/*"
- *
-"*/
 {
     int	anIndex = [optionNames count] - 1;
 
@@ -738,9 +593,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) setOptionState:(BOOL)state forName:(NSString *)name
-/*"
- *
-"*/
 {
     int	anIndex = 0, maxIndex = [optionNames count];
     int	deletedLineNumber = -1;
@@ -786,9 +638,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (BOOL) subOptionState:(NSString *)subOptionName forName:(NSString *)optionName
-/*"
- * Returns subOptionName sub-option's state, in option named optionName.
-"*/
 {
     if([self optionStateForName:optionName]){
         NSArray	*optionParameters;
@@ -807,9 +656,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (void) setSubOption:(NSString *)subOptionName state:(BOOL)state forName:(NSString *)optionName
-/*"
- * Sets subOptionName sub-option's state, in option named optionName, and enables option. 
-"*/
 {
     NSString		*disabledSubOptionName = [@"no-" stringByAppendingString:subOptionName];
     NSMutableArray	*subOptions = [NSMutableArray arrayWithArray:[self _subOptionsForName:optionName]];
@@ -822,9 +668,6 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 - (unsigned) moveOptionsAtIndexes:(NSArray *)indexes toIndex:(unsigned)index
-/*"
- * Reorders options at indexes to new index. Returns new index.
-"*/
 {
     NSEnumerator	*anEnum = [indexes objectEnumerator];
     NSNumber		*anIndex;
@@ -894,36 +737,10 @@ NSString * const GPGOpenPGPExecutablePathKey = @"GPGOpenPGPExecutablePath";
 }
 
 + (NSString *) gnupgVersion
-/*"
- * Returns current %GnuPG version, or raises an exception when %GnuPG
- * executable cannot be found or returned an error.
-"*/
 {
-    NSString		*aVersion = nil;
-    NSString		*oldVersion = gnupgVersion;
+    GPGEngine   *anEngine = [GPGEngine engineForProtocol:GPGOpenPGPProtocol];
 
-#warning FIXME Cache result?
-#warning Use -[GPGEngine version]
-
-//#ifdef BUILDING_MAC_GPGME
-    NSEnumerator	*anEnum = [[GPGEngine availableEngines] objectEnumerator];
-    GPGEngine		*anEngine;
-
-    while(anEngine = [anEnum nextObject]){
-        if([anEngine engineProtocol] == GPGOpenPGPProtocol){
-            aVersion = [anEngine version];
-            break;
-        }
-    }
-    if(aVersion == nil)
-//#endif
-     
-    aVersion = [self outputFromGPGTaskWithArgument:@"--version"];
-    
-    gnupgVersion = [aVersion retain];
-    [oldVersion release];
-
-    return gnupgVersion;
+    return  [anEngine version];
 }
 
 @end
