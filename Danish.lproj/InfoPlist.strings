@@ -1,6 +1,6 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "GnuPG";
-CFBundleShortVersionString = "1.2.2 (v11)";
-CFBundleGetInfoString = "GnuPG Preferencer version 1.2.2 (v11), Copyright 2002-2006, MacGPG Project.";
-NSHumanReadableCopyright = "Copyright 2002-2006, MacGPG Project.";
+CFBundleGetInfoString = "1.3.0b1, Copyright 2002-2008, MacGPG Project.";
+NSHumanReadableCopyright = "Copyright 2002-2008, MacGPG Project.";
+NSPrefPaneIconLabel = "GnuPG";
