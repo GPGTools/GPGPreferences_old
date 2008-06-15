@@ -166,7 +166,7 @@
         case NSAlertAlternateReturn:
             // Keep new directory as-is, don't move anything
             // User is responsible to copy files, set access rights
-            [engine setHomeDirectory:homeDirectory];
+            [engine setCustomHomeDirectory:homeDirectory];
             [self updateWarningView];
             break;
         // If cancel or error, do nothing
@@ -213,7 +213,7 @@
         NSString	*newHomeDirectory = [sheet filename];
         
         if(![moveButton state] || [self moveHomeDirectory:homeDirectory toPath:newHomeDirectory]){
-            [engine setHomeDirectory:newHomeDirectory];
+            [engine setCustomHomeDirectory:newHomeDirectory];
             [self updateWarningView];
             [homeDirectoryTextField setStringValue:[engine homeDirectory]];
         }

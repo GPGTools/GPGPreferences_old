@@ -162,38 +162,38 @@
 		55510F9503F83E2B00000001 /* MacGPG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacGPG.icns; sourceTree = "<group>"; };
 		5557265A0D9E59D10012ABA9 /* GPGGlobalPrefs.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPGGlobalPrefs.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		5557265B0D9E59D10012ABA9 /* GPGGlobalPrefs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GPGGlobalPrefs-Info.plist"; path = "GPGGlobalPrefs/GPGGlobalPrefs-Info.plist"; sourceTree = "<group>"; };
-		55AEAFC90DC4C3DD00D4F622 /* GPGEngineChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGEngineChoiceController.h; path = /Users/dave/Developer/GPGPreferences/GPGGlobalPrefs/GPGEngineChoiceController.h; sourceTree = "<absolute>"; };
-		55AEAFCA0DC4C3DD00D4F622 /* GPGEngineChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPGEngineChoiceController.m; path = /Users/dave/Developer/GPGPreferences/GPGGlobalPrefs/GPGEngineChoiceController.m; sourceTree = "<absolute>"; };
-		55AEAFCD0DC4C3FB00D4F622 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = /Users/dave/Developer/GPGPreferences/GPGGlobalPrefs/English.lproj/GPGEngineChoiceController.xib; sourceTree = "<absolute>"; };
+		55AEAFC90DC4C3DD00D4F622 /* GPGEngineChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGEngineChoiceController.h; path = GPGGlobalPrefs/GPGEngineChoiceController.h; sourceTree = "<group>"; };
+		55AEAFCA0DC4C3DD00D4F622 /* GPGEngineChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPGEngineChoiceController.m; path = GPGGlobalPrefs/GPGEngineChoiceController.m; sourceTree = "<group>"; };
+		55AEAFCD0DC4C3FB00D4F622 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = GPGGlobalPrefs/English.lproj/GPGEngineChoiceController.xib; sourceTree = "<group>"; };
 		55BDD2E30D959D9C0083C540 /* MacGPGME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MacGPGME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BDD3530D959F430083C540 /* GPGPreferences.searchTerms */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GPGPreferences.searchTerms; sourceTree = "<group>"; };
 		55BDD3540D959F430083C540 /* GPGAgentPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGAgentPrefs.h; path = GPGAgentPrefs/GPGAgentPrefs.h; sourceTree = "<group>"; };
 		55BDD3550D959F430083C540 /* GPGAgentPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPGAgentPrefs.m; path = GPGAgentPrefs/GPGAgentPrefs.m; sourceTree = "<group>"; };
 		55BDD3560D959F430083C540 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = GPGAgentPrefs/English.lproj/GPGAgentPrefs.nib; sourceTree = "<group>"; };
-		55E341CA0D9E688900A33DF1 /* GPGPreferences.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGPreferences.pch; path = /Users/dave/Developer/GPGPreferences/GPGPreferences.pch; sourceTree = "<absolute>"; };
+		55E341CA0D9E688900A33DF1 /* GPGPreferences.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPGPreferences.pch; sourceTree = "<group>"; };
 		55E343390D9EB63500A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGGlobalPrefs/English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55E3433D0D9EB6D100A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGGlobalPrefs/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55E3437E0D9F8BAB00A33DF1 /* GPGExpertPrefs.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPGExpertPrefs.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
-		55E343880D9F8D4800A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGExpertPrefs/English.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
+		55E343880D9F8D4800A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGExpertPrefs/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55E3438E0D9F8D9B00A33DF1 /* GPGExpertPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGExpertPrefs-Info.plist"; path = "GPGExpertPrefs/GPGExpertPrefs-Info.plist"; sourceTree = "<group>"; };
 		55E343DB0D9FB74800A33DF1 /* GPGAgentPrefs.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPGAgentPrefs.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E343EA0D9FB77200A33DF1 /* GPGKeyServerPrefs.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPGKeyServerPrefs.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E3441A0D9FB79C00A33DF1 /* GPGExtensionsPrefs.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPGExtensionsPrefs.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E344290D9FB7D600A33DF1 /* GPGCompatibilityPrefs.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPGCompatibilityPrefs.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E344380D9FB80100A33DF1 /* GPGSignaturePrefs.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPGSignaturePrefs.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
-		55E3444C0D9FB99E00A33DF1 /* GPGAgentPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGAgentPrefs-Info.plist"; path = "/Users/dave/Developer/GPGPreferences/GPGAgentPrefs/GPGAgentPrefs-Info.plist"; sourceTree = "<absolute>"; };
-		55E344500D9FB9BD00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGAgentPrefs/English.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
-		55E344520D9FB9BD00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGAgentPrefs/English.lproj/Localizable.strings; sourceTree = "<absolute>"; };
-		55E344600D9FBB5900A33DF1 /* GPGKeyServerPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGKeyServerPrefs-Info.plist"; path = "/Users/dave/Developer/GPGPreferences/GPGKeyServerPrefs/GPGKeyServerPrefs-Info.plist"; sourceTree = "<absolute>"; };
-		55E344640D9FBB7000A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGKeyServerPrefs/English.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
-		55E3446A0D9FBB9600A33DF1 /* GPGCompatibilityPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGCompatibilityPrefs-Info.plist"; path = "/Users/dave/Developer/GPGPreferences/GPGCompatibilityPrefs/GPGCompatibilityPrefs-Info.plist"; sourceTree = "<absolute>"; };
-		55E3446F0D9FBBAD00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGCompatibilityPrefs/English.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
-		55E344750D9FBBDD00A33DF1 /* GPGSignaturePrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGSignaturePrefs-Info.plist"; path = "/Users/dave/Developer/GPGPreferences/GPGSignaturePrefs/GPGSignaturePrefs-Info.plist"; sourceTree = "<absolute>"; };
-		55E344790D9FBBF700A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGSignaturePrefs/English.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
-		55E3447B0D9FBBF700A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGSignaturePrefs/English.lproj/Localizable.strings; sourceTree = "<absolute>"; };
-		55E344850D9FBC3200A33DF1 /* GPGExtensionsPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGExtensionsPrefs-Info.plist"; path = "/Users/dave/Developer/GPGPreferences/GPGExtensionsPrefs/GPGExtensionsPrefs-Info.plist"; sourceTree = "<absolute>"; };
-		55E344890D9FBC4F00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGExtensionsPrefs/English.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
-		55E3448B0D9FBC4F00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = /Users/dave/Developer/GPGPreferences/GPGExtensionsPrefs/English.lproj/Localizable.strings; sourceTree = "<absolute>"; };
+		55E3444C0D9FB99E00A33DF1 /* GPGAgentPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGAgentPrefs-Info.plist"; path = "GPGAgentPrefs/GPGAgentPrefs-Info.plist"; sourceTree = "<group>"; };
+		55E344500D9FB9BD00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGAgentPrefs/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E344520D9FB9BD00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGAgentPrefs/English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55E344600D9FBB5900A33DF1 /* GPGKeyServerPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGKeyServerPrefs-Info.plist"; path = "GPGKeyServerPrefs/GPGKeyServerPrefs-Info.plist"; sourceTree = "<group>"; };
+		55E344640D9FBB7000A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGKeyServerPrefs/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E3446A0D9FBB9600A33DF1 /* GPGCompatibilityPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGCompatibilityPrefs-Info.plist"; path = "GPGCompatibilityPrefs/GPGCompatibilityPrefs-Info.plist"; sourceTree = "<group>"; };
+		55E3446F0D9FBBAD00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGCompatibilityPrefs/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E344750D9FBBDD00A33DF1 /* GPGSignaturePrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGSignaturePrefs-Info.plist"; path = "GPGSignaturePrefs/GPGSignaturePrefs-Info.plist"; sourceTree = "<group>"; };
+		55E344790D9FBBF700A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGSignaturePrefs/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E3447B0D9FBBF700A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGSignaturePrefs/English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55E344850D9FBC3200A33DF1 /* GPGExtensionsPrefs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GPGExtensionsPrefs-Info.plist"; path = "GPGExtensionsPrefs/GPGExtensionsPrefs-Info.plist"; sourceTree = "<group>"; };
+		55E344890D9FBC4F00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGExtensionsPrefs/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E3448B0D9FBC4F00A33DF1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = GPGExtensionsPrefs/English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* GPGPreferences.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGPreferences.h; sourceTree = "<group>"; };
 		F506C03D013D9D7901CA16C8 /* GPGPreferences.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGPreferences.m; sourceTree = "<group>"; };
@@ -225,25 +225,24 @@
 		F5280927032A983801000001 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Italian.lproj/GPGExtensionsPrefs.nib; sourceTree = "<group>"; };
 		F5280928032A985E01000001 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Italian.lproj/GPGCompatibilityPrefs.nib; sourceTree = "<group>"; };
 		F5280929032A987C01000001 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Italian; path = Italian.lproj/GPGExpertPrefs.nib; sourceTree = "<group>"; };
-		F52A0A29021318E5016C2AB4 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/GPGCompatibilityPrefs.nib; sourceTree = "<group>"; };
-		F52A0A2B021320FE016C2AB4 /* GPGCompatibilityPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGCompatibilityPrefs.h; sourceTree = "<group>"; };
-		F52A0A2C021320FE016C2AB4 /* GPGCompatibilityPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGCompatibilityPrefs.m; sourceTree = "<group>"; };
-		F52A0A3002132D50016C2AB4 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/GPGKeyServerPrefs.nib; sourceTree = "<group>"; };
-		F52A0A32021334A8016C2AB4 /* GPGKeyServerPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGKeyServerPrefs.h; sourceTree = "<group>"; };
-		F52A0A33021334A8016C2AB4 /* GPGKeyServerPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGKeyServerPrefs.m; sourceTree = "<group>"; };
+		F52A0A29021318E5016C2AB4 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = GPGCompatibilityPrefs/English.lproj/GPGCompatibilityPrefs.nib; sourceTree = "<group>"; };
+		F52A0A2B021320FE016C2AB4 /* GPGCompatibilityPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GPGCompatibilityPrefs.h; path = GPGCompatibilityPrefs/GPGCompatibilityPrefs.h; sourceTree = "<group>"; };
+		F52A0A2C021320FE016C2AB4 /* GPGCompatibilityPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = GPGCompatibilityPrefs.m; path = GPGCompatibilityPrefs/GPGCompatibilityPrefs.m; sourceTree = "<group>"; };
+		F52A0A3002132D50016C2AB4 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = GPGKeyServerPrefs/English.lproj/GPGKeyServerPrefs.nib; sourceTree = "<group>"; };
+		F52A0A32021334A8016C2AB4 /* GPGKeyServerPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GPGKeyServerPrefs.h; path = GPGKeyServerPrefs/GPGKeyServerPrefs.h; sourceTree = "<group>"; };
+		F52A0A33021334A8016C2AB4 /* GPGKeyServerPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = GPGKeyServerPrefs.m; path = GPGKeyServerPrefs/GPGKeyServerPrefs.m; sourceTree = "<group>"; };
 		F52B34DB020F1BC50197BDCC /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F52CD02602146B320157668B /* KeyServers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = KeyServers.plist; sourceTree = "<group>"; };
+		F52CD02602146B320157668B /* KeyServers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = KeyServers.plist; path = GPGKeyServerPrefs/KeyServers.plist; sourceTree = "<group>"; };
 		F53869240232BC2701A80016 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/GPGPreferences.nib; sourceTree = "<group>"; };
 		F53869250232BC2701A80016 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/GPGGlobalPrefs.nib; sourceTree = "<group>"; };
 		F53869260232BC2701A80016 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/GPGKeyServerPrefs.nib; sourceTree = "<group>"; };
 		F53869270232BC2701A80016 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/GPGCompatibilityPrefs.nib; sourceTree = "<group>"; };
 		F53869280232BC2701A80016 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/GPGExpertPrefs.nib; sourceTree = "<group>"; };
-		F557037C022EE77B01A80016 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		F5593EDF0232637C01A80016 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F5593EE00232637C01A80016 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F56A3E0F0236B48C01A80013 /* GPGSignaturePrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGSignaturePrefs.h; sourceTree = "<group>"; };
-		F56A3E100236B48C01A80013 /* GPGSignaturePrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGSignaturePrefs.m; sourceTree = "<group>"; };
-		F56A3E140236B5A001A80013 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/GPGSignaturePrefs.nib; sourceTree = "<group>"; };
+		F56A3E0F0236B48C01A80013 /* GPGSignaturePrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GPGSignaturePrefs.h; path = GPGSignaturePrefs/GPGSignaturePrefs.h; sourceTree = "<group>"; };
+		F56A3E100236B48C01A80013 /* GPGSignaturePrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = GPGSignaturePrefs.m; path = GPGSignaturePrefs/GPGSignaturePrefs.m; sourceTree = "<group>"; };
+		F56A3E140236B5A001A80013 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = GPGSignaturePrefs/English.lproj/GPGSignaturePrefs.nib; sourceTree = "<group>"; };
 		F56EE6320243C36801A80016 /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F56EE6330243C36801A80016 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/GPGPreferences.nib; sourceTree = "<group>"; };
 		F56EE6340243C36801A80016 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/GPGGlobalPrefs.nib; sourceTree = "<group>"; };
@@ -253,7 +252,6 @@
 		F56EE6380243C36801A80016 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/GPGCompatibilityPrefs.nib; sourceTree = "<group>"; };
 		F56EE6390243C36801A80016 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/GPGExpertPrefs.nib; sourceTree = "<group>"; };
 		F5770C70023585EC0128824A /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F59073C1022D92E301A80016 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		F599A066027CE17901D17707 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F599A067027CE17901D17707 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F599A068027CE17901D17707 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/GPGPreferences.nib; sourceTree = "<group>"; };
@@ -263,21 +261,21 @@
 		F599A06C027CE17901D17707 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/GPGExtensionsPrefs.nib; sourceTree = "<group>"; };
 		F599A06D027CE17901D17707 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/GPGCompatibilityPrefs.nib; sourceTree = "<group>"; };
 		F599A06E027CE17901D17707 /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/GPGExpertPrefs.nib; sourceTree = "<group>"; };
-		F5A027DC023A616901A80013 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/GPGExtensionsPrefs.nib; sourceTree = "<group>"; };
-		F5A027DE023A6CB401A80013 /* GPGExtensionsPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGExtensionsPrefs.h; sourceTree = "<group>"; };
-		F5A027DF023A6CB401A80013 /* GPGExtensionsPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGExtensionsPrefs.m; sourceTree = "<group>"; };
+		F5A027DC023A616901A80013 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = GPGExtensionsPrefs/English.lproj/GPGExtensionsPrefs.nib; sourceTree = "<group>"; };
+		F5A027DE023A6CB401A80013 /* GPGExtensionsPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GPGExtensionsPrefs.h; path = GPGExtensionsPrefs/GPGExtensionsPrefs.h; sourceTree = "<group>"; };
+		F5A027DF023A6CB401A80013 /* GPGExtensionsPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = GPGExtensionsPrefs.m; path = GPGExtensionsPrefs/GPGExtensionsPrefs.m; sourceTree = "<group>"; };
 		F5D1F659023C260301A80016 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/GPGSignaturePrefs.nib; sourceTree = "<group>"; };
 		F5D1F65A023C260301A80016 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/GPGExtensionsPrefs.nib; sourceTree = "<group>"; };
 		F5FBE27D020D723C01E2136E /* gpgSettings.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = gpgSettings.txt; sourceTree = "<group>"; };
-		F5FBE288020D7FBD01E2136E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/GPGGlobalPrefs.nib; sourceTree = "<group>"; };
-		F5FBE28A020D82DC01E2136E /* GPGGlobalPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGGlobalPrefs.h; sourceTree = "<group>"; };
-		F5FBE28B020D82DC01E2136E /* GPGGlobalPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGGlobalPrefs.m; sourceTree = "<group>"; };
+		F5FBE288020D7FBD01E2136E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = GPGGlobalPrefs/English.lproj/GPGGlobalPrefs.nib; sourceTree = "<group>"; };
+		F5FBE28A020D82DC01E2136E /* GPGGlobalPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GPGGlobalPrefs.h; path = GPGGlobalPrefs/GPGGlobalPrefs.h; sourceTree = "<group>"; };
+		F5FBE28B020D82DC01E2136E /* GPGGlobalPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = GPGGlobalPrefs.m; path = GPGGlobalPrefs/GPGGlobalPrefs.m; sourceTree = "<group>"; };
 		F5FBE292020D84FE01E2136E /* SmallAlert5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SmallAlert5.tiff; sourceTree = "<group>"; };
-		F5FBE295020DCDF201E2136E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/GPGExpertPrefs.nib; sourceTree = "<group>"; };
+		F5FBE295020DCDF201E2136E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = GPGExpertPrefs/English.lproj/GPGExpertPrefs.nib; sourceTree = "<group>"; };
 		F5FBE297020DD14601E2136E /* MinusIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = MinusIcon.tiff; sourceTree = "<group>"; };
 		F5FBE298020DD14601E2136E /* PlusIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = PlusIcon.tiff; sourceTree = "<group>"; };
-		F5FBE29B020DD61201E2136E /* GPGExpertPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGExpertPrefs.h; sourceTree = "<group>"; };
-		F5FBE29C020DD61201E2136E /* GPGExpertPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGExpertPrefs.m; sourceTree = "<group>"; };
+		F5FBE29B020DD61201E2136E /* GPGExpertPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GPGExpertPrefs.h; path = GPGExpertPrefs/GPGExpertPrefs.h; sourceTree = "<group>"; };
+		F5FBE29C020DD61201E2136E /* GPGExpertPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = GPGExpertPrefs.m; path = GPGExpertPrefs/GPGExpertPrefs.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,8 +423,6 @@
 				55BDD2E30D959D9C0083C540 /* MacGPGME.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				F506C035013D953901CA16C8 /* PreferencePanes.framework */,
-				F59073C1022D92E301A80016 /* CoreFoundation.framework */,
-				F557037C022EE77B01A80016 /* Carbon.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -730,12 +726,12 @@
 			targets = (
 				4B17162909C4881D0019BA72 /* GPGPreferences */,
 				555726590D9E59D10012ABA9 /* GPGGlobalPrefs */,
-				55E3437D0D9F8BAB00A33DF1 /* GPGExpertPrefs */,
-				55E343DA0D9FB74800A33DF1 /* GPGAgentPrefs */,
 				55E343E90D9FB77200A33DF1 /* GPGKeyServerPrefs */,
-				55E344190D9FB79C00A33DF1 /* GPGExtensionsPrefs */,
 				55E344280D9FB7D600A33DF1 /* GPGCompatibilityPrefs */,
 				55E344370D9FB80100A33DF1 /* GPGSignaturePrefs */,
+				55E343DA0D9FB74800A33DF1 /* GPGAgentPrefs */,
+				55E344190D9FB79C00A33DF1 /* GPGExtensionsPrefs */,
+				55E3437D0D9F8BAB00A33DF1 /* GPGExpertPrefs */,
 			);
 		};
 /* End PBXProject section */
@@ -1252,7 +1248,7 @@
 				PRODUCT_NAME = GnuPG;
 				WARNING_CFLAGS = "-Wmost";
 				WRAPPER_EXTENSION = prefPane;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
