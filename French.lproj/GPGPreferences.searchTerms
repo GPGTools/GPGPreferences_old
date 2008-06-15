@@ -1,0 +1,62 @@
+{
+    GPGGlobalPrefs = {
+        localizableStrings = (
+            {
+                index = "gpg, gpg2, gnupg, pgp, macgpg";
+                title = "GnuPG, implémentation open-source d'OpenPGP";
+            }
+        );
+    };
+    GPGKeyServerPrefs = {
+        localizableStrings = (
+            {
+                index = "clé, clef, serveur, import, pgp, gpg";
+                title = "Serveurs de clé PGP";
+            }
+        );
+    };
+    GPGCompatibilityPrefs = {
+        localizableStrings = (
+            {
+                index = "compatibilité, pgp2, pgp5, pgp6, pgp7, pgp8, pgp, gpg";
+                title = "Compatibilité GnuPG";
+            }
+        );
+    };
+    GPGSignaturePrefs = {
+        localizableStrings = (
+            {
+                index = "signature, version, commentaire, pgp, gpg";
+                title = "Signature PGP";
+            }
+        );
+    };
+    GPGAgentPrefs = {
+        localizableStrings = (
+            {
+                index = "agent, smartcard, carte, puce, daemon, démon, mot de passe, phrase de passe, cache, pgp, gpg";
+                title = "Agent PGP";
+            }
+        );
+    };
+    GPGExtensionsPrefs = {
+        localizableStrings = (
+            {
+                index = "extensions, IDEA, pgp, gpg";
+                title = "Extensions de GnuPG";
+            }
+        );
+    };
+    GPGExpertPrefs = {
+        localizableStrings = (
+            {
+                index = "expert, avancé, configuration, pgp, gpg";
+                title = "Réglages avancés de GnuPG";
+            },
+            {
+                index = "man, manuel, documentation, aide, pgp, gpg";
+                title = "Manuel de GnuPG";
+            }
+        );
+    };
+}
