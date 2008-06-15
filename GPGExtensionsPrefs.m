@@ -21,39 +21,48 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
 #import "GPGExtensionsPrefs.h"
-#import "GPGOptions.h"
+#import <MacGPGME/MacGPGME.h>
 
 
-static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
-
+// TODO: should be disabled for gpg2 - no extensions? Doc is not clear.
 
 @implementation GPGExtensionsPrefs
 
-- (void) dealloc
+- (GPGOptions *)options
+{
+    if(options == nil)
+        options = [[GPGOptions alloc] init];
+    
+    return options;
+}
+
+- (void)dealloc
 {
     [extensionsTableView setDataSource:nil];
     [extensionsTableView setDelegate:nil];
-    [switchProtoButton autorelease];
     [extensions release];
+    [options release];
+    [infoStringFormat release];
 
     [super dealloc];
 }
 
-- (void) reloadExtensions
+- (void)reloadExtensions
 {
     [extensions release];
     extensions = nil;
 }
 
-- (NSMutableArray *) extensions
+- (NSMutableArray *)extensions
 {
     if(extensions == nil){
         NSFileManager			*fileManager = [NSFileManager defaultManager];
+        NSString                *defaultExtensionsLibPath = [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] extensionsPath];
         NSDirectoryEnumerator	*anEnum = [fileManager enumeratorAtPath:defaultExtensionsLibPath];
         NSString				*aName;
         int						i;
@@ -111,7 +120,7 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     return extensions;
 }
 
-- (void) saveExtensions
+- (void)saveExtensions
 {
     NSEnumerator	*anEnum = [[self extensions] objectEnumerator];
     NSDictionary	*anExtension;
@@ -131,22 +140,32 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     [self reloadExtensions];
 }
 
-- (void) awakeFromNib
+- (void)mainViewDidLoad
 {
-    [super awakeFromNib];
-    [[extensionsTableView tableColumnWithIdentifier:@"isExtensionEnabled"] setDataCell:[switchProtoButton cell]];
-    [[switchProtoButton retain] removeFromSuperview];
+    [super mainViewDidLoad];
+    
     [self tableViewSelectionDidChange:nil];
+    infoStringFormat = [[infoTextField stringValue] copy];
 }
 
-- (void) tabItemWillBeSelected
+- (void)willSelect
 {
-    [super tabItemWillBeSelected];
+    [super willSelect];
+    
     [self reloadExtensions];
     [extensionsTableView reloadData];
+    [infoTextField setStringValue:[NSString stringWithFormat:infoStringFormat, [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] extensionsPath]]];
 }
 
-- (void) openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
+- (void)willUnselect
+{
+    [super willUnselect];
+    
+    [options release];
+    options = nil;
+}
+
+- (void)openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
     NSNumber	*selectedRowNumber = (NSNumber *)contextInfo;
 
@@ -184,7 +203,7 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     [selectedRowNumber release];
 }
 
-- (IBAction) addExtension:(id)sender
+- (IBAction)addExtension:(id)sender
 {
     int			selectedRow = [extensionsTableView selectedRow];
     NSOpenPanel	*openPanel = [NSOpenPanel openPanel];
@@ -196,7 +215,7 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     [openPanel setCanSelectHiddenExtension:YES];
     [openPanel setExtensionHidden:NO];
     [openPanel setTreatsFilePackagesAsDirectories:YES];
-    [openPanel setPrompt:NSLocalizedStringFromTableInBundle(@"ADD EXTENSION", nil, [NSBundle bundleForClass:[self class]], "")];
+    [openPanel setPrompt:NSLocalizedStringFromTableInBundle(@"ADD EXTENSION", nil, [self bundle], "")];
     [openPanel setAccessoryView:nil];
     
     if(selectedRow >= 0)
@@ -204,10 +223,10 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     else
         selectedRowNumber = [NSNumber numberWithInt:[extensionsTableView numberOfRows] - 1];
 
-    [openPanel beginSheetForDirectory:nil file:nil types:nil modalForWindow:[view window] modalDelegate:self didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:) contextInfo:[selectedRowNumber retain]];
+    [openPanel beginSheetForDirectory:nil file:nil types:nil modalForWindow:[[self mainView] window] modalDelegate:self didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:) contextInfo:[selectedRowNumber retain]];
 }
 
-- (IBAction) deleteExtension:(id)sender
+- (IBAction)deleteExtension:(id)sender
 {
     NSEnumerator	*anEnum = [[[[extensionsTableView selectedRowEnumerator] allObjects] sortedArrayUsingSelector:@selector(compare:)] reverseObjectEnumerator];
     NSNumber		*aRow;
@@ -220,24 +239,24 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     [extensionsTableView deselectAll:nil];
 }
 
-- (int) numberOfRowsInTableView:(NSTableView *)tableView
+- (int)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return [[self extensions] count];
 }
 
-- (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
     return [[[self extensions] objectAtIndex:row] objectForKey:[tableColumn identifier]];
 }
 
-- (void) tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
     NSParameterAssert([[tableColumn identifier] isEqualToString:@"isExtensionEnabled"]);
     [[[self extensions] objectAtIndex:row] setObject:object forKey:[tableColumn identifier]];
     [self saveExtensions];
 }
 
-- (void) tableViewSelectionDidChange:(NSNotification *)notification
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
     BOOL			flag = NO;
     NSEnumerator	*anEnum = [extensionsTableView selectedRowEnumerator];
@@ -246,7 +265,7 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     // Do not allow deletion of module if in /usr/local/lib/gnupg
     // Deletion is simply removing module from list; file is not affected
     while(aRow = [anEnum nextObject]){
-        if(![[[[self extensions] objectAtIndex:[aRow intValue]] objectForKey:@"extensionLocation"] isEqualToString:defaultExtensionsLibPath]){
+        if(![[[[self extensions] objectAtIndex:[aRow intValue]] objectForKey:@"extensionLocation"] isEqualToString:[[GPGEngine engineForProtocol:GPGOpenPGPProtocol] extensionsPath]]){
             flag = YES;
             break;
         }
@@ -255,18 +274,12 @@ static NSString	*defaultExtensionsLibPath = @"/usr/local/lib/gnupg";
     [deleteExtensionButtonCell setEnabled:flag];
 }
 
-- (void) tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
     if(![[tableColumn identifier] isEqualToString:@"isExtensionEnabled"]){
         BOOL	fileExists = [[[[self extensions] objectAtIndex:row] objectForKey:@"fileExists"] boolValue];
         
         [cell setTextColor:(fileExists ? [NSColor controlTextColor]:[NSColor redColor])];
-        if(fileExists)
-            [cell setFont:[[NSFontManager sharedFontManager] convertFont:[cell font] toNotHaveTrait:NSItalicFontMask]];
-        else
-            // Problem: the default System font, Lucida, doesn't have
-            // an italic trait => the following call has no effect in this case.
-            [cell setFont:[[NSFontManager sharedFontManager] convertFont:[cell font] toHaveTrait:NSItalicFontMask]];
     }
 }
 

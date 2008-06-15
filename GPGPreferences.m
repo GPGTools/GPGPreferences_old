@@ -21,23 +21,11 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 #import "GPGPreferences.h"
-#import "GPGPrefController.h"
-#import "GPGExpertPrefs.h"
-#import "GPGGlobalPrefs.h"
-#import "GPGOptions.h"
-#import "GPGSignaturePrefs.h"
-#import "GPGExtensionsPrefs.h"
-#import "GPGCompatibilityPrefs.h"
-#import "GPGKeyServerPrefs.h"
-#import "authinfo.h"
-#import <Carbon/Carbon.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#import <MacGPGME/MacGPGME.h>
 
 
 #define TERMINAL_UTF8_STRING_ENCODING	(4)
@@ -45,38 +33,60 @@
 #define TERMINAL_STRING_ENCODING_KEY	@"StringEncoding"
 
 
-OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorizedCommandOperation, const char *fileArgument, uid_t uid, gid_t gid, mode_t mode, CFBundleRef bundle); // Implemented in authapp.c
-
 @interface GPGPreferences(Private)
+- (NSMutableDictionary *)userDefaultsDictionary;
+- (void)saveUserDefaults;
+
 - (void) startTests;
 - (void) nextTest;
-- (OSErr) executeOperation:(int)command forFilename:(NSString *)filename owner:(uid_t)owner group:(gid_t)group mode:(mode_t)mode;
 @end
 
 @implementation GPGPreferences
 
-#warning TODO: Add bundle icon
+// TODO: Add bundle icon
 
-- (id) initWithBundle:(NSBundle *)bundle
+// All GPG .prefPane resources must have a key-value pair 'GPGPrefPaneOrder' with an int value
+static NSInteger sortPrefPaneBundles(NSBundle *bundle1, NSBundle *bundle2, void *ctx){
+    NSInteger   index1 = [[[bundle1 infoDictionary] objectForKey:@"GPGPrefPaneOrder"] intValue];
+    NSInteger   index2 = [[[bundle2 infoDictionary] objectForKey:@"GPGPrefPaneOrder"] intValue];
+    
+    if(index1 > index2)
+        return NSOrderedDescending;
+    else if(index1 < index2)
+        return NSOrderedAscending;
+    else
+        return NSOrderedSame;
+}
+
+- (id)initWithBundle:(NSBundle *)bundle
 {
     if(self = [super initWithBundle:bundle]){
-        tabViewItemControllers = [[NSArray allocWithZone:[self zone]] initWithObjects:[GPGGlobalPrefs controllerWithIdentifier:@"GPGGlobalPrefs" preferences:self], [GPGKeyServerPrefs controllerWithIdentifier:@"GPGKeyServerPrefs" preferences:self], [GPGSignaturePrefs controllerWithIdentifier:@"GPGSignaturePrefs" preferences:self], [GPGExtensionsPrefs controllerWithIdentifier:@"GPGExtensionsPrefs" preferences:self], [GPGCompatibilityPrefs controllerWithIdentifier:@"GPGCompatibilityPrefs" preferences:self], [GPGExpertPrefs controllerWithIdentifier:@"GPGExpertPrefs" preferences:self], nil];
+        NSEnumerator    *pathEnum = [[bundle pathsForResourcesOfType:@"prefPane" inDirectory:nil] objectEnumerator];
+        NSString        *eachPath;
+        
+        bundles = [[NSMutableArray alloc] init];
+        disabledBundles = [[NSMutableSet alloc] init];
+        while(eachPath = [pathEnum nextObject])
+            [bundles addObject:[NSBundle bundleWithPath:eachPath]];        
+        [bundles sortUsingFunction:sortPrefPaneBundles context:nil];
     }
 
     return self;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
-    [tabViewItemControllers release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSPreferencePaneDoUnselectNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSPreferencePaneCancelUnselectNotification object:nil];
+    [bundles release];
+    [disabledBundles release];
     [userDefaultsDictionary release];
     [testSelectors release];
-    [[operationMatrix superview] release];
     
     [super dealloc];
 }
 
-- (NSMutableDictionary *) userDefaultsDictionary
+- (NSMutableDictionary *)userDefaultsDictionary
 {
     if(userDefaultsDictionary == nil){
         NSString	*domainName = [[self bundle] bundleIdentifier];
@@ -87,7 +97,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     return userDefaultsDictionary;
 }
 
-- (void) saveUserDefaults
+- (void)saveUserDefaults
 {
     if(userDefaultsDictionary != nil){
         NSString	*domainName = [[self bundle] bundleIdentifier];
@@ -98,59 +108,164 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     }
 }
 
-- (void) mainViewDidLoad
+- (void)preferencePaneDoUnselect:(NSNotification *)notification
 {
-    NSEnumerator		*anEnum;
-    GPGPrefController	*aController;
-    int					i;
+    if(delayedUnselect){
+        [self replyToShouldUnselect:YES];
+        delayedUnselect = NO;
+    }
+    [tabView selectTabViewItem:delayedSelectedTabViewItem];
+    [delayedSelectedTabViewItem release];
+    delayedSelectedTabViewItem = nil;
+}
+
+- (void)preferencePaneCancelUnselect:(NSNotification *)notification
+{
+    if(delayedUnselect){
+        [self replyToShouldUnselect:NO];
+        delayedUnselect = NO;
+    }
+    [delayedSelectedTabViewItem release];
+    delayedSelectedTabViewItem = nil;
+}
+
+- (void)mainViewDidLoad
+{
+    NSEnumerator	*bundleEnum;
+    NSBundle        *eachBundle;
+    int				i;
 
     [super mainViewDidLoad];
 
+    // Empty tabview
     i = [tabView numberOfTabViewItems] - 1;
     for(; i >= 0; i--)
         [tabView removeTabViewItem:[tabView tabViewItemAtIndex:i]];
     
-    anEnum = [tabViewItemControllers objectEnumerator];
-    while(aController = [anEnum nextObject])
-        [tabView addTabViewItem:[aController tabViewItem]];
+    bundleEnum = [bundles objectEnumerator];
+    while(eachBundle = [bundleEnum nextObject]){
+        NSTabViewItem   *eachItem = [[NSTabViewItem alloc] initWithIdentifier:eachBundle];
+        NSString        *aLabel = [[eachBundle localizedInfoDictionary] objectForKey:@"NSPrefPaneIconLabel"];
+        
+        if(aLabel == nil)
+            aLabel = [[eachBundle infoDictionary] objectForKey:@"NSPrefPaneIconLabel"];
+        NSAssert1(aLabel != nil, @"Invalid bundle '%@': misses the localizable 'NSPrefPaneIconLabel' in Info.plist", [[self bundle] bundlePath]);
+        [eachItem setLabel:aLabel];
+        [tabView addTabViewItem:eachItem];
+        [eachItem release];
+    }
 
     [versionTextField setStringValue:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"VERSION %@", nil, [self bundle], ""), [[[self bundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
     
     [self performSelector:@selector(startTests) withObject:nil afterDelay:0.0];
 }
 
-- (GPGPrefController *) controllerForIdentifier:(NSString *)identifier
+- (NSPreferencePane *)controllerForTabViewItem:(NSTabViewItem *)tabViewItem
 {
-    NSEnumerator		*anEnum = [tabViewItemControllers objectEnumerator];
-    GPGPrefController	*aController;
-
-    while(aController = [anEnum nextObject])
-        if([NSStringFromClass([aController class]) isEqualToString:identifier])
-            return aController;
-
-    [NSException raise:NSInternalInconsistencyException format:@"Unable to find controller for identifier '%@' (not a class name?!)", identifier];
-    return nil; // Never reached; just to avoid compiler warning
+    NSPreferencePane    *aController = nil;
+    id                  anIdentifier = [tabViewItem identifier];
+    
+    if([anIdentifier isKindOfClass:[NSBundle class]]){
+        NSError     *anError = nil;
+        NSBundle    *aBundle = anIdentifier;
+        
+        if([aBundle loadAndReturnError:&anError]){
+            aController = [[[aBundle principalClass] alloc] initWithBundle:aBundle];
+            if(aController == nil)
+                anError = [NSError errorWithDomain:@"GPGPreferences" code:-1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedStringFromTableInBundle(@"ERROR WHEN LOADING BUNDLE", nil, [self bundle], @""), NSLocalizedDescriptionKey, nil]];
+            else{
+                [tabViewItem setIdentifier:aController];
+                [tabViewItem setView:[aController loadMainView]];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferencePaneDoUnselect:) name:NSPreferencePaneDoUnselectNotification object:aController];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(preferencePaneCancelUnselect:) name:NSPreferencePaneCancelUnselectNotification object:aController];
+                [aController release];
+            }
+        }
+        
+        if(anError != nil){
+            // Let's disable that tab item
+            NSRunAlertPanel([NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"UNABLE TO LOAD BUNDLE %@", nil, [self bundle], @"Error title format when unable to load bundle"), [aBundle bundlePath]], @"%@", nil, nil, nil, [anError localizedDescription]);
+            [disabledBundles addObject:aBundle];
+        }
+    }
+    else
+        aController = anIdentifier;
+    
+    return aController;
 }
 
-- (void) willSelect
-{
+- (void)willSelect
+{    
     [super willSelect];
-    [[self controllerForIdentifier:[[tabView selectedTabViewItem] identifier]] tabItemWillBeSelected];
+
+    do{
+        NSPreferencePane    *aController = [self controllerForTabViewItem:[tabView selectedTabViewItem]];
+        
+        if(aController != nil){
+            [aController willSelect];
+            break;
+        }
+        else{
+            [tabView selectFirstTabViewItem:nil];
+        }
+    }while(YES);
 }
 
-- (void) willUnselect
+- (void)didSelect
+{
+    [super didSelect];
+    [[self controllerForTabViewItem:[tabView selectedTabViewItem]] didSelect];
+}
+
+- (NSPreferencePaneUnselectReply)shouldUnselect
+{
+    NSPreferencePaneUnselectReply   reply = [[self controllerForTabViewItem:[tabView selectedTabViewItem]] shouldUnselect];
+    
+    delayedUnselect = (reply == NSUnselectLater);
+    
+    return reply;
+}
+
+- (void)willUnselect
 {
     [super willUnselect];
-    [[self controllerForIdentifier:[[tabView selectedTabViewItem] identifier]] tabItemWillBeDeselected];
+    [[self controllerForTabViewItem:[tabView selectedTabViewItem]] willUnselect];
 }
 
-- (void) tabView:(NSTabView *)theTabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem
+- (void)didUnselect
+{
+    [super didUnselect];
+    [[self controllerForTabViewItem:[tabView selectedTabViewItem]] didUnselect];
+}
+
+- (BOOL)tabView:(NSTabView *)theTabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem
+{
+    if(![disabledBundles containsObject:[tabViewItem identifier]]){
+        if([self isSelected]){
+            switch([[self controllerForTabViewItem:[tabView selectedTabViewItem]] shouldUnselect]){
+                case NSUnselectCancel:
+                    return NO;
+                case NSUnselectNow:
+                    return YES;
+                case NSUnselectLater:
+                    delayedSelectedTabViewItem = [tabViewItem retain];
+                    return NO;
+            }
+        }
+        else
+            return YES;
+    }
+    
+    return NO;
+}
+
+- (void)tabView:(NSTabView *)theTabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
     NSTabViewItem	*selectedTabViewItem = [tabView selectedTabViewItem];
 
     if(selectedTabViewItem != nil)
-        [[self controllerForIdentifier:[selectedTabViewItem identifier]] tabItemWillBeDeselected];
-    [[self controllerForIdentifier:[tabViewItem identifier]] tabItemWillBeSelected];
+        [[self controllerForTabViewItem:selectedTabViewItem] willUnselect];
+    [[self controllerForTabViewItem:tabViewItem] willSelect];
 }
 
 - (void) checkGPGHasBaseFiles
@@ -160,13 +275,15 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     // Note that we run it twice: the first time gpg creates the .gnupg/options file,
     // the second time it creates the keyrings.
     // (This should be done by EasyGnuPG installer)
-    if(![[NSFileManager defaultManager] fileExistsAtPath:[GPGOptions optionsFilename]]){
+    GPGEngine   *engine = [GPGEngine engineForProtocol:GPGOpenPGPProtocol];
+    
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[engine optionsFilename]]){
         int	i;
         
         for(i = 0; i < 2; i++){
             NSTask	*aTask = [[NSTask alloc] init];
         
-            [aTask setLaunchPath:[GPGOptions gpgPath]];
+            [aTask setLaunchPath:[engine executablePath]];
             [aTask setArguments:[NSArray arrayWithObjects:@"--no-tty", @"--list-keys", nil]];
             [aTask setStandardOutput:[NSFileHandle fileHandleWithNullDevice]];
             
@@ -255,13 +372,13 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         while(aPath = [anEnum nextObject]){
             NSDictionary	*attr = [NSDictionary dictionaryWithDictionary:[defaultManager fileAttributesAtPath:aPath traverseLink:YES]];
 
-            if(![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()]){
+            /*if(![[attr objectForKey:NSFileOwnerAccountName] isEqualToString:NSUserName()]){
                 OSErr	error = [self executeOperation:kMyAuthorizedCommandSetOwnerAndMode forFilename:aPath owner:getuid() group:getgid() mode:[[attr objectForKey:NSFilePosixPermissions] intValue] & ~(S_IRWXG|S_IRWXO)];
 
                 if(error)
                     [stillBadPaths addObject:aPath];
             }
-            else{
+            else*/{
                 NSNumber	*newPosix = [NSNumber numberWithInt:[[attr objectForKey:NSFilePosixPermissions] intValue] & ~(S_IRWXG|S_IRWXO)];
 
                 if(![defaultManager changeFileAttributes:[NSDictionary dictionaryWithObject:newPosix forKey:NSFilePosixPermissions] atPath:aPath]){
@@ -269,7 +386,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
                 }
             }
         }
-
+/*
         anEnum = [[aDict objectForKey:@"badExtensions"] objectEnumerator];
         while(aPath = [anEnum nextObject]){
             NSDictionary	*attr = [NSDictionary dictionaryWithDictionary:[defaultManager fileAttributesAtPath:aPath traverseLink:YES]];
@@ -287,14 +404,13 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
                     [stillBadPaths addObject:aPath];
                 }
             }
-        }
+        }*/
 
         if([stillBadPaths count]){
             NSBundle	*bundle = [self bundle];
-            NSString	*message = [NSString stringWithFormat:@"UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@", [stillBadPaths componentsJoinedByString:@"\n"]];
 
             [aDict release];
-            NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO MODIFY ACCESS RIGHTS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, @"%@", NSLocalizedStringFromTableInBundle(message, nil, bundle, ""));
+            NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO MODIFY ACCESS RIGHTS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@", nil, bundle, ""), [stillBadPaths componentsJoinedByString:@"\n"]);
         }
         else{
             [aDict release];
@@ -314,8 +430,9 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     // We check only the default files
     // See gpg code: g10/misc.c, check_permissions()
     NSFileManager	*defaultManager = [NSFileManager defaultManager];
-    NSString		*homeDirectory = [GPGOptions homeDirectory];
-    NSMutableArray	*files = [NSMutableArray arrayWithObjects:[homeDirectory stringByAppendingPathComponent:@"random_seed"], [homeDirectory stringByAppendingPathComponent:@"secring.gpg"], [homeDirectory stringByAppendingPathComponent:@"pubring.gpg"], [homeDirectory stringByAppendingPathComponent:@"trustdb.gpg"], [GPGOptions optionsFilename], nil];
+    GPGEngine       *engine = [GPGEngine engineForProtocol:GPGOpenPGPProtocol];
+    NSString		*homeDirectory = [engine homeDirectory];
+    NSMutableArray	*files = [NSMutableArray arrayWithObjects:[homeDirectory stringByAppendingPathComponent:@"random_seed"], [homeDirectory stringByAppendingPathComponent:@"secring.gpg"], [homeDirectory stringByAppendingPathComponent:@"pubring.gpg"], [homeDirectory stringByAppendingPathComponent:@"trustdb.gpg"], [engine optionsFilename], nil];
     NSEnumerator	*anEnum;
     NSString		*aPath;
     NSMutableArray	*badFiles = [NSMutableArray array];
@@ -343,7 +460,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
             }
         }
     }
-
+/*
     [files setArray:[options activeOptionValuesForName:@"load-extension"]];
     anEnum = [files objectEnumerator];
     while(aPath = [anEnum nextObject]){
@@ -365,7 +482,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
                 }
             }
         }
-    }
+    }*/
     [options release];
 
     if([badExtensions count] || [badFiles count]){
@@ -379,7 +496,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 
 - (void) checkGNUPGHOMESuggestion
 {
-    // Suggest to use ~/Library/GnuPG as homeDirectory (ask only once)
+    // TODO: Suggest to use ~/Library/GnuPG as homeDirectory (ask only once)
     // Not sure that it is a good idea...
     // Maybe it's better if user can't easily manipulate gpg files
     // like keyrings, trustdb; no risk that she breaks something.
@@ -402,7 +519,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 
             [[self userDefaultsDictionary] setObject:comment forKey:@"LastComment"];
             [self saveUserDefaults];
-            // WARNING: same title/message as in GPGSignaturePrefs
+            // Same title/message as in GPGSignaturePrefs - duplicate localized strings
             NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"COMMENT SHOULD BE ASCII ONLY", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, @"%@", NSLocalizedStringFromTableInBundle(@"WHY ONLY ASCII IN COMMENT...", nil, bundle, ""));
         }
         else
@@ -462,7 +579,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
             ProcessSerialNumber	psn = {kNoProcess, kNoProcess};
             ProcessInfoRec		info;
             OSStatus			outStatus = noErr;
-            char				processName[32];
+            unsigned char		processName[32];
             
             info.processInfoLength = sizeof(ProcessInfoRec);
             info.processName = processName;
@@ -500,49 +617,13 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         [self nextTest];
 }
 
-- (OSErr) executeOperation:(int)command forFilename:(NSString *)filename owner:(uid_t)owner group:(gid_t)group mode:(mode_t)mode
-{
-    NSString	*bundleIdentifier = [[self bundle] bundleIdentifier];
-    NSString	*commandString = nil;
-    
-    switch(command){
-        case kMyAuthorizedCommandLink:
-            commandString = @".makeLinkForGPG";
-            break;
-        case kMyAuthorizedCommandMove:
-            commandString = @".moveGPG";
-            break;
-        case kMyAuthorizedCommandSetOwnerAndMode:
-            commandString = @".setOwnerAndMode";
-            break;
-        default:
-            [NSException raise:NSInternalInconsistencyException format:@"Unknown command - matrix selected cell tag = %d", [[operationMatrix selectedCell] tag]];
-    }
-    return GPGPreferences_ExecuteAdminCommand([[bundleIdentifier stringByAppendingString:commandString] cString], command, [filename fileSystemRepresentation], owner, group, mode, CFBundleGetBundleWithIdentifier((CFStringRef)bundleIdentifier));
-}
-
-- (void) executeOperationForFilename:(NSString *)filename
-{
-    int		command = [[operationMatrix selectedCell] tag];
-    OSErr	error = [self executeOperation:command forFilename:filename owner:-1 group:-1 mode:-1];
-    
-    if(error != noErr){
-        NSBundle	*bundle = [self bundle];
-        NSString	*message = [NSString stringWithFormat:@"AUTH ERROR %hd", error];
-        NSString	*commandString = [NSString stringWithFormat:@"OP#%d", command];
-
-        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"CANNOT EXECUTE OPERATION", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPERATION %@ FAILED (%@).", nil, bundle, ""), NSLocalizedStringFromTableInBundle(commandString, nil, bundle, ""), NSLocalizedStringFromTableInBundle(message, nil, bundle, ""));
-    }
-    else{
-        [[self controllerForIdentifier:[[tabView selectedTabViewItem] identifier]] tabItemWillBeSelected]; // Forces refresh of view
-        [self nextTest];
-    }
-}
-
 - (void) openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
-    if(returnCode == NSOKButton)
-        [self performSelector:@selector(executeOperationForFilename:) withObject:[sheet filename] afterDelay:0.0];
+    if(returnCode == NSOKButton){
+//        [self performSelector:@selector(executeOperationForFilename:) withObject:[sheet filename] afterDelay:0.0];
+        // TODO: change default executable path
+        [self nextTest];
+    }
     else
         [self nextTest];
 }
@@ -558,11 +639,9 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         [openPanel setCanSelectHiddenExtension:YES];
         [openPanel setExtensionHidden:NO];
         [openPanel setTreatsFilePackagesAsDirectories:YES];
-        [openPanel setPrompt:NSLocalizedStringFromTableInBundle(@"CHOOSE", nil, [NSBundle bundleForClass:[self class]], "")];
-        [openPanel setAccessoryView:[operationMatrix superview]];
-        [operationMatrix selectCellWithTag:kMyAuthorizedCommandLink];
+        [openPanel setPrompt:NSLocalizedStringFromTableInBundle(@"CHOOSE", nil, [self bundle], "")];
 
-        [openPanel beginSheetForDirectory:NSHomeDirectory() file:[[GPGOptions gpgPath] lastPathComponent] types:nil modalForWindow:[[self mainView] window] modalDelegate:self didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
+        [openPanel beginSheetForDirectory:NSHomeDirectory() file:[[[GPGEngine engineForProtocol:GPGOpenPGPProtocol] executablePath] lastPathComponent] types:nil modalForWindow:[[self mainView] window] modalDelegate:self didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
     }
     else
         [self nextTest];
@@ -572,7 +651,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 {
     // Check that gpg is in /usr/local/bin/ else ask where it is, and make link (=> needs Admin rights)
     NSFileManager	*defaultManager = [NSFileManager defaultManager];
-    NSString		*gpgPath = [GPGOptions gpgPath];
+    NSString		*gpgPath = [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] executablePath];
 
     if(![defaultManager fileExistsAtPath:gpgPath]){
         NSBundle	*bundle = [self bundle];
@@ -583,136 +662,11 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
         [self nextTest];
 }
 
-- (void) updateOptionsSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-    if(returnCode == NSOKButton){
-        GPGOptions	*options = [[GPGOptions alloc] init];
-        NSString	*honorHTTPProxy = [options optionValueForName:@"honor-http-proxy"];
-        NSString	*noAutoKeyRetrieve = [options optionValueForName:@"no-auto-key-retrieve"];
-
-        [options setOptionValue:nil forName:@"default-comment"]; // Deprecated with gpg 1.0.7
-
-        if(honorHTTPProxy != nil)
-            [options setSubOption:@"honor-http-proxy" state:[options optionStateForName:@"honor-http-proxy"] forName:@"keyserver-options"];
-        [options setOptionValue:nil forName:@"honor-http-proxy"]; // Deprecated with gpg 1.0.7
-
-        if(noAutoKeyRetrieve != nil)
-            [options setSubOption:@"auto-key-retrieve" state:![options optionStateForName:@"no-auto-key-retrieve"] forName:@"keyserver-options"];
-        [options setOptionValue:nil forName:@"no-auto-key-retrieve"]; // Deprecated with gpg 1.0.7
-
-        [options saveOptions];
-        [options release];
-    }
-    [self nextTest];
-}
-
-- (void) updateOptionsFor107
-{
-    GPGOptions	*options = [[GPGOptions alloc] init];
-    NSString	*honorHTTPProxy = [options optionValueForName:@"honor-http-proxy"];
-    NSString	*noAutoKeyRetrieve = [options optionValueForName:@"no-auto-key-retrieve"];
-    NSString	*defaultComment = [options optionValueForName:@"default-comment"];
-
-    [options release];
-    if(honorHTTPProxy != nil || noAutoKeyRetrieve != nil || defaultComment != nil){
-        NSBundle	*bundle = [self bundle];
-
-        NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UPDATE OPTIONS?", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"PLEASE DO", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"DON'T CHANGE", nil, bundle, ""), nil, [[self mainView] window], self, NULL, @selector(updateOptionsSheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"WHY UPDATING OPTIONS...", nil, bundle, ""));
-    }
-    else
-        [self nextTest];
-}
-
-- (void) renameOrDeleteOptionsSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-    NSFileManager	*defaultManager = [NSFileManager defaultManager];
-    NSString		*gpgConf = [GPGOptions optionsFilename];
-    NSString		*optionsFile = [[GPGOptions homeDirectory] stringByAppendingPathComponent:@"options"];
-    BOOL			hasError = NO;
-    NSBundle		*bundle = [self bundle];
-    
-    switch(returnCode){
-        case NSAlertAlternateReturn:
-            // Use options
-            hasError = !([defaultManager removeFileAtPath:gpgConf handler:nil] && [defaultManager movePath:optionsFile toPath:gpgConf handler:nil]);
-            if(hasError){
-                NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS %@ IN %@ - MESSAGE", nil, bundle, ""), optionsFile, gpgConf);
-                return;
-            }
-            break;
-        case NSAlertDefaultReturn:
-            // Use gpg.conf
-            hasError = !([defaultManager removeFileAtPath:optionsFile handler:nil]);
-            if(hasError){
-                NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO DELETE OPTIONS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"UNABLE TO DELETE OPTIONS %@ - MESSAGE", nil, bundle, ""), optionsFile);
-                return;
-            }
-    }
-
-    [self nextTest];
-}
-
-- (void) renameOptionsSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-    if(returnCode == NSAlertDefaultReturn){
-        // Do rename
-        NSFileManager	*defaultManager = [NSFileManager defaultManager];
-        NSString		*gpgConf = [GPGOptions optionsFilename];
-        NSString		*optionsFile = [[GPGOptions homeDirectory] stringByAppendingPathComponent:@"options"];
-        BOOL			hasError;
-
-        hasError = !([defaultManager movePath:optionsFile toPath:gpgConf handler:nil]);
-        if(hasError){
-            NSBundle	*bundle = [self bundle];
-
-            NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS", nil, bundle, ""), nil, nil, nil, [[self mainView] window], self, NULL, @selector(sheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"UNABLE TO RENAME OPTIONS %@ IN %@ - MESSAGE", nil, bundle, ""), optionsFile, gpgConf);
-            return;
-        }
-    }
-
-    [self nextTest];
-}
-
-- (void) updateOptionsFor12
-{
-    NSString		*gpgConf = [GPGOptions optionsFilename];
-
-    if([[gpgConf lastPathComponent] isEqualToString:@"gpg.conf"]){
-        // Since 1.2.x, options file is deprecated and now named gpg.conf
-        // If both files exist, we ask user which file to keep
-        if(![[[self userDefaultsDictionary] objectForKey:@"AskedOptionsRenaming"] intValue]){
-            NSString		*options = [[GPGOptions homeDirectory] stringByAppendingPathComponent:@"options"];
-            NSFileManager	*defaultManager = [NSFileManager defaultManager];
-
-            [[self userDefaultsDictionary] setObject:[NSNumber numberWithBool:YES] forKey:@"AskedOptionsRenaming"];
-            [self saveUserDefaults];
-
-            if([defaultManager fileExistsAtPath:options]){
-                NSBundle	*bundle = [self bundle];
-
-                if([defaultManager fileExistsAtPath:gpgConf]){
-                    // Ask user's choice: options, gpg.conf, cancel
-                    NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"WHICH OPTIONS FILE?", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"gpg.conf", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"options", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"CANCEL", nil, bundle, ""), [[self mainView] window], self, NULL, @selector(renameOrDeleteOptionsSheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPTIONS FILE DELETING OR RENAMING", nil, bundle, ""));
-                    return;
-                }
-                else{
-                    // Ask user's confirmation for renaming options in gpg.conf
-                    NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"RENAME OPTIONS FILE?", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"PLEASE DO", nil, bundle, ""), NSLocalizedStringFromTableInBundle(@"DON'T CHANGE", nil, bundle, ""), nil, [[self mainView] window], self, NULL, @selector(renameOptionsSheetDidDismiss:returnCode:contextInfo:), NULL, NSLocalizedStringFromTableInBundle(@"OPTIONS FILE RENAMING", nil, bundle, ""));
-                    return;
-                }
-            }
-            // else, already OK
-        }
-    }
-    
-    [self nextTest];
-}
-
 - (void) checkGPGVersion
 {
-    NSString	*aVersion = [self gnupgVersion];
+    NSString	*aVersion = [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] version];
 
-    if(aVersion == nil || [aVersion rangeOfString:@"1.0."].length > 0){
+    if(aVersion == nil || [aVersion rangeOfString:@"1.0."].location == 0 || [aVersion rangeOfString:@"1.2."].location == 0 || [aVersion rangeOfString:@"1.3."].location == 0){
         NSBundle	*bundle = [self bundle];
 
         NSBeginCriticalAlertSheet(NSLocalizedStringFromTableInBundle(@"GPG IS TOO OLD", nil, bundle, ""), nil, nil, nil, [[self mainView] window], nil, NULL, NULL, NULL, NSLocalizedStringFromTableInBundle(@"GPGPREFERENCES CANNOT WORK WITH OLD GPG", nil, bundle, ""));
@@ -724,7 +678,7 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
 
 - (void) startTests
 {
-    testSelectors = [[NSArray alloc] initWithObjects:@"checkGPGLocation", @"checkGPGVersion", @"updateOptionsFor12", @"checkGPGHasBaseFiles", @"updateOptionsFor107", @"checkCharsetIsUTF8", @"checkTerminalStringEncoding", @"checkGNUPGHOMERights", @"checkGNUPGHOMESuggestion", @"checkComment", nil];
+    testSelectors = [[NSArray alloc] initWithObjects:@"checkGPGLocation", @"checkGPGVersion",  @"checkGPGHasBaseFiles", @"checkCharsetIsUTF8", @"checkTerminalStringEncoding", @"checkGNUPGHOMERights", @"checkGNUPGHOMESuggestion", @"checkComment", nil];
     currentTestSelector = [testSelectors objectAtIndex:0];
     [self checkGPGLocation];
 }
@@ -744,51 +698,29 @@ OSStatus GPGPreferences_ExecuteAdminCommand(const char *rightName, int authorize
     }
 }
 
-- (NSString *) outputFromGPGTaskWithArgument:(NSString *)argument
+// This is an undocumented method invoked by System Preferences.
+// Invoked when user performs search, and selects one of the search results.
+// It allows us to open matching tab item.
+// 'searchTermsKey' is a key as defined in our GPGPreferences.searchTerms dictionary.
+- (void)revealElementForKey:(NSString *)searchTermsKey
 {
-    NSTask		*aTask = [[NSTask alloc] init];
-    NSPipe		*aPipe = [NSPipe pipe];
-    NSString	*outputString;
-
-    [aTask setLaunchPath:[GPGOptions gpgPath]];
-    [aTask setArguments:[NSArray arrayWithObjects:@"--utf8-strings", @"--charset", @"utf8", argument, nil]];
-    [aTask setStandardOutput:aPipe];
-
-    NS_DURING
-        NSData	*outputData;
-        NSRange	aRange;
-
-        [aTask launch];
-        outputData = [[aPipe fileHandleForReading] readDataToEndOfFile];
-        [aTask waitUntilExit];
-
-        outputString = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
-        // Patch! Seems that translated strings are not displayed using passed encoding, but using ISOLatin1!
-        if(outputString == nil)
-            outputString = [[NSString alloc] initWithData:outputData encoding:NSISOLatin1StringEncoding];
-        aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(0, [(NSString *)outputString length])];
-        aRange = [(NSString *)outputString lineRangeForRange:NSMakeRange(aRange.location, [(NSString *)outputString length] - aRange.location)];
-        outputString = [[(NSString *)outputString autorelease] substringWithRange:aRange];
-    NS_HANDLER
-        NSLog(@"### GPGPreferences: error during execution of '%@ %@': %@ %@", [aTask launchPath], [[aTask arguments] componentsJoinedByString:@" "], localException, [localException userInfo]);
-        outputString = nil;
-    NS_ENDHANDLER
-
-    [aTask release];
-
-    return (NSString *)outputString;
-}
-
-- (NSString *) gnupgVersion
-{
-    NSString	*gnupgVersion = [GPGOptions gnupgVersion];
-
-    if(gnupgVersion == nil){
-        gnupgVersion = [self outputFromGPGTaskWithArgument:@"--version"];
-        [GPGOptions setGnupgVersion:gnupgVersion];
+    NSEnumerator    *tabItemEnum = [[tabView tabViewItems] objectEnumerator];
+    NSTabViewItem   *eachTabViewItem;
+    
+    while(eachTabViewItem = [tabItemEnum nextObject]){
+        id  anIdentifier = [eachTabViewItem identifier];
+        
+        if([anIdentifier isKindOfClass:[NSBundle class]]){
+            if([NSStringFromClass([anIdentifier principalClass]) isEqualToString:searchTermsKey]){
+                [tabView selectTabViewItem:eachTabViewItem];
+                break;
+            }
+        }
+        else if([NSStringFromClass([anIdentifier class]) isEqualToString:searchTermsKey]){
+            [tabView selectTabViewItem:eachTabViewItem];
+            break;
+        }
     }
-
-    return gnupgVersion;
 }
 
 @end

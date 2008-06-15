@@ -21,22 +21,26 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
-#import "GPGPrefController.h"
+#import <PreferencePanes/PreferencePanes.h>
 
 
-@interface GPGExpertPrefs : GPGPrefController
+@class GPGOptions;
+
+
+@interface GPGExpertPrefs : NSPreferencePane
 {
+    GPGOptions              *options;
     IBOutlet NSButtonCell	*deleteOptionButtonCell;
     IBOutlet NSTableView	*optionsTableView;
-    IBOutlet NSButton		*switchProtoButton;
 }
 
-- (IBAction) addOption:(id)sender;
-- (IBAction) deleteOption:(id)sender;
-- (IBAction) revealOptionsFileInFinder:(id)sender;
+- (IBAction)addOption:(id)sender;
+- (IBAction)deleteOption:(id)sender;
+- (IBAction)revealOptionsFileInFinder:(id)sender;
+- (IBAction)openManPage:(id)sender;
 
 @end

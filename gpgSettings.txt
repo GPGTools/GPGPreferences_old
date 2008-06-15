@@ -4,8 +4,7 @@ In case of options which should be declared once or never (or in case of mutuall
 See g10.c, main(), and man gpg
 Make GPGPreferences scriptable?
 TODO: personal prefs for ciphers
-TODO: groups
-TODO: installer. Check that System Preferences is not running, via AppleScript
+TODO: groups - do it in GPG Keychain Access
 TODO: rename accessory view elements when creating symlink for gpg
 
 Packaging

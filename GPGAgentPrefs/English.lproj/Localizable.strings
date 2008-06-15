@@ -1,0 +1,17 @@
+{
+    // Labels
+    "GPG_AGENT IS NOT INSTALLED" = "MacGPG Agent is not installed";
+    "GPG_AGENT IS NOT RUNNING" = "MacGPG Agent is not running";
+    "GPG_AGENT IS RUNNING" = "MacGPG Agent is running";
+
+    "SCD IS NOT INSTALLED" = "Smartcard Daemon is not installed";
+    "SCD IS NOT RUNNING" = "Smartcard Daemon is not running";
+    "SCD IS RUNNING" = "Smartcard Daemon is running";
+
+    // Button titles
+    "START" = "Start";
+    "STOP" = "Stop";
+    
+    // Error message
+    "LAUNCHCTL ERROR (%i)" = "An error occurred during 'launchctl' invocation (%i).";
+}

@@ -21,24 +21,27 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
-#import "GPGPrefController.h"
+
+#import <PreferencePanes/PreferencePanes.h>
 
 
-@interface GPGGlobalPrefs : GPGPrefController
+@interface GPGGlobalPrefs : NSPreferencePane
 {
     IBOutlet NSTextField	*gpgPathTextField;
     IBOutlet NSTextField	*homeDirectoryTextField;
-    IBOutlet NSTextField	*versionTextField;
-    IBOutlet NSTextField	*warningPlaceholder;
-    IBOutlet NSTextField	*warningView;
+    IBOutlet NSTextView     *versionTextView;
+    IBOutlet NSTextField	*warningTextField;
+    IBOutlet NSImageView	*warningImageView;
     IBOutlet NSButton		*moveButton;
 }
 
-- (IBAction) changeHomeDirectory:(id)sender;
-- (IBAction) chooseHomeDirectory:(id)sender;
-- (IBAction) showWarranty:(id)sender;
+- (IBAction)changeExecutablePath:(id)sender;
+- (IBAction)chooseExecutablePath:(id)sender;
+- (IBAction)changeHomeDirectory:(id)sender;
+- (IBAction)chooseHomeDirectory:(id)sender;
+- (IBAction)showWarranty:(id)sender;
 
 @end

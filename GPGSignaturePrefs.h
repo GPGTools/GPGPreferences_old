@@ -21,22 +21,30 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
-#import "GPGPrefController.h"
+#import <PreferencePanes/PreferencePanes.h>
 
 
-@interface GPGSignaturePrefs : GPGPrefController
+@class GPGOptions;
+
+
+@interface GPGSignaturePrefs : NSPreferencePane
 {
+    GPGOptions              *options;
     IBOutlet NSButton		*commentSwitch;
-    IBOutlet NSTextField	*customCommentTextField;
+    IBOutlet NSTextView     *customCommentsTextView;
     IBOutlet NSButton		*versionSwitch;
+    IBOutlet NSButton		*useKeyServerURLSwitch;
+    IBOutlet NSTextField	*keyServerURLTextField;
+    BOOL                    delayedUnselect;
 }
 
-- (IBAction) toggleComment:(id)sender;
-- (IBAction) updateComment:(id)sender;
-- (IBAction) toggleVersion:(id)sender;
+- (IBAction)toggleComment:(id)sender;
+- (IBAction)updateKeyServerURL:(id)sender;
+- (IBAction)toggleKeyServerURL:(id)sender;
+- (IBAction)toggleVersion:(id)sender;
 
 @end

@@ -1,0 +1,38 @@
+{
+    // Alert title
+    "WARRANTY" = "GnuPG Warranty";
+
+    // "Open" dialog button
+    "CHOOSE" = "Choose";
+
+    // Alert message
+    "GPG NOT FOUND" = "gpg executable could not be found.";
+    "WARRANTY ERROR" = "Unable to get GnuPG warranty, so... No warranty!";
+
+    // Alert titles
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Error when moving folder";
+    "UNABLE TO CREATE DIRECTORY" = "Unable to create folder";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Unable to create folder at %@; please check the privileges of the parent folder.";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Folder privilege error";
+    
+    // Alert messages
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Folder %@ has been moved to %@, but privileges could not be set on all files. Please check that you are the owner of all these files.";
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Unable to move all the files of %@ to %@. Please check the file privileges.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Unable to move folder %@ to %@.";
+
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
+    "MOVE FILES?" = "Move files?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "Move content of %@ to %@?";
+    // Buttons
+    "MOVE" = "Move";
+    "DON'T MOVE" = "Don't";
+    "CANCEL" = "Cancel";
+    
+    "N/A" = "N/A";
+    
+    /* Executable choice */
+    "SELECT_EXECUTABLE_PATH__PROMPT" = "Select";
+    "SELECT_EXECUTABLE_PATH__TITLE" = "GnuPG executable choice";
+}

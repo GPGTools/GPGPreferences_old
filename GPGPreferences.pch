@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files in the 'GPGPreferences' project
+//
+
+#ifdef __OBJC__
+    #import <PreferencePanes/PreferencePanes.h>
+#endif

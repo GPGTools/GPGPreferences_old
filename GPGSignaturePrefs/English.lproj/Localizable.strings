@@ -1,0 +1,11 @@
+{
+    // Alert titles
+    "COMMENT SHOULD BE ASCII ONLY" = "Comment field should be ASCII only";
+
+    // Alert messages
+    "WHY ONLY ASCII IN COMMENT..." = "The comment field, visible in clear-signed signatures for example, should contain only ASCII characters. You should remove any other character, else signatures in mails might become invalid during transport.";
+
+    // Alert buttons
+    "DON'T CHANGE" = "Don't change";
+    "CHANGE ANYWAY" = "Change anyway";
+}

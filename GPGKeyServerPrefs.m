@@ -21,13 +21,12 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
 #import "GPGKeyServerPrefs.h"
-#import "GPGOptions.h"
-#import "GPGPreferences.h"
+#import <MacGPGME/MacGPGME.h>
 
 
 @interface GPGKeyServerPrefs(Private)
@@ -36,11 +35,19 @@
 
 @implementation GPGKeyServerPrefs
 
-#warning TODO: Suggest http proxy; we could also modify it when SystemPrefs modify it (sync)
+// TODO: Suggest http proxy; we could also modify it when SystemPrefs modify it (sync)
 
-- (void) refreshKeyServerList
+- (GPGOptions *)options
 {
-    NSString	*filename = [[NSBundle bundleForClass:[self class]] pathForResource:@"KeyServers" ofType:@"plist"];
+    if(options == nil)
+        options = [[GPGOptions alloc] init];
+    
+    return options;
+}
+
+- (void)refreshKeyServerList
+{
+    NSString	*filename = [[self bundle] pathForResource:@"KeyServers" ofType:@"plist"];
     NSArray		*additionalKeyServers = [[self options] allOptionValuesForName:@"keyserver"];
 
     [keyServerList release];
@@ -59,9 +66,9 @@
     }
 }
 
-- (id) initWithIdentifier:(NSString *)newIdentifier preferences:(GPGPreferences *)preferencesInstance
+- (id)initWithBundle:(NSBundle *)bundle
 {
-    if(self = [super initWithIdentifier:newIdentifier preferences:preferencesInstance]){
+    if(self = [super initWithBundle:bundle]){
         keyServerOptions = [[NSMutableArray alloc] init];
         keyServerCustomEntries = [[NSMutableArray alloc] init];
     }
@@ -69,44 +76,44 @@
     return self;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
-    [warningView release];
     [keyServerList release];
     [keyServerOptions release];
     [keyServerCustomEntries release];
+    [options release];
 
     [super dealloc];
 }
 
-- (void) updateWarningView
-{
-    if([GPGOptions httpProxyChanged]){
-        if([warningView superview] == nil)
-            [warningPlaceholder addSubview:warningView];
-    }
-    else if([warningView superview] != nil)
-        [warningView removeFromSuperview];
-}
-
-- (void) tabItemWillBeSelected
+- (void)willSelect
 {
     NSString	*aString;
     
-    [super tabItemWillBeSelected];
+    [super willSelect];
 
-    [isHttpProxyHonoredButton setState:[[self options] subOptionState:@"honor-http-proxy" forName:@"keyserver-options"]];
-    
-    aString = [GPGOptions httpProxy];
-    if(aString == nil)
-        [httpProxyTextField setStringValue:@""];
-    else
+    aString = [[self options] subOptionValue:@"http-proxy" state:NULL forName:@"keyserver-options"];
+    if(aString)
         [httpProxyTextField setStringValue:aString];
+    else{
+        NSString    *defaultValue = [[[NSProcessInfo processInfo] environment] objectForKey:@"http_proxy"];
+        
+        [httpProxyTextField setStringValue:@""];
+        if(defaultValue != nil && [defaultValue length] > 0)
+            [[httpProxyTextField cell] setPlaceholderString:defaultValue];
+        else
+            [[httpProxyTextField cell] setPlaceholderString:@""];
+    }
 
     [isAutomaticKeyRetrievingEnabledButton setState:[[self options] subOptionState:@"auto-key-retrieve" forName:@"keyserver-options"]];
     [includeRevokedButton setState:[[self options] subOptionState:@"include-revoked" forName:@"keyserver-options"]];
     [includeDisabledButton setState:[[self options] subOptionState:@"include-disabled" forName:@"keyserver-options"]];
     [includeSubkeysButton setState:[[self options] subOptionState:@"include-subkeys" forName:@"keyserver-options"]];
+    aString = [[self options] subOptionValue:@"timeout" state:NULL forName:@"keyserver-options"];
+    if(aString)
+        [timeoutTextField setStringValue:aString];
+    else
+        [timeoutTextField setStringValue:@""];
 
     [self refreshKeyServerList];
     if(![[self options] optionStateForName:@"keyserver"])
@@ -117,52 +124,53 @@
     }
     [keyServerListComboBox reloadData];
 
-    [self updateWarningView];
     [self comboBoxSelectionDidChange:nil];
 }
 
-- (IBAction) changeHttpProxy:(id)sender
+- (IBAction)changeHttpProxy:(id)sender
 {
-    [GPGOptions setHttpProxy:[httpProxyTextField stringValue]];
-    [self updateWarningView];
+    NSString    *httpProxy = [sender stringValue];
+    
+    if(httpProxy != nil && [httpProxy length] == 0)
+        httpProxy = nil;
+    [[self options] setSubOption:@"http-proxy" value:httpProxy state:(httpProxy != nil) forName:@"keyserver-options"];
+    [[self options] saveOptions];
 }
 
-- (IBAction) changeKeyServer:(id)sender
+- (IBAction)changeKeyServer:(id)sender
 {
-    if([self isActive]){
-        NSString		*newKeyServer = [keyServerListComboBox stringValue];
-        BOOL			isValidName = ([newKeyServer rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0);
-        NSEnumerator	*anEnum = [[[self options] optionNames] objectEnumerator];
-        NSString		*aName;
-        BOOL			foundOne = !isValidName;
-        int				anIndex = 0;
-        NSArray			*optionValues = [[self options] optionValues];
-
-        while(aName = [anEnum nextObject]){
-            if([aName isEqualToString:@"keyserver"]){
-                BOOL	isSameServer = [[optionValues objectAtIndex:anIndex] isEqualToString:newKeyServer];
-
-                [[self options] setOptionState:(!foundOne && isSameServer) atIndex:anIndex];
-                if(isSameServer)
-                    foundOne = YES; // Only one can be active
-            }
-            anIndex++;
+    NSString		*newKeyServer = [keyServerListComboBox stringValue];
+    BOOL			isValidName = ([newKeyServer rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet]].length > 0);
+    NSEnumerator	*anEnum = [[[self options] optionNames] objectEnumerator];
+    NSString		*aName;
+    BOOL			foundOne = !isValidName;
+    int				anIndex = 0;
+    NSArray			*optionValues = [[self options] optionValues];
+    
+    while(aName = [anEnum nextObject]){
+        if([aName isEqualToString:@"keyserver"]){
+            BOOL	isSameServer = [[optionValues objectAtIndex:anIndex] isEqualToString:newKeyServer];
+            
+            [[self options] setOptionState:(!foundOne && isSameServer) atIndex:anIndex];
+            if(isSameServer)
+                foundOne = YES; // Only one can be active
         }
-
-        if(!foundOne && isValidName){
-            [[self options] addOptionNamed:@"keyserver"];
-            anIndex = [optionValues count] - 1;
-            [[self options] setOptionState:YES atIndex:anIndex];
-            [[self options] setOptionValue:newKeyServer atIndex:anIndex];
-        }
-        [[self options] saveOptions];
-        [self refreshKeyServerList];
-        [keyServerListComboBox reloadData];
-        [self comboBoxSelectionDidChange:nil];
+        anIndex++;
     }
+    
+    if(!foundOne && isValidName){
+        [[self options] addOptionNamed:@"keyserver"];
+        anIndex = [optionValues count] - 1;
+        [[self options] setOptionState:YES atIndex:anIndex];
+        [[self options] setOptionValue:newKeyServer atIndex:anIndex];
+    }
+    [[self options] saveOptions];
+    [self refreshKeyServerList];
+    [keyServerListComboBox reloadData];
+    [self comboBoxSelectionDidChange:nil];
 }
 
-- (IBAction) removeServerFromList:(id)sender
+- (IBAction)removeServerFromList:(id)sender
 {
     NSString		*oldSelectedKeyServer = [keyServerListComboBox stringValue];
     NSString		*newSelectedKeyServer;
@@ -214,53 +222,48 @@
     [self comboBoxSelectionDidChange:nil];
 }
 
-- (void) setKeyServerOption:(NSString *)option toState:(BOOL)flag
+- (void)setKeyServerOption:(NSString *)option toState:(BOOL)flag
 {
     [[self options] setSubOption:option state:flag forName:@"keyserver-options"];
     [[self options] saveOptions];
 }
 
-- (IBAction) toggleAutomaticKeyRetrieval:(id)sender
+- (IBAction)toggleAutomaticKeyRetrieval:(id)sender
 {
     [self setKeyServerOption:@"auto-key-retrieve" toState:[isAutomaticKeyRetrievingEnabledButton state]];
 }
 
-- (IBAction) toggleHttpProxyUse:(id)sender
-{
-    [self setKeyServerOption:@"honor-http-proxy" toState:[isHttpProxyHonoredButton state]];
-}
-
-- (IBAction) toggleIncludeRevoked:(id)sender
+- (IBAction)toggleIncludeRevoked:(id)sender
 {
     [self setKeyServerOption:@"include-revoked" toState:[includeRevokedButton state]];
 }
 
-- (IBAction) toggleIncludeDisabled:(id)sender
+- (IBAction)toggleIncludeDisabled:(id)sender
 {
     [self setKeyServerOption:@"include-disabled" toState:[includeDisabledButton state]];
 }
 
-- (IBAction) toggleIncludeSubkeys:(id)sender
+- (IBAction)toggleIncludeSubkeys:(id)sender
 {
     [self setKeyServerOption:@"include-subkeys" toState:[includeSubkeysButton state]];
 }
 
-- (int) numberOfItemsInComboBox:(NSComboBox *)aComboBox
+- (int)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
     return [keyServerList count];
 }
 
-- (id) comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(int)index
 {
     return [keyServerList objectAtIndex:index];
 }
 
-- (unsigned int) comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string
+- (unsigned int)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string
 {
     return [keyServerList indexOfObject:string];
 }
 
-- (NSString *) comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string
+- (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string
 {
     NSEnumerator	*anEnum = [keyServerList objectEnumerator];
     NSString		*aKeyServer;
@@ -272,16 +275,26 @@
     return string;
 }
 
-- (void) comboBoxSelectionDidChange:(NSNotification *)notification
+- (void)comboBoxSelectionDidChange:(NSNotification *)notification
 {
     [removeServerButton setEnabled:[keyServerCustomEntries containsObject:[keyServerListComboBox stringValue]]];
 }
 
-- (void) tabItemWillBeDeselected
+- (void)willUnselect
 {
+    [super willUnselect];
+
     [self changeKeyServer:nil];
+    [options release];
+    options = nil;
+}
+
+- (IBAction)changeTimeout:(id)sender
+{
+    NSString    *timeout = [sender stringValue];
     
-    [super tabItemWillBeDeselected];
+    [[self options] setSubOption:@"timeout" value:timeout state:(timeout != nil) forName:@"keyserver-options"];
+    [[self options] saveOptions];
 }
 
 @end

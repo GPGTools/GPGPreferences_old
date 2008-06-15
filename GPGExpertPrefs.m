@@ -21,11 +21,11 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 #import "GPGExpertPrefs.h"
-#import "GPGOptions.h"
+#import <MacGPGME/MacGPGME.h>
 
 
 static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
@@ -36,35 +36,52 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
 @end
 
 
+// TODO: add support for gpg-agent config file
 @implementation GPGExpertPrefs
 
-- (void) dealloc
+- (void)dealloc
 {
     [optionsTableView setDataSource:nil];
     [optionsTableView setDelegate:nil];
-    [switchProtoButton autorelease];
     [optionsTableView unregisterDraggedTypes];
+    [options release];
 
     [super dealloc];
 }
 
-- (void) awakeFromNib
+- (GPGOptions *)options
+{
+    if(options == nil)
+        options = [[GPGOptions alloc] init];
+    
+    return options;
+}
+
+- (void)mainViewDidLoad
 {    
-    [super awakeFromNib];
-    [[optionsTableView tableColumnWithIdentifier:@"isOptionEnabled"] setDataCell:[switchProtoButton cell]];
-    [[switchProtoButton retain] removeFromSuperview];
+    [super mainViewDidLoad];
+    
     [optionsTableView setVerticalMotionCanBeginDrag:YES];
     [self tableViewSelectionDidChange:nil];
     [optionsTableView registerForDraggedTypes:[NSArray arrayWithObject:privatePboardType]];
 }
 
-- (void) tabItemWillBeSelected
+- (void)willSelect
 {
-    [super tabItemWillBeSelected];
+    [super willSelect];
+
     [optionsTableView reloadData];
 }
+
+- (void)willUnselect
+{
+    [super willUnselect];
     
-- (IBAction) addOption:(id)sender
+    [options release];
+    options = nil;
+}
+
+- (IBAction)addOption:(id)sender
 {
     int	selectedRow = [optionsTableView selectedRow];
     
@@ -83,7 +100,7 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
     [optionsTableView scrollRowToVisible:selectedRow];
 }
 
-- (IBAction) deleteOption:(id)sender
+- (IBAction)deleteOption:(id)sender
 {
     NSEnumerator	*anEnum = [[[[optionsTableView selectedRowEnumerator] allObjects] sortedArrayUsingSelector:@selector(compare:)] reverseObjectEnumerator];
     NSNumber		*aRow;
@@ -95,12 +112,12 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
     [optionsTableView deselectAll:nil];
 }
 
-- (int) numberOfRowsInTableView:(NSTableView *)tableView
+- (int)numberOfRowsInTableView:(NSTableView *)tableView
 {
     return [[[self options] optionNames] count];
 }
 
-- (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
     if([[tableColumn identifier] isEqualToString:@"isOptionEnabled"])
         return [[[self options] optionStates] objectAtIndex:row];
@@ -112,7 +129,7 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
         return nil;
 }
 
-- (void) tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
     if([[tableColumn identifier] isEqualToString:@"isOptionEnabled"])
         [[self options] setOptionState:[object boolValue] atIndex:row];
@@ -125,12 +142,12 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
     [[self options] saveOptions];
 }
 
-- (void) tableViewSelectionDidChange:(NSNotification *)notification
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
     [deleteOptionButtonCell setEnabled:([optionsTableView numberOfSelectedRows] != 0)];
 }
 
-- (BOOL) tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard
+- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray *)rows toPasteboard:(NSPasteboard *)pboard
 {
     NSArray	*pboardTypes = [NSArray arrayWithObject:privatePboardType];
     
@@ -141,14 +158,14 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
     return YES;
 }
 
-- (NSDragOperation) tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op
+- (NSDragOperation)tableView:(NSTableView *)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op
 {
     [tv setDropRow:row dropOperation:NSTableViewDropAbove];
 
     return NSDragOperationMove;
 }
 
-- (BOOL) tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op
+- (BOOL)tableView:(NSTableView *)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op
 {
     NSArray	*pboardTypes = [NSArray arrayWithObject:privatePboardType];
 
@@ -164,15 +181,28 @@ static NSString	*privatePboardType = @"GPGExpertPrefsPrivate";
 
         return YES;
     }
+    
     return NO;
 }
 
-- (IBAction) revealOptionsFileInFinder:(id)sender
+- (IBAction)revealOptionsFileInFinder:(id)sender
 {
-    NSString	*filename = [GPGOptions optionsFilename];
+    NSString	*filename = [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] optionsFilename];
     
     if(![[NSWorkspace sharedWorkspace] selectFile:filename inFileViewerRootedAtPath:[filename stringByDeletingLastPathComponent]])
         NSBeep();
+}
+
+- (IBAction)openManPage:(id)sender
+{
+    NSString    *urlString;
+    
+    if([[[GPGEngine engineForProtocol:GPGOpenPGPProtocol] version] hasPrefix:@"1."])
+        urlString = @"x-man-page://1/gpg";
+    else
+        urlString = @"x-man-page://1/gpg2";
+    if(![[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]])
+         NSBeep();
 }
 
 @end

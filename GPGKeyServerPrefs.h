@@ -21,37 +21,39 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
-#import "GPGPrefController.h"
+#import <PreferencePanes/PreferencePanes.h>
 
 
-@interface GPGKeyServerPrefs : GPGPrefController
+@class GPGOptions;
+
+
+@interface GPGKeyServerPrefs : NSPreferencePane
 {
+    GPGOptions              *options;
     IBOutlet NSTextField	*httpProxyTextField;
     IBOutlet NSButton		*isAutomaticKeyRetrievingEnabledButton;
-    IBOutlet NSButton		*isHttpProxyHonoredButton;
     IBOutlet NSButton		*includeRevokedButton;
     IBOutlet NSButton		*includeDisabledButton;
     IBOutlet NSButton		*includeSubkeysButton;
     IBOutlet NSComboBox		*keyServerListComboBox;
-    IBOutlet NSView			*warningPlaceholder;
-    IBOutlet NSView			*warningView;
     NSArray					*keyServerList;
     NSMutableArray			*keyServerCustomEntries;
     NSMutableArray			*keyServerOptions;
     IBOutlet NSButton		*removeServerButton;
+    IBOutlet NSTextField	*timeoutTextField;
 }
 
-- (IBAction) changeHttpProxy:(id)sender;
-- (IBAction) changeKeyServer:(id)sender;
-- (IBAction) toggleAutomaticKeyRetrieval:(id)sender;
-- (IBAction) toggleHttpProxyUse:(id)sender;
-- (IBAction) toggleIncludeRevoked:(id)sender;
-- (IBAction) toggleIncludeDisabled:(id)sender;
-- (IBAction) toggleIncludeSubkeys:(id)sender;
-- (IBAction) removeServerFromList:(id)sender;
+- (IBAction)changeHttpProxy:(id)sender;
+- (IBAction)changeKeyServer:(id)sender;
+- (IBAction)toggleAutomaticKeyRetrieval:(id)sender;
+- (IBAction)toggleIncludeRevoked:(id)sender;
+- (IBAction)toggleIncludeDisabled:(id)sender;
+- (IBAction)toggleIncludeSubkeys:(id)sender;
+- (IBAction)removeServerFromList:(id)sender;
+- (IBAction)changeTimeout:(id)sender;
 
 @end

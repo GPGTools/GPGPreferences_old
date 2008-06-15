@@ -21,22 +21,26 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
-#import "GPGPrefController.h"
+#import <PreferencePanes/PreferencePanes.h>
 
 
-@interface GPGCompatibilityPrefs : GPGPrefController
+@class GPGOptions;
+
+
+@interface GPGCompatibilityPrefs : NSPreferencePane
 {
+    GPGOptions              *options;
     IBOutlet NSMatrix		*optionMatrix;
     IBOutlet NSButton		*pgp5Button;
     IBOutlet NSImageView	*warningImageView;
     NSImage					*warningImage;
 }
 
-- (IBAction) chooseOptionSet:(id)sender;
-- (IBAction) togglePGP5Option:(id)sender;
+- (IBAction)chooseOptionSet:(id)sender;
+- (IBAction)togglePGP5Option:(id)sender;
 
 @end

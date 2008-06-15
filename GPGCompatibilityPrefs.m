@@ -21,12 +21,12 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
 #import "GPGCompatibilityPrefs.h"
-#import "GPGOptions.h"
+#import <MacGPGME/MacGPGME.h>
 
 
 enum {
@@ -34,22 +34,27 @@ enum {
     pgp2OptionSet,
     pgp6OptionSet,
     pgp7OptionSet,
+    pgp8OptionSet,
+    gnupgOptionSet, // The default set
     openPGPOptionSet,
-    customOptionSet
+    rfc2440OptionSet,
+    rfc4880OptionSet
 };
 
 
 @implementation GPGCompatibilityPrefs
 
-- (void) awakeFromNib
+- (GPGOptions *) options
 {
-    [super awakeFromNib];
-    warningImage = [[warningImageView image] retain];
+    if(options == nil)
+        options = [[GPGOptions alloc] init];
+    
+    return options;
 }
 
 - (void) dealloc
 {
-    [warningImage release];
+    [options release];
 
     [super dealloc];
 }
@@ -58,7 +63,7 @@ enum {
 {
     NSArray		*optionNames;
     NSArray		*optionStates;
-    unsigned	selectedTag = customOptionSet;
+    unsigned	selectedTag = gnupgOptionSet;
     unsigned	previousSelectedTag = selectedTag;
     int			i;
     BOOL		pgp5Compatible = NO;
@@ -69,7 +74,7 @@ enum {
     for(i = [optionNames count] - 1; i >= 0; i--){
         NSString	*aName = [optionNames objectAtIndex:i];
 
-        if([[optionStates objectAtIndex:i] boolValue] && selectedTag == customOptionSet){
+        if([[optionStates objectAtIndex:i] boolValue] && selectedTag == gnupgOptionSet){
             if([aName isEqualToString:@"rfc1991"]){
                 previousSelectedTag = selectedTag;
                 selectedTag = rfc1991OptionSet;
@@ -92,9 +97,27 @@ enum {
             }
             else if([aName isEqualToString:@"no-pgp7"] && selectedTag == pgp7OptionSet)
                 selectedTag = previousSelectedTag;
+            else if([aName isEqualToString:@"pgp8"]){
+                previousSelectedTag = selectedTag;
+                selectedTag = pgp8OptionSet;
+            }
+            else if([aName isEqualToString:@"no-pgp8"] && selectedTag == pgp8OptionSet)
+                selectedTag = previousSelectedTag;
+            else if([aName isEqualToString:@"gnupg"]){
+                previousSelectedTag = selectedTag;
+                selectedTag = gnupgOptionSet;
+            }
             else if([aName isEqualToString:@"openpgp"]){
                 previousSelectedTag = selectedTag;
                 selectedTag = openPGPOptionSet;
+            }
+            else if([aName isEqualToString:@"rfc2440"]){
+                previousSelectedTag = selectedTag;
+                selectedTag = rfc2440OptionSet;
+            }
+            else if([aName isEqualToString:@"rfc4880"]){
+                previousSelectedTag = selectedTag;
+                selectedTag = rfc4880OptionSet;
             }
             else if([aName isEqualToString:@"force-v3-sigs"])
                 pgp5Compatible = YES;
@@ -110,28 +133,29 @@ enum {
 
 - (void) updateWarning
 {
-    if([[optionMatrix selectedCell] tag] == openPGPOptionSet && [pgp5Button state]){
-        if([warningImageView image] == nil)
-            [warningImageView setImage:warningImage];
-    }
-    else{
-        if([warningImageView image] != nil)
-            [warningImageView setImage:nil];
-    }
+    [warningImageView setHidden:[[optionMatrix selectedCell] tag] != openPGPOptionSet || [pgp5Button state] == NSOffState];
 }
 
-- (void) tabItemWillBeSelected
+- (void)willSelect
 {
     unsigned	selectedTag;
     BOOL		pgp5Compatible;
 
-    [super tabItemWillBeSelected];
+    [super willSelect];
     selectedTag = [self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
 
     NSAssert1([optionMatrix selectCellWithTag:selectedTag], @"Could't find cell with tag %d!!!", selectedTag);
     [pgp5Button setEnabled:(selectedTag != rfc1991OptionSet && selectedTag != pgp2OptionSet && selectedTag != pgp6OptionSet && selectedTag != pgp7OptionSet)];
     [pgp5Button setState:(pgp5Compatible || (selectedTag == rfc1991OptionSet) || (selectedTag == pgp2OptionSet) || (selectedTag == pgp6OptionSet) || (selectedTag == pgp7OptionSet))];
     [self updateWarning];
+}
+
+- (void)willUnselect
+{
+    [super willUnselect];
+    
+    [options release];
+    options = nil;
 }
 
 - (IBAction) chooseOptionSet:(id)sender
@@ -142,60 +166,63 @@ enum {
     [[self options] setOptionValue:nil forName:@"no-pgp2"];
     [[self options] setOptionValue:nil forName:@"no-pgp6"];
     [[self options] setOptionValue:nil forName:@"no-pgp7"];
+    [[self options] setOptionValue:nil forName:@"no-pgp8"];
+    // There are no 'no-*' variants for other options
+
+    // Let's disable all options; we'll reenable only the matching one
+    [[self options] setOptionState:NO forName:@"rfc1991"];
+    [[self options] setOptionState:NO forName:@"pgp2"];
+    [[self options] setOptionState:NO forName:@"pgp6"];
+    [[self options] setOptionState:NO forName:@"pgp7"];
+    [[self options] setOptionState:NO forName:@"pgp8"];
+    [[self options] setOptionState:NO forName:@"gnupg"];
+    [[self options] setOptionState:NO forName:@"openpgp"];
+    [[self options] setOptionState:NO forName:@"rfc2440"];
+    [[self options] setOptionState:NO forName:@"rfc4880"];
+
+    [pgp5Button setEnabled:NO];
+    [pgp5Button setState:YES];
 
     switch([[optionMatrix selectedCell] tag]){
         case rfc1991OptionSet:
             [[self options] setOptionState:YES forName:@"rfc1991"];
-            [[self options] setOptionState:NO forName:@"pgp2"];
-            [[self options] setOptionState:NO forName:@"pgp6"];
-            [[self options] setOptionState:NO forName:@"pgp7"];
-            [[self options] setOptionState:NO forName:@"openpgp"];
-            [pgp5Button setEnabled:NO];
-            [pgp5Button setState:YES];
             break;
         case pgp2OptionSet:
-            [[self options] setOptionState:NO forName:@"rfc1991"]; // Implies rfc1991 though
-            [[self options] setOptionState:YES forName:@"pgp2"];
-            [[self options] setOptionState:NO forName:@"pgp6"];
-            [[self options] setOptionState:NO forName:@"pgp7"];
-            [[self options] setOptionState:NO forName:@"openpgp"];
-            [pgp5Button setEnabled:NO];
-            [pgp5Button setState:YES];
+            [[self options] setOptionState:YES forName:@"pgp2"]; // Implies rfc1991 though
             break;
         case pgp6OptionSet:
-            [[self options] setOptionState:NO forName:@"rfc1991"];
-            [[self options] setOptionState:NO forName:@"pgp2"];
             [[self options] setOptionState:YES forName:@"pgp6"];
-            [[self options] setOptionState:NO forName:@"pgp7"];
-            [[self options] setOptionState:NO forName:@"openpgp"];
-            [pgp5Button setEnabled:NO];
-            [pgp5Button setState:YES];
             break;
         case pgp7OptionSet:
-            [[self options] setOptionState:NO forName:@"rfc1991"];
-            [[self options] setOptionState:NO forName:@"pgp2"];
-            [[self options] setOptionState:NO forName:@"pgp6"];
             [[self options] setOptionState:YES forName:@"pgp7"];
-            [[self options] setOptionState:NO forName:@"openpgp"];
-            [pgp5Button setEnabled:NO];
-            [pgp5Button setState:YES];
+            break;
+        case pgp8OptionSet:
+            [[self options] setOptionState:YES forName:@"pgp8"];
+            [pgp5Button setEnabled:YES];
+            (void)[self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
+            [pgp5Button setState:pgp5Compatible];
             break;
         case openPGPOptionSet:
-            [[self options] setOptionState:NO forName:@"rfc1991"];
-            [[self options] setOptionState:NO forName:@"pgp2"];
-            [[self options] setOptionState:NO forName:@"pgp6"];
-            [[self options] setOptionState:NO forName:@"pgp7"];
             [[self options] setOptionState:YES forName:@"openpgp"];
             [pgp5Button setEnabled:YES];
             (void)[self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
             [pgp5Button setState:pgp5Compatible];
             break;
+        case rfc2440OptionSet:
+            [[self options] setOptionState:YES forName:@"rfc2440"];
+            [pgp5Button setEnabled:YES];
+            (void)[self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
+            [pgp5Button setState:pgp5Compatible];
+            break;
+        case rfc4880OptionSet:
+            [[self options] setOptionState:YES forName:@"rfc4880"];
+            [pgp5Button setEnabled:YES];
+            (void)[self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
+            [pgp5Button setState:pgp5Compatible];
+            break;
+        case gnupgOptionSet:
         default:
-            [[self options] setOptionState:NO forName:@"rfc1991"];
-            [[self options] setOptionState:NO forName:@"pgp2"];
-            [[self options] setOptionState:NO forName:@"pgp6"];
-            [[self options] setOptionState:NO forName:@"pgp7"];
-            [[self options] setOptionState:NO forName:@"openpgp"];
+            [[self options] setOptionState:YES forName:@"gnupg"];
             [pgp5Button setEnabled:YES];
             (void)[self selectedOptionSetAndPGP5Compatibility:&pgp5Compatible];
             [pgp5Button setState:pgp5Compatible];

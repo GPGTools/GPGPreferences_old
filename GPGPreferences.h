@@ -21,7 +21,7 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //  
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 #import <PreferencePanes/PreferencePanes.h>
@@ -29,21 +29,15 @@
 
 @interface GPGPreferences : NSPreferencePane 
 {
-    NSArray					*tabViewItemControllers;
+    NSMutableArray			*bundles;
+    NSMutableSet			*disabledBundles;
     IBOutlet NSTabView		*tabView;
     IBOutlet NSTextField	*versionTextField;
-    IBOutlet NSMatrix		*operationMatrix;
     NSMutableDictionary		*userDefaultsDictionary;
     NSArray					*testSelectors;
     NSString				*currentTestSelector;
+    NSTabViewItem           *delayedSelectedTabViewItem;
+    BOOL                    delayedUnselect;
 }
-
-- (void) mainViewDidLoad;
-
-- (NSMutableDictionary *) userDefaultsDictionary;
-- (void) saveUserDefaults;
-
-- (NSString *) outputFromGPGTaskWithArgument:(NSString *)argument;
-- (NSString *) gnupgVersion;
 
 @end

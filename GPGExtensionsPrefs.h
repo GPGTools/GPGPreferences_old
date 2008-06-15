@@ -21,22 +21,27 @@
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place--Suite 330, Boston, MA 02111-1307, USA
 //
-//  More info at <http://macgpg.sourceforge.net/> or <macgpg@rbisland.cx>
+//  More info at <http://macgpg.sourceforge.net/>
 //
 
 
-#import "GPGPrefController.h"
+#import <PreferencePanes/PreferencePanes.h>
 
 
-@interface GPGExtensionsPrefs : GPGPrefController
+@class GPGOptions;
+
+
+@interface GPGExtensionsPrefs : NSPreferencePane
 {
+    GPGOptions              *options;
     IBOutlet NSButtonCell	*deleteExtensionButtonCell;
     IBOutlet NSTableView	*extensionsTableView;
-    IBOutlet NSButton		*switchProtoButton;
+    IBOutlet NSTextField    *infoTextField;
     NSMutableArray			*extensions;
+    NSString                *infoStringFormat;
 }
 
-- (IBAction) addExtension:(id)sender;
-- (IBAction) deleteExtension:(id)sender;
+- (IBAction)addExtension:(id)sender;
+- (IBAction)deleteExtension:(id)sender;
 
 @end
