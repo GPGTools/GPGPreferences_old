@@ -1,0 +1,11 @@
+{
+    // Alert titles
+    "COMMENT SHOULD BE ASCII ONLY" = "Le champ de commentaire ne devrait contenir que des caractères ASCII (pas d'accents)";
+
+    // Alert messages
+    "WHY ONLY ASCII IN COMMENT..." = "Le champ de commentaire, visible dans les signatures en clair par exemple, ne devrait contenir que des caractères ASCII. Vous devriez enlever tout autre caractère (accents, etc), sinon les signatures dans les courriers électroniques pourraient devenir invalides durant le transport.";
+
+    // Alert buttons
+    "DON'T CHANGE" = "Ne pas changer";
+    "CHANGE ANYWAY" = "Changer quand même";
+}

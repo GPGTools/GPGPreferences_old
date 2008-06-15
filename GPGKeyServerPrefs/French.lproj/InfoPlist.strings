@@ -1,0 +1,4 @@
+/* Localized versions of Info.plist keys */
+
+CFBundleName = "Serveur de clés GnuPG";
+NSPrefPaneIconLabel = "Serveur de clés";

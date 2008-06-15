@@ -1,0 +1,17 @@
+{
+    // Labels
+    "GPG_AGENT IS NOT INSTALLED" = "L'agent MacGPG n'est pas installé";
+    "GPG_AGENT IS NOT RUNNING" = "L'agent MacGPG n'est pas activé";
+    "GPG_AGENT IS RUNNING" = "L'agent MacGPG est activé";
+
+    "SCD IS NOT INSTALLED" = "Le démon pour carte à puces n'est pas installé";
+    "SCD IS NOT RUNNING" = "Le démon pour carte à puces n'est pas activé";
+    "SCD IS RUNNING" = "Le démon pour carte à puces est activé";
+
+    // Button titles
+    "START" = "Démarrer";
+    "STOP" = "Arrêter";
+    
+    // Error message
+    "LAUNCHCTL ERROR (%i)" = "Une erreur est survenue durant l'invocation de la commande 'launchctl' (%i).";
+}

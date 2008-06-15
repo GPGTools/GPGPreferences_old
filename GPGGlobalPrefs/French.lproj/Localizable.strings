@@ -1,0 +1,38 @@
+{
+    // Alert title
+    "WARRANTY" = "Garantie GnuPG";
+
+    // "Open" dialog button
+    "CHOOSE" = "Choisir";
+
+    // Alert message
+    "GPG NOT FOUND" = "L'exécutable gpg n'a pas pu être trouvé.";
+    "WARRANTY ERROR" = "Impossible d'obtenir la garantie de GnuPG, alors... Pas de garantie!";
+
+    // Alert titles
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Erreur lors du déplacement du dossier";
+    "UNABLE TO CREATE DIRECTORY" = "Impossible de créer le dossier";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Impossible de créer le dossier dans %@; veuillez contrôler les privilèges du dossier parent.";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Erreur avec les privilèges du dossier";
+    
+    // Alert messages
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Le dossier %@ a été déplacé vers %@, mais les privilèges n'ont pu être correctement appliqués à tous les fichiers. Veuillez contrôler que vous êtes bien le propriétaire de ces fichiers.";
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Impossible de déplacer tous les fichiers de %@ vers %@. Veuillez contrôler les privilèges sur ces fichiers.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Impossible de déplacer le dossier %@ vers %@.";
+
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
+    "MOVE FILES?" = "Déplacer les fichiers?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "Déplacer le contenu de %@ vers %@?";
+    // Buttons
+    "MOVE" = "Déplacer";
+    "DON'T MOVE" = "Ne pas déplacer";
+    "CANCEL" = "Annuler";
+    
+    "N/A" = "(pas disponible)";
+    
+    /* Executable choice */
+    "SELECT_EXECUTABLE_PATH__PROMPT" = "Sélectionner";
+    "SELECT_EXECUTABLE_PATH__TITLE" = "Choix de l'exécutable GnuPG";
+}
