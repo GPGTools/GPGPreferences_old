@@ -1,5 +1,0 @@
-{
-    IFPkgDescriptionTitle = "GnuPG Preferences";
-    IFPkgDescriptionVersion = "1.2 (v9)";
-    IFPkgDescriptionDescription = "Questo pacchetto contiene un plug-in per le Preferenze di Sistema che permette di impostare le opzioni per GnuPG 1.2.x (e successive) senza dover usare il Terminale.";
-}
