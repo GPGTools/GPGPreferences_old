@@ -1,6 +1,6 @@
 ﻿/* Localized versions of Info.plist keys */
 
 CFBundleName = "GnuPG";
-CFBundleGetInfoString = "1.3.0b1, Copyright 2002-2008, MacGPG Projekt.";
-NSHumanReadableCopyright = "Copyright 2002-2008, MacGPG Projekt.";
+CFBundleGetInfoString = "1.3.0b1, Copyright 2002-2008 MacGPG Project.";
+NSHumanReadableCopyright = "Copyright 2002-2008 MacGPG Project.";
 NSPrefPaneIconLabel = "GnuPG";

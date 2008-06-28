@@ -1,89 +1,35 @@
 ﻿{
     // Note that you must use UTF8 encoding when saving this file
-    "VERSION %@" = "Versione %@";
-
-    // Alert title
-    "WARRANTY" = "Garanzia GnuPG";
-    // Alert message
-    "GPG NOT FOUND" = "Non è possibile trovare il programma gpg.";
-    "WARRANTY ERROR" = "Impossibile trovare la garanzia GnuPG, quindi... Nessuna garanzia!";
-
-    // "Open" dialog button
-    "CHOOSE" = "Scegli";
-    "ADD EXTENSION" = "Aggiungi estensione";
+    "VERSION %@" = "Version %@";
 
     // Alert titles
-    "ERROR WHEN MOVING HOMEDIRECTORY" = "Errore nello spostamento della cartella";
-    "UNABLE TO CREATE DIRECTORY" = "Impossibile creare la cartella";
-    "UNABLE TO MODIFY ACCESS RIGHTS" = "Impossibile modificare i permessi del documento";
-    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Alcuni documenti hanno permessi di accesso non validi. Li devo correggere?";
-    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Errore sui permessi della cartella";
-    "CHANGE CHARSET TO UTF-8?" = "Usare sempre la codifica testo UTF-8?";
-    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Il Terminale dovrebbe usare la codifica testo UTF-8";
-    "CHANGE TERMINAL STRING ENCODING?" = "Impostare il Terminale in modo che usi la codifica testo UTF-8?";
-    "CANNOT EXECUTE OPERATION" = "Operatione fallita";
-    "WHERE IS GPG?" = "Dov'è il programma GnuPG?";
-    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Some files have invalid access rights. Correct them?";
-    "COMMENT SHOULD BE ASCII ONLY" = "Il campo Commenti dovrebbe contenere solo caratteri ASCII";
-    "UPDATE OPTIONS?" = "Aggiorna le opzioni a GnuPG >= 1.0.7 ?";
-    "WHICH OPTIONS FILE?" = "Quale file delle opzioni?";
-    "UNABLE TO RENAME OPTIONS" = "Impossibile rinominare le opzioni";
-    "UNABLE TO DELETE OPTIONS" = "Impossibile cancellare le opzioni";
-    "RENAME OPTIONS FILE?" = "Rinominare il file delle opzioni?";
-    "GPG IS TOO OLD" = "GPG è troppo vecchio";
-    
+    "UNABLE TO LOAD BUNDLE %@" = "Unable to load bundle '%@'; corresponding tab has been disabled.";
+    "CHANGE CHARSET TO UTF-8?" = "Always use UTF-8 as string encoding?";
+    "UNABLE TO MODIFY ACCESS RIGHTS" = "Unable to modify file access rights";
+    "SOME FILES HAVE INVALID FILE ACCESS RIGHTS. CORRECT THEM?" = "Some files used by GnuPG are not protected correctly. Protect them?";
+    "COMMENT SHOULD BE ASCII ONLY" = "Comment field should be ASCII only";
+    "SUGGEST CHANGE TERMINAL STRING ENCODING" = "Terminal should use UTF-8 string encoding";
+    "CHANGE TERMINAL STRING ENCODING?" = "Tell Terminal to use UTF-8 string encoding?";
+    "WHERE IS GPG?" = "Where is GnuPG executable?";
+    "GPG IS TOO OLD" = "Your version of GnuPG is too old";
+
+    // Alert buttons
+    "PLEASE DO" = "Please do";
+    "DON'T CHANGE" = "Don't change";
+    "SEARCH GPG" = "I know where it is";
+    "CANCEL" = "CANCEL"; // TODO:
+
     // Alert messages
-    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Impossibile spostare tutti i documenti da %@ a %@. Per favore controlla i permessi dei documenti.";
-    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Impossibile spostare la cartella %@ in %@.";
-    "UNABLE TO CREATE DIRECTORY AT %@" = "Impossibile creare la cartella in %@; per favore controlla i permessi della cartella superiore.";
-    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Impossibile modificare i permessi di accesso dei seguenti documenti:\n\n%@";
-    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "La cartella %@ è stata spostata in %@, ma i permessi non possono essere impostati su tutti i documenti. Per favore controlla di essere il proprietario di tutti questi documenti.";
-    "WHY CHANGING CHARSET..." = "Dovresti sempre usare la codifica testo UTF-8 con GnuPG, o potresti avere dei problemi ! I caratteri con accenti, o i caratteri stranieri potrebbero non essere interpretati correttamente da GnuPG: i nomi potrebbero essere male interpretati, e anche le frasi-chiave ! La codifica UTF-8 può codificare qualsiasi carattere ed è compatibile con la maggior parte dei programmi da linea di comando, come il gpg.";
-    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "Se tu (o qualche applicazione) usate GnuPG attraverso il Terminale, occorre che sia il terminale che GnuPG usino lo stesso set di caratteri; se non lo fanno, ci saranno dei problemi ! I caratteri con accenti, o i caratteri stranieri scritti sul Terminale non saranno interpretati correttamente da GnuPG: i nomi potrebbero essere male interpretati, e anche le frasi-chiave ! La codifica UTF-8 può codificare qualsiasi carattere ed è compatibile con la maggior parte dei programmi da linea di comando, come il gpg.\n\nIl Terminale è attivo al momento, quindi non posso modificarlo; dovrai farlo tu stesso: vai nel Terminale, apri le sue Preferenze e imposta la Codifica Stringhe a UTF-8 (nella sezione Shell).";
-    "WHY CHANGING TERMINAL SETTINGS..." = "Se tu (o qualche applicazione) usate GnuPG attraverso il Terminale, occorre che sia il terminale che GnuPG usino lo stesso set di caratteri; se non lo fanno, ci saranno dei problemi ! I caratteri con accenti, o i caratteri stranieri scritti sul Terminale non saranno interpretati correttamente da GnuPG: i nomi potrebbero essere male interpretati, e anche le frasi-chiave ! La codifica UTF-8 può codificare qualsiasi carattere ed è compatibile con la maggior parte dei programmi da linea di comando, come il gpg.";
-    "WHY GPG MUST BE IN %@..." = "La maggior parte della applicazioni che sfruttano GnuPG si aspettano che sia in %@; se non lo sposti o non fai un collegamento ad esso in questa posizione, quelle applicazioni non funzioneranno.\nNota che devi avere i permessi di Amministratore per metterlo lì.";
-    "WHICH ACCESS RIGHTS..." = "I documenti usati da GnuPG, come gli anelli delle chiavi, le opzioni, ecc. devono essere protetti nei confronti degli altri.";
-    "WHY ONLY ASCII IN COMMENT..." = "Il campo commento, visibile per esempio nelle firme in chiaro, dovrebbe contenere solo caratteri ASCII. Dovresti togliere qualsiasi altro carattere, altrimenti le firme nella posta potrebbero diventare non valide durante il trasporto.";
-    // Errors when moving/linking gpg
-    "AUTH ERROR 255" = ", per un errore interno";
-    "AUTH ERROR -1" = ", per un errore interno";
-    "AUTH ERROR 1" = " (lo strumento autorizzato non può essere lanciato)";
-    "AUTH ERROR 2" = " (lo strumento autorizzato ha generato un errore)";
-    "AUTH ERROR 3" = " perché l'autorizzazione è fallita";
-    "AUTH ERROR 4" = ""; /* kMyAuthorizedCommandOperationFailed */
-    "OPERATION %@ FAILED (%@)." = "%@ fallito%@. Per favore correggi il problema manualmente, o rilancia le Preferenze di Sistema."; // First arg is an "operation description"; second is the error description.
-    // Operation descriptions
-    "OP#2" = "Spostando un documento";
-    "OP#1" = "Creando un collegamento";
-    "OP#3" = "Proteggendo un documento";
-    "WHY UPDATING OPTIONS..." = "Alcune opzioni sono cambiate nel GnuPG >= 1.0.7. Quelle che avevi impostato possono essere aggiornate automaticamente a GnuPG >= 1.0.7.";
-    "WHICH ACCESS RIGHTS..." = "I documenti usati da GnuPG, come gli anelli delle chiavi, le opzioni, ecc. devono essere protetti nei confronti degli altri. I seguenti documenti non sono protetti in maniera corretta:\n\n";
-    "OPTIONS FILE RENAMING" = "Since version 1.2 of GnuPG, options should be stored in a file named 'gpg.conf', instead of 'options'. You should now use the 'gpg.conf' file.";
-    "OPTIONS FILE DELETING OR RENAMING" = "Since version 1.2 of GnuPG, options should be stored in a file named 'gpg.conf', instead of 'options'. You should now use the 'gpg.conf' file.\nCurrently you have both 'options' and 'gpg.conf' files. Choose which one you want to keep: if you choose the 'options' file, 'gpg.conf' will be replaced by the 'options' file, and the 'options' file will be deleted. If you choose the 'gpg.conf' file, then the 'options' file will be deleted.";
-    "UNABLE TO RENAME OPTIONS %@ IN %@ - MESSAGE" = "Impossibile rinominare le opzioni %@ in %@ - messaggio";
-    "UNABLE TO DELETE OPTIONS %@ - MESSAGE" = "Impossibile eliminare le opzioni %@ - messaggio";
-    "GPGPREFERENCES CANNOT WORK WITH OLD GPG" = "GPGPreferences non funziona con il vecchio GPG";
-    
-    "PLEASE DO" = "Per favore fallo";
-    "DON'T CHANGE" = "Non cambiare";
-    "CHANGE ANYWAY" = "Cambia comunque";
-    "SEARCH GPG" = "So dov'è";
-    
-    /* Changing homedirectory: ask user to move current folder content */
-    // Title
-    "MOVE FILES?" = "Sposta i documenti?";
-    // Message
-    "MOVE CONTENT OF %@ TO %@" = "Sposta il contenuto di %@ in %@?";
-    // Buttons
-    "MOVE" = "Sposta";
-    "DON'T MOVE" = "Annulla";
-    "CANCEL" = "Cancella";
-    
-    /* Tab titles */
-    "GPGGlobalPrefs" = "Generale";
-    "GPGExpertPrefs" = "Esperto";
-    "GPGCompatibilityPrefs" = "Compatibilità";
-    "GPGKeyServerPrefs" = "Server delle Chiavi";
-    "GPGSignaturePrefs" = "Firma";
-    "GPGExtensionsPrefs" = "Estensioni";
+    "WHY CHANGING CHARSET..." = "You should always use the UTF-8 string encoding with GnuPG, or you'll get in trouble! Characters with accents, or foreign characters might not be correctly interpreted by GnuPG: names might be mis-spelled, as well as passphrases! UTF-8 string encoding can encode any character and is understood by most command-line utilities, like gpg.";
+    "UNABLE TO MODIFY ACCESS RIGHTS ON FILES:\n\n%@" = "Unable to modify access rights on the following files:\n\n%@";
+    "WHICH ACCESS RIGHTS..." = "Key rings, extensions, as well as other files used by GnuPG should be protected to avoid other people to be able to read, or worse, modify them.";
+    "WHY ONLY ASCII IN COMMENT..." = "The comment field, visible in clear-signed signatures for example, should contain only ASCII characters. You should remove any other character, else signatures in mails might become invalid during transport.";
+    "WHY AND HOW CHANGE TERMINAL SETTINGS..." = "If you (or some applications) use GnuPG via Terminal, you must take care that both Terminal and GnuPG use the same character set; if they don't, you'll get in trouble! Characters with accents, or foreign characters typed in the Terminal will not be correctly interpreted by GnuPG: names might be mis-spelled, as well as passphrases! UTF-8 string encoding can encode any character and is compatible with most command-line utilities, like gpg.\n\nTerminal is currently running, thus forbidding me to modify it; you need to do it yourself: go to Terminal, open its Preferences, and set the String Encoding to UTF-8 (in the Advanced part).";
+    "WHY CHANGING TERMINAL SETTINGS..." = "If you (or some applications) use GnuPG via Terminal, you must take care that both Terminal and GnuPG use the same character set; if they don't, you'll get in trouble! Characters with accents, or foreign characters typed in the Terminal will not be correctly interpreted by GnuPG: names might be mis-spelled, as well as passphrases! UTF-8 string encoding can encode any character and is understood by most command-line utilities, like gpg.";
+    "WHY GPG MUST BE IN %@..." = "Most applications depending on GnuPG expect it to be located in %@; if you don't move it nor make a link to it in that location, these applications will not work.\nNote that you need administrator rights to put it there.";
+    "GPGPREFERENCES CANNOT WORK WITH OLD GPG" = "This version of GPGPreferences can work only with GnuPG >= 1.4.x. Please upgrade your version of GnuPG or downgrade your version of GPGPreferences, then relaunch System Preferences.";
+    "ERROR WHEN LOADING BUNDLE" = "An error occurred while loading code.";
+
+    // "Open panel" prompt
+    "CHOOSE" = "CHOOSE"; // TODO:
 }

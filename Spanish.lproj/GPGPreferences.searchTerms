@@ -1,0 +1,62 @@
+{
+    GPGGlobalPrefs = {
+        localizableStrings = (
+            {
+                index = "gpg, gpg2, gnupg, pgp, macgpg";
+                title = "GnuPG, open-source OpenPGP implementation";
+            }
+        );
+    };
+    GPGKeyServerPrefs = {
+        localizableStrings = (
+            {
+                index = "keyserver, server, import, key, pgp, gpg";
+                title = "PGP Key Servers";
+            }
+        );
+    };
+    GPGCompatibilityPrefs = {
+        localizableStrings = (
+            {
+                index = "compatibility, compliance, pgp2, pgp5, pgp6, pgp7, pgp8, pgp, gpg";
+                title = "GnuPG Compliance";
+            }
+        );
+    };
+    GPGSignaturePrefs = {
+        localizableStrings = (
+            {
+                index = "signature, version, comment, pgp, gpg";
+                title = "GnuPG Signature Settings";
+            }
+        );
+    };
+    GPGAgentPrefs = {
+        localizableStrings = (
+            {
+                index = "agent, smartcard, daemon, passphrase, password, cache, pgp, gpg";
+                title = "GnuPG Agent";
+            }
+        );
+    };
+    GPGExtensionsPrefs = {
+        localizableStrings = (
+            {
+                index = "extensions, IDEA, pgp, gpg";
+                title = "GnuPG Extensions";
+            }
+        );
+    };
+    GPGExpertPrefs = {
+        localizableStrings = (
+            {
+                index = "expert, configuration, pgp, gpg";
+                title = "GnuPG Expert Settings";
+            },
+            {
+                index = "man, pgp, gpg";
+                title = "GnuPG Man Page";
+            }
+        );
+    };
+}
