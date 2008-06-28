@@ -1,0 +1,4 @@
+#!/bin/bash
+open /Applications/System\ Preferences.app
+exit 0
+

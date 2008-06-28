@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IFPkgDescriptionDescription</key>
+	<string>Este paquete contiene un plug-in para las Preferencias del Sistema, que le permite configurar las opciones de GnuPG 1.x sin necesidad de usar la Terminal.</string>
+	<key>IFPkgDescriptionTitle</key>
+	<string>GnuPG Preferencias</string>
+	<key>IFPkgDescriptionVersion</key>
+	<string>1.2.2 (v11)</string>
+</dict>
+</plist>
