@@ -93,9 +93,16 @@ typedef enum {
 
 #pragma mark GPG Agent
 
+- (NSString *)agentLaunchdIdentifier
+{
+    //    return @"net.sourceforge.macgpg.gpg-agent";
+    return @"com.sourceforge.macgpg2.gpg-agent";
+}
+
 - (NSString *)agentLaunchdFile
 {
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library/LaunchAgents/net.sourceforge.macgpg.gpg-agent.plist"];
+//    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library/LaunchAgents/net.sourceforge.macgpg.gpg-agent.plist"];
+    return [[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, NO) objectAtIndex:0] stringByAppendingPathComponent:@"LaunchAgents"] stringByAppendingPathComponent:[[self agentLaunchdIdentifier] stringByAppendingPathExtension:@"plist"]];
 }
 
 - (GPGAgentStatus)agentStatusAndPID:(int *)agentPIDPtr
@@ -114,7 +121,7 @@ typedef enum {
     
     NSTask  *task2 = [[NSTask alloc] init];
     
-    [task2 setArguments:[NSArray arrayWithObjects:@"net.sourceforge.macgpg.gpg-agent", nil]];
+    [task2 setArguments:[NSArray arrayWithObjects:[self agentLaunchdIdentifier], nil]];
     [task2 setLaunchPath:@"/usr/bin/grep"];
 
     [task2 setStandardInput:aPipe];
@@ -361,9 +368,16 @@ typedef enum {
     }
 }
 
+- (NSString *)smartCardDaemonLaunchdIdentifier
+{
+//    return @"net.sourceforge.macgpg.smartcard-daemon";
+    return @"com.sourceforge.macgpg2.smartcard-daemon";
+}
+
 - (NSString *)smartCardDaemonLaunchdFile
 {
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library/LaunchAgents/net.sourceforge.macgpg.smartcard-daemon.plist"];
+//    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library/LaunchAgents/net.sourceforge.macgpg.smartcard-daemon.plist"];
+    return [[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSLocalDomainMask, NO) objectAtIndex:0] stringByAppendingPathComponent:@"LaunchAgents"] stringByAppendingPathComponent:[[self smartCardDaemonLaunchdIdentifier] stringByAppendingPathExtension:@"plist"]];
 }
 
 - (NSError *)loadSmartCardDaemon
