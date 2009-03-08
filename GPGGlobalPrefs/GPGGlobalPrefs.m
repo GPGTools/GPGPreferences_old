@@ -45,7 +45,7 @@
 
 - (void)engineDidChange
 {
-    NSString	*version, *executablePath, *homeDirectory;
+    NSString	*version = nil, *executablePath, *homeDirectory;
     GPGEngine   *engine = [GPGEngine engineForProtocol:GPGOpenPGPProtocol];
     
     executablePath = [engine executablePath];
@@ -54,7 +54,10 @@
     [homeDirectoryTextField setStringValue:(homeDirectory ? homeDirectory : NSLocalizedStringFromTableInBundle(@"N/A", nil, [self bundle], ""))];
     [self updateWarningView];
     
-    version = [engine executeWithArguments:[NSArray arrayWithObject:@"--version"] localizedOutput:YES error:NULL];
+    NS_DURING
+        version = [engine executeWithArguments:[NSArray arrayWithObject:@"--version"] localizedOutput:YES error:NULL];
+    NS_HANDLER
+    NS_ENDHANDLER
     if(version != nil)
         [versionTextView setString:version];
     else
@@ -242,7 +245,12 @@
 
 - (IBAction)showWarranty:(id)sender
 {
-    NSString	*warranty = [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] executeWithArguments:[NSArray arrayWithObject:@"--warranty"] localizedOutput:YES error:NULL];
+    NSString	*warranty = nil;
+    
+    NS_DURING
+        warranty = [[GPGEngine engineForProtocol:GPGOpenPGPProtocol] executeWithArguments:[NSArray arrayWithObject:@"--warranty"] localizedOutput:YES error:NULL];
+    NS_HANDLER
+    NS_ENDHANDLER
 
     if(warranty != nil){
         // Let's reformat the string
