@@ -17,7 +17,7 @@
     "PLEASE DO" = "Please do";
     "DON'T CHANGE" = "Don't change";
     "SEARCH GPG" = "I know where it is";
-    "CANCEL" = "CANCEL"; // TODO:
+    "CANCEL" = "Cancel";
 
     // Alert messages
     "WHY CHANGING CHARSET..." = "You should always use the UTF-8 string encoding with GnuPG, or you'll get in trouble! Characters with accents, or foreign characters might not be correctly interpreted by GnuPG: names might be mis-spelled, as well as passphrases! UTF-8 string encoding can encode any character and is understood by most command-line utilities, like gpg.";
@@ -31,5 +31,5 @@
     "ERROR WHEN LOADING BUNDLE" = "An error occurred while loading code.";
 
     // "Open panel" prompt
-    "CHOOSE" = "CHOOSE"; // TODO:
+    "CHOOSE" = "Choose";
 }

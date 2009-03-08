@@ -17,7 +17,7 @@
     "PLEASE DO" = "Changer";
     "DON'T CHANGE" = "Ne pas changer";
     "SEARCH GPG" = "Je sais où il est";
-    "CANCEL" = "Annuler"; // TODO:
+    "CANCEL" = "Annuler";
     
     // Alert message
     "WHY CHANGING CHARSET..." = "Vous devriez toujours utiliser le codage de chaînes UTF-8 pour GnuPG, sinon vous pourriez avoir des problèmes! Les caractères accentués ainsi que d'autres pourraient être mal interprétés par GnuPG: les noms, et même les mots de passe pourraient être faux! Le codage de chaînes UTF-8 peut coder n'importe quel caractère, et est compris par la plupart des programmes en ligne de commande, comme gpg.";
@@ -31,5 +31,5 @@
     "ERROR WHEN LOADING BUNDLE" = "Une erreur est survenue lors du chargement du code.";
 
     // "Open panel" prompt
-    "CHOOSE" = "Choisir"; // TODO:
+    "CHOOSE" = "Choisir";
 }
