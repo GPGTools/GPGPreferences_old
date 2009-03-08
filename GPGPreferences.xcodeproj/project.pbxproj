@@ -65,7 +65,6 @@
 		55E3445D0D9FBA3C00A33DF1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		55E3445E0D9FBA3D00A33DF1 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
 		55E344680D9FBB7000A33DF1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55E344630D9FBB7000A33DF1 /* InfoPlist.strings */; };
-		55E3446B0D9FBB9600A33DF1 /* GPGCompatibilityPrefs-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55E3446A0D9FBB9600A33DF1 /* GPGCompatibilityPrefs-Info.plist */; };
 		55E344730D9FBBAD00A33DF1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55E3446E0D9FBBAD00A33DF1 /* InfoPlist.strings */; };
 		55E3447D0D9FBBF700A33DF1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55E344780D9FBBF700A33DF1 /* InfoPlist.strings */; };
 		55E3447E0D9FBBF700A33DF1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55E3447A0D9FBBF700A33DF1 /* Localizable.strings */; };
@@ -156,7 +155,7 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		4B17165D09C4881D0019BA72 /* GPGPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GPGPreferences.plist; sourceTree = "<group>"; };
+		4B17165D09C4881D0019BA72 /* GPGPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GPGPreferences.plist; sourceTree = "<group>"; };
 		4B17165E09C4881E0019BA72 /* GnuPG.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GnuPG.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B171A5309C4B3090019BA72 /* Installer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Installer; sourceTree = "<group>"; };
 		55510F9503F83E2B00000001 /* MacGPG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacGPG.icns; sourceTree = "<group>"; };
@@ -797,7 +796,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E3446B0D9FBB9600A33DF1 /* GPGCompatibilityPrefs-Info.plist in Resources */,
 				55E344730D9FBBAD00A33DF1 /* InfoPlist.strings in Resources */,
 				55E344810D9FBC0D00A33DF1 /* GPGCompatibilityPrefs.nib in Resources */,
 				55C017220DA7CB7000EA8CD5 /* SmallAlert5.tiff in Resources */,
