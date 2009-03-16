@@ -1,0 +1,38 @@
+{
+    // Alert title
+    "WARRANTY" = "GnuPG Garantie";
+
+    // "Open" dialog button
+    "CHOOSE" = "Wählen";
+
+    // Alert message
+    "GPG NOT FOUND" = "gpg konnte nicht gefunden werden.";
+    "WARRANTY ERROR" = "Die GnuPG Garantie konnte nicht gefunden werden, daher... Keine Garantie!";
+
+    // Alert titles
+    "ERROR WHEN MOVING HOMEDIRECTORY" = "Fehler beim Verschieben des Ordners";
+    "UNABLE TO CREATE DIRECTORY" = "Kann Ordner nicht anlegen";
+    "UNABLE TO CREATE DIRECTORY AT %@" = "Kann Ordner nicht in %@ anlegen; Überprüfen Sie die Rechte am übergeordneten Verzeichnis.";
+    "ERROR WITH HOMEDIRECTORY ACCESS RIGHTS" = "Fehler mit Zugriffsrechten";
+    
+    // Alert messages
+    "DIRECTORY MOVED TO %@, BUT SOME ACCESS RIGHTS COULD NOT BE SET - PLEASE CHECK." = "Ordner %@ wurde nach %@ verschoben, die Zugriffrechte konnten jedoch nicht gesetzt werden. Überprüfen Sie, ob Sie der Eigentümer aller Dateien sind.";
+    "UNABLE TO MOVE WHOLE DIRECTORY CONTENT %@ TO %@" = "Dateien können nicht von %@ nach %@ verschoben werden. Überprüfen Sie die Zugriffsrechte.";
+    "UNABLE TO MOVE DIRECTORY %@ TO %@ - NO CHANGE" = "Ordner %@ kann nicht nach  %@ verschoben werden.";
+
+    /* Changing homedirectory: ask user to move current folder content */
+    // Title
+    "MOVE FILES?" = "Dateien verschieben?";
+    // Message
+    "MOVE CONTENT OF %@ TO %@" = "Inhalt von %@ nach %@ verschieben?";
+    // Buttons
+    "MOVE" = "Verschieben";
+    "DON'T MOVE" = "Nicht verschieben";
+    "CANCEL" = "Abbrechen";
+    
+    "N/A" = "N/A";
+    
+    /* Executable choice */
+    "SELECT_EXECUTABLE_PATH__PROMPT" = "Auswählen";
+    "SELECT_EXECUTABLE_PATH__TITLE" = "Auswahl der GnuPG-Programmdatei";
+}

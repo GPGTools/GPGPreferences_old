@@ -1,0 +1,11 @@
+{
+    // Alert titles
+    "COMMENT SHOULD BE ASCII ONLY" = "Kommentare sollen nur ASCII-Zeichen beinhalten";
+
+    // Alert messages
+    "WHY ONLY ASCII IN COMMENT..." = "Das Kommentarfeld, beispielsweise zu sehen in Klartextsignaturen sollte nur ASCII-Zeichen beinhalten. Sie sollten alle anderen Zeichen löschen, da Mail-Signaturen andernfalls während des Transports ungültig werden könnten.";
+
+    // Alert buttons
+    "DON'T CHANGE" = "Nicht ändern";
+    "CHANGE ANYWAY" = "Trotzdem ändern";
+}
