@@ -66,8 +66,14 @@ static NSInteger sortPrefPaneBundles(NSBundle *bundle1, NSBundle *bundle2, void 
         
         bundles = [[NSMutableArray alloc] init];
         disabledBundles = [[NSMutableSet alloc] init];
-        while(eachPath = [pathEnum nextObject])
-            [bundles addObject:[NSBundle bundleWithPath:eachPath]];        
+        while(eachPath = [pathEnum nextObject]){
+            NSBundle    *aBundle = [NSBundle bundleWithPath:eachPath];
+            
+            if(aBundle != nil)
+                [bundles addObject:aBundle];
+            else
+                NSLog(@"[GPGPreferences] ### Unable to load bundle with path '%@'", eachPath);
+        }
         [bundles sortUsingFunction:sortPrefPaneBundles context:nil];
     }
 
