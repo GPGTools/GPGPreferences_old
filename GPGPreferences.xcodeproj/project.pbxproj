@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22B4541312E49136007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
+		22B4542F12E49149007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
+		22B4543012E49151007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
+		22B4543112E49159007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
+		22B4543212E49160007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
+		22B4543312E4916A007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
+		22B4543412E49171007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
+		22B4543512E49178007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
 		4B17163809C4881D0019BA72 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		4B17163909C4881D0019BA72 /* GPGPreferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = F506C042013D9D8C01CA16C8 /* GPGPreferences.nib */; };
 		4B17163F09C4881D0019BA72 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F52B34DA020F1BC50197BDCC /* Localizable.strings */; };
@@ -18,20 +26,14 @@
 		555726690D9E5D680012ABA9 /* GPGGlobalPrefs.nib in Resources */ = {isa = PBXBuildFile; fileRef = F5FBE287020D7FBD01E2136E /* GPGGlobalPrefs.nib */; };
 		5557266A0D9E5D8A0012ABA9 /* SmallAlert5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = F5FBE292020D84FE01E2136E /* SmallAlert5.tiff */; };
 		5557266B0D9E5D8D0012ABA9 /* MacGPG.icns in Resources */ = {isa = PBXBuildFile; fileRef = 55510F9503F83E2B00000001 /* MacGPG.icns */; };
-		5557266C0D9E5D970012ABA9 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
 		5557266D0D9E5D980012ABA9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		5557266E0D9E5D9A0012ABA9 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
 		55AEAFCB0DC4C3DD00D4F622 /* GPGEngineChoiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55AEAFCA0DC4C3DD00D4F622 /* GPGEngineChoiceController.m */; };
 		55AEAFCE0DC4C3FB00D4F622 /* GPGEngineChoiceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55AEAFCC0DC4C3FB00D4F622 /* GPGEngineChoiceController.xib */; };
-		55BDD2E40D959D9C0083C540 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
-		55BDD2E70D959DE80083C540 /* MacGPGME.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
-		55C015BB0D9FBF9700EA8CD5 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
 		55C015BC0D9FBF9800EA8CD5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		55C015BD0D9FBF9900EA8CD5 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
-		55C015BE0D9FBFA400EA8CD5 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
 		55C015BF0D9FBFA500EA8CD5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		55C015C00D9FBFA600EA8CD5 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
-		55C015C10D9FBFB900EA8CD5 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
 		55C015C20D9FBFBA00EA8CD5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		55C015C30D9FBFBB00EA8CD5 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
 		55C015F10D9FC75B00EA8CD5 /* GPGAgentPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BDD3550D959F430083C540 /* GPGAgentPrefs.m */; };
@@ -47,7 +49,6 @@
 		55E3438F0D9F8DF700A33DF1 /* GPGExpertPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FBE29C020DD61201E2136E /* GPGExpertPrefs.m */; };
 		55E343900D9F8DFA00A33DF1 /* GPGExpertPrefs.nib in Resources */ = {isa = PBXBuildFile; fileRef = F5FBE294020DCDF201E2136E /* GPGExpertPrefs.nib */; };
 		55E343A50D9F8F2500A33DF1 /* GPGExpertPrefs.prefPane in Resources */ = {isa = PBXBuildFile; fileRef = 55E3437E0D9F8BAB00A33DF1 /* GPGExpertPrefs.prefPane */; };
-		55E343A70D9F8F5200A33DF1 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
 		55E343AC0D9F8F5400A33DF1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		55E343AD0D9F8F5600A33DF1 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
 		55E343BE0D9F935600A33DF1 /* PlusIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = F5FBE298020DD14601E2136E /* PlusIcon.tiff */; };
@@ -58,10 +59,8 @@
 		55E344560D9FBA2200A33DF1 /* GPGKeyServerPrefs.nib in Resources */ = {isa = PBXBuildFile; fileRef = F52A0A2F02132D50016C2AB4 /* GPGKeyServerPrefs.nib */; };
 		55E344570D9FBA2400A33DF1 /* KeyServers.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52CD02602146B320157668B /* KeyServers.plist */; };
 		55E344580D9FBA2600A33DF1 /* GPGKeyServerPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = F52A0A33021334A8016C2AB4 /* GPGKeyServerPrefs.m */; };
-		55E344590D9FBA2D00A33DF1 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
 		55E3445A0D9FBA2F00A33DF1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		55E3445B0D9FBA3100A33DF1 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
-		55E3445C0D9FBA3A00A33DF1 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BDD2E30D959D9C0083C540 /* MacGPGME.framework */; };
 		55E3445D0D9FBA3C00A33DF1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		55E3445E0D9FBA3D00A33DF1 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
 		55E344680D9FBB7000A33DF1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55E344630D9FBB7000A33DF1 /* InfoPlist.strings */; };
@@ -85,6 +84,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		22B453C112E49106007B26F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 554B55C0069F0111005E1C92;
+			remoteInfo = MacGPGME;
+		};
+		22B453C312E49106007B26F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 554B55EB069F0245005E1C92;
+			remoteInfo = GPGTester;
+		};
+		22B453C512E49106007B26F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 551DF42B0B2886420061FE17;
+			remoteInfo = MacGPGMETesting;
+		};
+		22B4541712E4913C007B26F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 554B558F069F0111005E1C92;
+			remoteInfo = MacGPGME;
+		};
 		555726600D9E59EC0012ABA9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
@@ -143,7 +170,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55BDD2E70D959DE80083C540 /* MacGPGME.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,6 +181,8 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MacGPGME.xcodeproj; path = Dependencies/MacGPGME/MacGPGME.xcodeproj; sourceTree = "<group>"; };
+		22B4541212E49136007B26F4 /* MacGPGME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacGPGME.framework; path = /Data/Temp/GPGPreferences/Dependencies/MacGPGME/build/Debug/MacGPGME.framework; sourceTree = "<absolute>"; };
 		4B17165D09C4881D0019BA72 /* GPGPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GPGPreferences.plist; sourceTree = "<group>"; };
 		4B17165E09C4881E0019BA72 /* GnuPG.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GnuPG.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B171A5309C4B3090019BA72 /* Installer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Installer; sourceTree = "<group>"; };
@@ -164,7 +192,6 @@
 		55AEAFC90DC4C3DD00D4F622 /* GPGEngineChoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGEngineChoiceController.h; path = GPGGlobalPrefs/GPGEngineChoiceController.h; sourceTree = "<group>"; };
 		55AEAFCA0DC4C3DD00D4F622 /* GPGEngineChoiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPGEngineChoiceController.m; path = GPGGlobalPrefs/GPGEngineChoiceController.m; sourceTree = "<group>"; };
 		55AEAFCD0DC4C3FB00D4F622 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = GPGGlobalPrefs/English.lproj/GPGEngineChoiceController.xib; sourceTree = "<group>"; };
-		55BDD2E30D959D9C0083C540 /* MacGPGME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MacGPGME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BDD3530D959F430083C540 /* English */ = {isa = PBXFileReference; explicitFileType = text.plist; fileEncoding = 4; name = English; path = English.lproj/GPGPreferences.searchTerms; sourceTree = "<group>"; };
 		55BDD3540D959F430083C540 /* GPGAgentPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGAgentPrefs.h; path = GPGAgentPrefs/GPGAgentPrefs.h; sourceTree = "<group>"; };
 		55BDD3550D959F430083C540 /* GPGAgentPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPGAgentPrefs.m; path = GPGAgentPrefs/GPGAgentPrefs.m; sourceTree = "<group>"; };
@@ -205,14 +232,6 @@
 		55E826A00E05547C00EDAE88 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = GPGAgentPrefs/French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55E826A10E05556200EDAE88 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = GPGExtensionsPrefs/French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55E826BE0E0561F800EDAE88 /* French */ = {isa = PBXFileReference; explicitFileType = text.plist; fileEncoding = 4; name = French; path = French.lproj/GPGPreferences.searchTerms; sourceTree = "<group>"; };
-		55E826BF0E056D8100EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGGlobalPrefs/French.lproj/GPGEngineChoiceController.xib; sourceTree = "<absolute>"; };
-		55E826C00E05775900EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGGlobalPrefs/French.lproj/GPGGlobalPrefs.nib; sourceTree = "<absolute>"; };
-		55E826C10E05778800EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGKeyServerPrefs/French.lproj/GPGKeyServerPrefs.nib; sourceTree = "<absolute>"; };
-		55E826D00E057F0500EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGCompatibilityPrefs/French.lproj/GPGCompatibilityPrefs.nib; sourceTree = "<absolute>"; };
-		55E826DF0E05824400EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGSignaturePrefs/French.lproj/GPGSignaturePrefs.nib; sourceTree = "<absolute>"; };
-		55E826E00E0583ED00EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGExtensionsPrefs/French.lproj/GPGExtensionsPrefs.nib; sourceTree = "<absolute>"; };
-		55E826E10E05852A00EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGExpertPrefs/French.lproj/GPGExpertPrefs.nib; sourceTree = "<absolute>"; };
-		55E826E20E05874500EDAE88 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = /Users/dave/Developer/GPGPreferences/GPGAgentPrefs/French.lproj/GPGAgentPrefs.nib; sourceTree = "<absolute>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* GPGPreferences.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GPGPreferences.h; sourceTree = "<group>"; };
 		F506C03D013D9D7901CA16C8 /* GPGPreferences.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GPGPreferences.m; sourceTree = "<group>"; };
@@ -263,7 +282,7 @@
 			files = (
 				4B17165309C4881D0019BA72 /* Cocoa.framework in Frameworks */,
 				4B17165409C4881D0019BA72 /* PreferencePanes.framework in Frameworks */,
-				55BDD2E40D959D9C0083C540 /* MacGPGME.framework in Frameworks */,
+				22B4541312E49136007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,9 +290,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5557266C0D9E5D970012ABA9 /* MacGPGME.framework in Frameworks */,
 				5557266D0D9E5D980012ABA9 /* Cocoa.framework in Frameworks */,
 				5557266E0D9E5D9A0012ABA9 /* PreferencePanes.framework in Frameworks */,
+				22B4542F12E49149007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,9 +300,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E343A70D9F8F5200A33DF1 /* MacGPGME.framework in Frameworks */,
 				55E343AC0D9F8F5400A33DF1 /* Cocoa.framework in Frameworks */,
 				55E343AD0D9F8F5600A33DF1 /* PreferencePanes.framework in Frameworks */,
+				22B4543512E49178007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,9 +310,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E3445C0D9FBA3A00A33DF1 /* MacGPGME.framework in Frameworks */,
 				55E3445D0D9FBA3C00A33DF1 /* Cocoa.framework in Frameworks */,
 				55E3445E0D9FBA3D00A33DF1 /* PreferencePanes.framework in Frameworks */,
+				22B4543312E4916A007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,9 +320,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E344590D9FBA2D00A33DF1 /* MacGPGME.framework in Frameworks */,
 				55E3445A0D9FBA2F00A33DF1 /* Cocoa.framework in Frameworks */,
 				55E3445B0D9FBA3100A33DF1 /* PreferencePanes.framework in Frameworks */,
+				22B4543012E49151007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,9 +330,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55C015BB0D9FBF9700EA8CD5 /* MacGPGME.framework in Frameworks */,
 				55C015BC0D9FBF9800EA8CD5 /* Cocoa.framework in Frameworks */,
 				55C015BD0D9FBF9900EA8CD5 /* PreferencePanes.framework in Frameworks */,
+				22B4543412E49171007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,9 +340,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55C015BE0D9FBFA400EA8CD5 /* MacGPGME.framework in Frameworks */,
 				55C015BF0D9FBFA500EA8CD5 /* Cocoa.framework in Frameworks */,
 				55C015C00D9FBFA600EA8CD5 /* PreferencePanes.framework in Frameworks */,
+				22B4543112E49159007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,9 +350,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55C015C10D9FBFB900EA8CD5 /* MacGPGME.framework in Frameworks */,
 				55C015C20D9FBFBA00EA8CD5 /* Cocoa.framework in Frameworks */,
 				55C015C30D9FBFBB00EA8CD5 /* PreferencePanes.framework in Frameworks */,
+				22B4543212E49160007B26F4 /* MacGPGME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +362,7 @@
 		089C166AFE841209C02AAC07 /* GPGPreferences */ = {
 			isa = PBXGroup;
 			children = (
+				22B453D712E4910F007B26F4 /* Dependencies */,
 				F5FBE27C020D720801E2136E /* Documentation */,
 				555726750D9E5DEE0012ABA9 /* GPGGlobalPrefs */,
 				55E3432B0D9EB34100A33DF1 /* GPGKeyServerPrefs */,
@@ -357,6 +377,7 @@
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 				4B171A5309C4B3090019BA72 /* Installer */,
 				55E341CA0D9E688900A33DF1 /* GPGPreferences.pch */,
+				22B4541212E49136007B26F4 /* MacGPGME.framework */,
 			);
 			name = GPGPreferences;
 			sourceTree = "<group>";
@@ -398,7 +419,6 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				55BDD2E30D959D9C0083C540 /* MacGPGME.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				F506C035013D953901CA16C8 /* PreferencePanes.framework */,
 			);
@@ -427,6 +447,24 @@
 				55E344380D9FB80100A33DF1 /* GPGSignaturePrefs.prefPane */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		22B453B712E49106007B26F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22B453C212E49106007B26F4 /* MacGPGME.framework */,
+				22B453C412E49106007B26F4 /* GPGTester.app */,
+				22B453C612E49106007B26F4 /* MacGPGMETesting.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22B453D712E4910F007B26F4 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */,
+			);
+			name = Dependencies;
 			sourceTree = "<group>";
 		};
 		555726750D9E5DEE0012ABA9 /* GPGGlobalPrefs */ = {
@@ -547,6 +585,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				22B4541812E4913C007B26F4 /* PBXTargetDependency */,
 				555726610D9E59EC0012ABA9 /* PBXTargetDependency */,
 				55E343A10D9F8F0E00A33DF1 /* PBXTargetDependency */,
 				55E344940D9FBC7500A33DF1 /* PBXTargetDependency */,
@@ -687,6 +726,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 4B17158809C484490019BA72 /* Build configuration list for PBXProject "GPGPreferences" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -700,6 +740,12 @@
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* GPGPreferences */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 22B453B712E49106007B26F4 /* Products */;
+					ProjectRef = 22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4B17162909C4881D0019BA72 /* GPGPreferences */,
@@ -713,6 +759,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		22B453C212E49106007B26F4 /* MacGPGME.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MacGPGME.framework;
+			remoteRef = 22B453C112E49106007B26F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22B453C412E49106007B26F4 /* GPGTester.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = GPGTester.app;
+			remoteRef = 22B453C312E49106007B26F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22B453C612E49106007B26F4 /* MacGPGMETesting.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MacGPGMETesting.octest;
+			remoteRef = 22B453C512E49106007B26F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4B17163709C4881D0019BA72 /* Resources */ = {
@@ -847,8 +917,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "MAC_GPGME_FRAMEWORK_VERSION=1.1.4\n\nchmod u+w \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\"\ninstall_name_tool -id \"@loader_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\"\n\n# rewrite install_name in the main bundle\ninstall_name_tool -change \"@executable_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"@loader_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/MacOS/${PRODUCT_NAME}\"\n\n# rewrite install_name in the sub bundles\ncd \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Resources/\"\nbundles=`ls -d *.prefPane`\nfor bundle in $bundles\ndo {\n    bundle=`basename \"$bundle\" .prefPane`\n    install_name_tool -change \"@executable_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"@loader_path/../../../../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Resources/${bundle}.prefPane/Contents/MacOS/${bundle}\"\n} done\n\n# remove headers and documentation\nrm -rf \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/Headers\"\nrm -rf \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/PrivateHeaders\"\nrm -rf \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/Resources/English.lproj/Documentation\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "MAC_GPGME_FRAMEWORK_VERSION=1.1.4\n\nmkdir -p \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/\"\ncp -r Dependencies/MacGPGME/build/Release/MacGPGME.framework \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/\"\nchmod u+w \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\"\ninstall_name_tool -id \"@loader_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\"\n\n# rewrite install_name in the main bundle\ninstall_name_tool -change \"@executable_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"@loader_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/MacOS/${PRODUCT_NAME}\"\n\n# rewrite install_name in the sub bundles\ncd \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Resources/\"\nbundles=`ls -d *.prefPane`\nfor bundle in $bundles\ndo {\n    bundle=`basename \"$bundle\" .prefPane`\n    install_name_tool -change \"@executable_path/../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"@loader_path/../../../../Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/MacGPGME\" \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Resources/${bundle}.prefPane/Contents/MacOS/${bundle}\"\n} done\n\n# remove headers and documentation\nrm -rf \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/Headers\"\nrm -rf \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/PrivateHeaders\"\nrm -rf \"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Frameworks/MacGPGME.framework/Versions/${MAC_GPGME_FRAMEWORK_VERSION}/Resources/English.lproj/Documentation\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -921,6 +990,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		22B4541812E4913C007B26F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MacGPGME;
+			targetProxy = 22B4541712E4913C007B26F4 /* PBXContainerItemProxy */;
+		};
 		555726610D9E59EC0012ABA9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 555726590D9E59D10012ABA9 /* GPGGlobalPrefs */;
@@ -977,7 +1051,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				55AEAFCD0DC4C3FB00D4F622 /* English */,
-				55E826BF0E056D8100EDAE88 /* French */,
 			);
 			name = GPGEngineChoiceController.xib;
 			sourceTree = "<group>";
@@ -986,7 +1059,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				55BDD3560D959F430083C540 /* English */,
-				55E826E20E05874500EDAE88 /* French */,
 			);
 			name = GPGAgentPrefs.nib;
 			sourceTree = "<group>";
@@ -1117,7 +1189,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F52A0A29021318E5016C2AB4 /* English */,
-				55E826D00E057F0500EDAE88 /* French */,
 			);
 			name = GPGCompatibilityPrefs.nib;
 			sourceTree = "<group>";
@@ -1126,7 +1197,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F52A0A3002132D50016C2AB4 /* English */,
-				55E826C10E05778800EDAE88 /* French */,
 			);
 			name = GPGKeyServerPrefs.nib;
 			sourceTree = "<group>";
@@ -1144,7 +1214,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F56A3E140236B5A001A80013 /* English */,
-				55E826DF0E05824400EDAE88 /* French */,
 			);
 			name = GPGSignaturePrefs.nib;
 			sourceTree = "<group>";
@@ -1153,7 +1222,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F5A027DC023A616901A80013 /* English */,
-				55E826E00E0583ED00EDAE88 /* French */,
 			);
 			name = GPGExtensionsPrefs.nib;
 			sourceTree = "<group>";
@@ -1162,7 +1230,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F5FBE288020D7FBD01E2136E /* English */,
-				55E826C00E05775900EDAE88 /* French */,
 			);
 			name = GPGGlobalPrefs.nib;
 			sourceTree = "<group>";
@@ -1171,7 +1238,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F5FBE295020DCDF201E2136E /* English */,
-				55E826E10E05852A00EDAE88 /* French */,
 			);
 			name = GPGExpertPrefs.nib;
 			sourceTree = "<group>";
@@ -1182,20 +1248,22 @@
 		4B17158909C484490019BA72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
 		4B17158A09C484490019BA72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
@@ -1203,6 +1271,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Release\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1221,6 +1296,13 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Release\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				INFOPLIST_FILE = GPGPreferences.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/PreferencePanes";
 				PREBINDING = NO;
@@ -1234,6 +1316,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1253,6 +1340,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPGPreferences.pch;
@@ -1269,6 +1361,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1288,6 +1385,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPGPreferences.pch;
@@ -1304,6 +1406,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1323,6 +1430,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPGPreferences.pch;
@@ -1339,6 +1451,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1358,6 +1475,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPGPreferences.pch;
@@ -1374,6 +1496,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1393,6 +1520,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPGPreferences.pch;
@@ -1409,6 +1541,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1428,6 +1565,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPGPreferences.pch;
@@ -1444,6 +1586,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1463,6 +1610,11 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GPGPreferences.pch;
