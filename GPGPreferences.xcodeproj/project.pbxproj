@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		223C54F412E71C1A00EBB595 /* MacGPGME.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 22B453C212E49106007B26F4 /* MacGPGME.framework */; };
 		22B4541312E49136007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
 		22B4542F12E49149007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
 		22B4543012E49151007B26F4 /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B4541212E49136007B26F4 /* MacGPGME.framework */; };
@@ -170,6 +171,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				223C54F412E71C1A00EBB595 /* MacGPGME.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,7 +184,7 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		22B453B612E49106007B26F4 /* MacGPGME.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MacGPGME.xcodeproj; path = Dependencies/MacGPGME/MacGPGME.xcodeproj; sourceTree = "<group>"; };
-		22B4541212E49136007B26F4 /* MacGPGME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacGPGME.framework; path = /Data/Temp/GPGPreferences/Dependencies/MacGPGME/build/Debug/MacGPGME.framework; sourceTree = "<absolute>"; };
+		22B4541212E49136007B26F4 /* MacGPGME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacGPGME.framework; path = Dependencies/MacGPGME/build/Release/MacGPGME.framework; sourceTree = "<group>"; };
 		4B17165D09C4881D0019BA72 /* GPGPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GPGPreferences.plist; sourceTree = "<group>"; };
 		4B17165E09C4881E0019BA72 /* GnuPG.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GnuPG.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B171A5309C4B3090019BA72 /* Installer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Installer; sourceTree = "<group>"; };
@@ -377,7 +379,6 @@
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 				4B171A5309C4B3090019BA72 /* Installer */,
 				55E341CA0D9E688900A33DF1 /* GPGPreferences.pch */,
-				22B4541212E49136007B26F4 /* MacGPGME.framework */,
 			);
 			name = GPGPreferences;
 			sourceTree = "<group>";
@@ -419,6 +420,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22B4541212E49136007B26F4 /* MacGPGME.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				F506C035013D953901CA16C8 /* PreferencePanes.framework */,
 			);
@@ -726,7 +728,6 @@
 			isa = PBXProject;
 			buildConfigurationList = 4B17158809C484490019BA72 /* Build configuration list for PBXProject "GPGPreferences" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -1249,10 +1250,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386";
+				GCC_ENABLE_OBJC_GC = required;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Debug;
 		};
@@ -1260,10 +1262,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386";
+				GCC_ENABLE_OBJC_GC = required;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = "x86_64 i386";
 			};
 			name = Release;
 		};
