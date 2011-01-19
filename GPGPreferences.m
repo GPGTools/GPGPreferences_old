@@ -589,7 +589,7 @@ static NSInteger sortPrefPaneBundles(NSBundle *bundle1, NSBundle *bundle2, void 
             
             info.processInfoLength = sizeof(ProcessInfoRec);
             info.processName = processName;
-            info.processAppSpec = NULL;
+            //info.processAppSpec = NULL;
             while(outStatus == noErr){
                 outStatus = GetNextProcess(&psn);
                 if(outStatus == noErr){                    
